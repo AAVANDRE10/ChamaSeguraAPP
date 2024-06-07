@@ -9,7 +9,11 @@
         android:id="@+id/fragment_login"
         android:name="com.example.chamasegura.fragments.fragment_login"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_home"
+            app:destination="@id/fragment_home" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_register"
         android:name="com.example.chamasegura.fragments.fragment_register"
@@ -37,4 +41,9 @@
             android:id="@+id/action_fragment_first_screen_to_fragment_register"
             app:destination="@id/fragment_register" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.example.chamasegura.fragment_home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
