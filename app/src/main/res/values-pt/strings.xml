@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chama Segura</string>
+    <string name="login_btn">Fazer Login</string>
+    <string name="register_btn">Registar</string>
+    <string name="language">PT</string>
+</resources>

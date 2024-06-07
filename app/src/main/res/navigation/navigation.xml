@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainActivity">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.example.chamasegura.fragments.fragment_login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/fragment_register"
+        android:name="com.example.chamasegura.fragments.fragment_register"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/fragment_manage_profile"
+        android:name="com.example.chamasegura.fragments.fragment_manage_profile"
+        android:label="fragment_manage_profile"
+        tools:layout="@layout/fragment_manage_profile" />
+    <fragment
+        android:id="@+id/fragment_new_burn"
+        android:name="com.example.chamasegura.fragments.fragment_new_burn"
+        android:label="fragment_new_burn"
+        tools:layout="@layout/fragment_new_burn" />
+</navigation>
