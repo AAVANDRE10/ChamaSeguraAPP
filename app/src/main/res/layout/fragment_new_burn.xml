@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".fragments.fragment_new_burn">
 
     <LinearLayout
@@ -100,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Open Map"
-            android:background="@color/light_orange"
+            android:backgroundTint="@color/light_orange"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"/>
 
@@ -109,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Confirm"
-            android:background="@color/light_orange"
+            android:backgroundTint="@color/light_orange"
             android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"/>

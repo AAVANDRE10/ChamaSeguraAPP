@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFEFEF"
+    android:background="@color/light_gray"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -32,7 +32,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_orange"
+        android:backgroundTint="@drawable/button_orange"
         android:text="@string/login_btn"
         android:textColor="#FFFFFF" />
 
@@ -41,7 +41,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_black"
+        android:backgroundTint="@drawable/button_black"
         android:text="@string/register_btn"
         android:textColor="#FFFFFF" />
 

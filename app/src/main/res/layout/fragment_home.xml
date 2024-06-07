@@ -14,16 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp">
 
-        <ImageButton
-            android:id="@+id/buttonMenu"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/menu"
-            android:padding="4dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:scaleType="centerInside"/>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:title="Home"
+            app:menu="@menu/side_menu" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +40,6 @@
             android:text="Register New Pile Burn"
             android:backgroundTint="@color/light_orange"
             android:textColor="@android:color/white"
-            android:layout_below="@id/app_title"
             android:layout_marginTop="16dp"/>
 
         <TextView
