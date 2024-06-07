@@ -3,12 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/fragment_first_screen">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/fragment_login"
         android:name="com.example.chamasegura.fragments.fragment_login"
@@ -29,4 +25,16 @@
         android:name="com.example.chamasegura.fragments.fragment_new_burn"
         android:label="fragment_new_burn"
         tools:layout="@layout/fragment_new_burn" />
+    <fragment
+        android:id="@+id/fragment_first_screen"
+        android:name="com.example.chamasegura.fragments.fragment_first_screen"
+        android:label="fragment_first_screen"
+        tools:layout="@layout/fragment_first_screen" >
+        <action
+            android:id="@+id/action_fragment_first_screen_to_fragment_login"
+            app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_fragment_first_screen_to_fragment_register"
+            app:destination="@id/fragment_register" />
+    </fragment>
 </navigation>
