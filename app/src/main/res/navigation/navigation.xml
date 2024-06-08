@@ -46,4 +46,19 @@
         android:name="com.example.chamasegura.fragments.fragment_home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/fragment_change_password"
+        android:name="com.example.chamasegura.fragments.fragment_change_password"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/fragment_forgot_password"
+        android:name="com.example.chamasegura.fragments.fragment_forgot_password"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/fragment_verification_code"
+        android:name="com.example.chamasegura.fragments.fragment_verification_code"
+        android:label="fragment_verification_code"
+        tools:layout="@layout/fragment_verification_code" />
 </navigation>
