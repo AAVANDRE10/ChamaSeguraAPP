@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
-    tools:context=".fragment_verification_code">
+    android:background="@color/light_gray"
+    tools:context=".fragments.fragment_verification_code">
 
     <!-- Back Button -->
     <ImageButton

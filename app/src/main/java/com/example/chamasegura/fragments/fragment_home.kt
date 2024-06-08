@@ -1,4 +1,4 @@
-package com.example.chamasegura
+package com.example.chamasegura.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import com.example.chamasegura.MainActivity
+import com.example.chamasegura.R
 
 class fragment_home : Fragment() {
 
