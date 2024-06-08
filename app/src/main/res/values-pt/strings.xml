@@ -4,4 +4,6 @@
     <string name="login_btn">Fazer Login</string>
     <string name="register_btn">Registar</string>
     <string name="language">PT</string>
+    <string name="open_nav">Abrir Navigation Drawer</string>
+    <string name="close_nav">Fechar Navigation Drawer</string>
 </resources>
