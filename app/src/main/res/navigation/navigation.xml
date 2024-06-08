@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.example.chamasegura.fragment_home"
+        android:name="com.example.chamasegura.fragments.fragment_home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 </navigation>
