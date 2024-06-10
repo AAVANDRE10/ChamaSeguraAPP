@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="Verification Code"
-        android:textColor="#8B5A2B"
+        android:textColor="@color/light_orange"
         android:textSize="24sp"
         android:textStyle="bold" />
 
