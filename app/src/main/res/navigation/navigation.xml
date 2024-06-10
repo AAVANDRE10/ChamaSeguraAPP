@@ -77,4 +77,14 @@
         android:name="com.example.chamasegura.fragments.fragment_pending_burn_requests"
         android:label="fragment_pending_burn_requests"
         tools:layout="@layout/fragment_pending_burn_requests" />
+    <fragment
+        android:id="@+id/fragment_burn_info"
+        android:name="com.example.chamasegura.fragments.fragment_burn_info"
+        android:label="fragment_burn_info"
+        tools:layout="@layout/fragment_burn_info" />
+    <fragment
+        android:id="@+id/fragment_manage_user"
+        android:name="com.example.chamasegura.fragments.fragment_manage_user"
+        android:label="fragment_manage_user"
+        tools:layout="@layout/fragment_manage_user" />
 </navigation>
