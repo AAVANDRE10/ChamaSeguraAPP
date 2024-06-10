@@ -52,7 +52,6 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:drawableLeft="@drawable/ic_check_white_24dp"
         android:padding="12dp" />
 
 </RelativeLayout>
