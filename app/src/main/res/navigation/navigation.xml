@@ -62,4 +62,9 @@
         android:name="com.example.chamasegura.fragments.fragment_verification_code"
         android:label="fragment_verification_code"
         tools:layout="@layout/fragment_verification_code" />
+    <fragment
+        android:id="@+id/fragment_burn_history"
+        android:name="com.example.chamasegura.fragments.fragment_burn_history"
+        android:label="fragment_burn_history"
+        tools:layout="@layout/fragment_burn_history" />
 </navigation>

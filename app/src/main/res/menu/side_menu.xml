@@ -21,7 +21,7 @@
             android:title="Pending CM Requests"/>
         <item
             android:id="@+id/contact_us"
-            android:title="Logoutl"/>
+            android:title="Contact Us"/>
     </group>
     <item android:title="">
         <menu>
