@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:text="Register Burn"
             android:textSize="24sp"
-            android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:paddingBottom="16dp"
             android:textColor="@color/light_orange"/>

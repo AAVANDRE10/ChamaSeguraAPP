@@ -87,4 +87,9 @@
         android:name="com.example.chamasegura.fragments.fragment_manage_user"
         android:label="fragment_manage_user"
         tools:layout="@layout/fragment_manage_user" />
+    <fragment
+        android:id="@+id/fragment_contact_us"
+        android:name="com.example.chamasegura.fragments.fragment_contact_us"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
 </navigation>

@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:text="Manage Users"
             android:textSize="24sp"
-            android:textStyle="bold"
             android:textColor="@color/light_orange"
             android:layout_centerInParent="true"/>
 
