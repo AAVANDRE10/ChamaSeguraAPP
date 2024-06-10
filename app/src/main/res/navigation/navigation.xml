@@ -67,4 +67,9 @@
         android:name="com.example.chamasegura.fragments.fragment_burn_history"
         android:label="fragment_burn_history"
         tools:layout="@layout/fragment_burn_history" />
+    <fragment
+        android:id="@+id/fragment_manage_users"
+        android:name="com.example.chamasegura.fragments.fragment_manage_users"
+        android:label="fragment_manage_users"
+        tools:layout="@layout/fragment_manage_users" />
 </navigation>
