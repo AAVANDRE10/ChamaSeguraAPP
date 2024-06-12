@@ -23,16 +23,14 @@ class fragment_login : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        // Find the button and set an OnClickListener
         val loginButton: Button = view.findViewById(R.id.login_confirm_button)
-        val usernameEditText: EditText = view.findViewById(R.id.username)
+        val emailEditText: EditText = view.findViewById(R.id.email)
         val passwordEditText: EditText = view.findViewById(R.id.password)
 
         loginButton.setOnClickListener {
-            val username = usernameEditText.text.toString().trim()
+            val username = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
@@ -44,10 +42,10 @@ class fragment_login : Fragment() {
 
         userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
             if (user != null) {
-                // Login successful, navigate to home fragment
+                // Login successful, open home fragment
                 findNavController().navigate(R.id.action_fragment_login_to_fragment_home)
             } else {
-                // Login failed, show a message
+                // Login failed
                 Toast.makeText(requireContext(), "Invalid username or password", Toast.LENGTH_SHORT).show()
             }
         })

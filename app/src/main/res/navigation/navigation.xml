@@ -19,7 +19,11 @@
         android:id="@+id/fragment_register"
         android:name="com.example.chamasegura.fragments.fragment_register"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_fragment_register_to_fragment_first_screen2"
+            app:destination="@id/fragment_first_screen" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_manage_profile"
         android:name="com.example.chamasegura.fragments.fragment_manage_profile"
