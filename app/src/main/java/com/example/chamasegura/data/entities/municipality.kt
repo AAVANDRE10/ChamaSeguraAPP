@@ -15,5 +15,6 @@ enum class State {
     APPROVED,
     PENDING,
     PENDINGCM,
-    DENIED
+    DENIED,
+    DELETED
 }

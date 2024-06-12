@@ -47,6 +47,7 @@ class fragment_register : Fragment() {
                     email = email,
                     password = password,
                     photo = null,
+                    nif = null,
                     type = UserType.REGULAR,
                     createdAt = "",
                     updatedAt = ""
