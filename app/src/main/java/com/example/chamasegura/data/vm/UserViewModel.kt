@@ -10,23 +10,21 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
 
     private val repository = UserRepository()
-    val users: MutableLiveData<List<User>> = MutableLiveData()
+    val user: MutableLiveData<User> = MutableLiveData()
 
-    fun getUsers() {
+    fun signIn(email: String, password: String) {
         viewModelScope.launch {
-            repository.getUsers {
-                users.postValue(it)
+            repository.signIn(email, password) {
+                user.postValue(it)
             }
         }
     }
 
-    fun createUser(user: User) {
+    fun signUp(user: User) {
         viewModelScope.launch {
-            repository.createUser(user) {
-                // Atualize o estado conforme necessário
+            repository.signUp(user) {
+                this@UserViewModel.user.postValue(it)
             }
         }
     }
-
-    // Adicione outros métodos conforme necessário
 }

@@ -2,26 +2,28 @@ package com.example.chamasegura.data.repository
 
 import com.example.chamasegura.data.api.RetrofitInstance
 import com.example.chamasegura.data.entities.User
+import com.example.chamasegura.data.entities.UserType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UserRepository {
 
-    fun getUsers(onResult: (List<User>?) -> Unit) {
-        RetrofitInstance.api.getUsers().enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+    fun signIn(email: String, password: String, onResult: (User?) -> Unit) {
+        val user = User(id = 0, name = "", username = "", email = email, password = password, photo = null, type = UserType.REGULAR, createdAt = "", updatedAt = "")
+        RetrofitInstance.api.signIn(user).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 onResult(response.body())
             }
 
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 onResult(null)
             }
         })
     }
 
-    fun createUser(user: User, onResult: (User?) -> Unit) {
-        RetrofitInstance.api.createUser(user).enqueue(object : Callback<User> {
+    fun signUp(user: User, onResult: (User?) -> Unit) {
+        RetrofitInstance.api.signUp(user).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 onResult(response.body())
             }

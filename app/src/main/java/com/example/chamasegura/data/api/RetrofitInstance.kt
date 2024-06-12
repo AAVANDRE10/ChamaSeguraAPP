@@ -17,7 +17,7 @@ object RetrofitInstance {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://api-chama-segura.vercel.app/")
+            .baseUrl("https://api-chama-segura.vercel.app/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
