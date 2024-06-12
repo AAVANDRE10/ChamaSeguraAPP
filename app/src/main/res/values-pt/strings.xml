@@ -3,7 +3,11 @@
     <string name="app_name">Chama Segura</string>
     <string name="login_btn">Fazer Login</string>
     <string name="register_btn">Registar</string>
-    <string name="language">PT</string>
+    <string name="language">Idioma</string>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Português</item>
+    </string-array>
     <string name="open_nav">Abrir Navigation Drawer</string>
     <string name="close_nav">Fechar Navigation Drawer</string>
 </resources>
