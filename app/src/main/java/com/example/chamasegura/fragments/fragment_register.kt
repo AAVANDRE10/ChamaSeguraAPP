@@ -44,7 +44,6 @@ class fragment_register : Fragment() {
                 val newUser = User(
                     id = 0,
                     name = fullName,
-                    username = "",
                     email = email,
                     password = password,
                     photo = null,

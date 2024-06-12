@@ -10,7 +10,7 @@ import retrofit2.Response
 class UserRepository {
 
     fun signIn(email: String, password: String, onResult: (User?) -> Unit) {
-        val user = User(id = 0, name = "", username = "", email = email, password = password, photo = null, type = UserType.REGULAR, createdAt = "", updatedAt = "")
+        val user = User(id = 0, name = "", email = email, password = password, photo = null, type = UserType.REGULAR, createdAt = "", updatedAt = "")
         RetrofitInstance.api.signIn(user).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 onResult(response.body())
