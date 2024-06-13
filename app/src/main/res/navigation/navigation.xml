@@ -96,4 +96,9 @@
         android:name="com.example.chamasegura.fragments.fragment_contact_us"
         android:label="fragment_contact_us"
         tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/fragment_county_history"
+        android:name="com.example.chamasegura.fragments.fragment_county_history"
+        android:label="fragment_county_history"
+        tools:layout="@layout/fragment_county_history" />
 </navigation>
