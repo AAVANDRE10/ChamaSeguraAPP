@@ -5,10 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_manage_profile"
             android:title="Manage Profile"/>
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/nav_home"
+            android:title="Home"/>
+        <item
+            android:id="@+id/nav_burn_history"
             android:title="Burn History"/>
         <item
             android:id="@+id/nav_manage_users"

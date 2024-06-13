@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import com.example.chamasegura.MainActivity
 import com.example.chamasegura.R
 
 class fragment_manage_profile : Fragment() {
