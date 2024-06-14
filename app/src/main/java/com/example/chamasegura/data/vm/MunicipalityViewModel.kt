@@ -1,5 +1,7 @@
 package com.example.chamasegura.data.vm
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,9 +9,9 @@ import com.example.chamasegura.data.entities.Municipality
 import com.example.chamasegura.data.repository.MunicipalityRepository
 import kotlinx.coroutines.launch
 
-class MunicipalityViewModel : ViewModel() {
+class MunicipalityViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = MunicipalityRepository()
+    private val repository = MunicipalityRepository(application.applicationContext)
     val municipalities: MutableLiveData<List<Municipality>> = MutableLiveData()
 
     fun getMunicipalities() {

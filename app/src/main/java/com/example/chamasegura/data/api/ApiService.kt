@@ -1,6 +1,7 @@
 package com.example.chamasegura.data.api
 
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.Municipality
 import com.example.chamasegura.data.entities.User
 import okhttp3.MultipartBody
@@ -16,10 +17,16 @@ import retrofit2.http.Part
 
 interface ApiService {
     @POST("auth/signin")
-    fun signIn(@Body user: User): Call<User>
+    fun signIn(@Body user: User): Call<LoginResponse>
 
     @POST("auth/signup")
     fun signUp(@Body user: User): Call<User>
+
+    @GET("auth/user/{id}")
+    fun getUser(@Path("id") id: Int): Call<User>
+
+    @PUT("auth/updateuser/{id}")
+    fun updateUser(@Path("id") id: Int, @Body user: User): Call<User>
 
     @GET("burns")
     fun getBurns(): Call<List<Burn>>

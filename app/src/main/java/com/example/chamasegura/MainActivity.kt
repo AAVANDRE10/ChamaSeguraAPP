@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_manage_profile -> navController.navigate(R.id.fragment_manage_profile)
+            R.id.nav_home -> navController.navigate(R.id.fragment_home)
             R.id.nav_logout -> Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
