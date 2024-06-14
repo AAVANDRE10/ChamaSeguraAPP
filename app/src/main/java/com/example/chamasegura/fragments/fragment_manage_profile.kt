@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
@@ -25,6 +27,7 @@ class fragment_manage_profile : Fragment() {
 
     private lateinit var editTextFullName: EditText
     private lateinit var editTextEmail: EditText
+    private lateinit var editTextNif: EditText
     private lateinit var buttonConfirm: Button
 
     override fun onCreateView(
@@ -44,6 +47,7 @@ class fragment_manage_profile : Fragment() {
         // Inicialize as visualizações
         editTextFullName = view.findViewById(R.id.editTextFullName)
         editTextEmail = view.findViewById(R.id.editTextEmail)
+        editTextNif = view.findViewById(R.id.editTextNif)
         buttonConfirm = view.findViewById(R.id.buttonConfirm)
 
         authManager = AuthManager(requireContext())
@@ -58,26 +62,51 @@ class fragment_manage_profile : Fragment() {
                     // Atualize a interface do usuário com os dados do usuário
                     editTextFullName.setText(user.name)
                     editTextEmail.setText(user.email)
+                    editTextNif.setText(user.nif?.toString())
                     // Outras atualizações de UI, se necessário
                 }
             })
 
             buttonConfirm.setOnClickListener {
+                val email = editTextEmail.text.toString()
+                val nif = editTextNif.text.toString().toIntOrNull()
+
+                // Verifique se o nif é válido
+                if (nif == null) {
+                    Toast.makeText(requireContext(), "NIF inválido.", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
                 val updatedUser = User(
                     id = userId,
                     name = editTextFullName.text.toString(),
-                    email = editTextEmail.text.toString(),
-                    password = "", // Deixe a senha em branco, pois não será atualizada aqui
+                    email = email,
+                    password = "",
                     photo = null,
-                    type = UserType.REGULAR, // Obtenha o tipo do usuário da maneira apropriada
-                    createdAt = "", // Use o valor real
-                    updatedAt = ""  // Use o valor real
+                    type = UserType.REGULAR,
+                    createdAt = "",
+                    updatedAt = "",
+                    nif = nif
                 )
 
-                userViewModel.updateUser(userId, updatedUser)
+                userViewModel.updateUser(userId, updatedUser) { success, errorMessage ->
+                    val message = when {
+                        errorMessage?.contains("Email already in use by another user") == true -> getString(R.string.error_email_in_use)
+                        errorMessage?.contains("NIF already in use by another user") == true -> getString(R.string.error_nif_in_use)
+                        else -> getString(R.string.error_update_profile)
+                    }
+                    if (success) {
+                        Toast.makeText(requireContext(), getString(R.string.profile_updated_success), Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         } else {
-            // Trate o caso onde o ID do usuário não pôde ser extraído
+            // Caso ID do utilizador não pode ser extraído
+            Toast.makeText(requireContext(), getString(R.string.error_user_id_extraction), Toast.LENGTH_LONG).show()
+            // Ir para o fragmento de login
+            findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_login)
         }
     }
 }

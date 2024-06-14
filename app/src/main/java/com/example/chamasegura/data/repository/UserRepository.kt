@@ -55,14 +55,19 @@ class UserRepository(private val context: Context) {
         })
     }
 
-    fun updateUser(id: Int, user: User, onResult: (User?) -> Unit) {
+    fun updateUser(id: Int, user: User, onResult: (Boolean, String?) -> Unit) {
         api.updateUser(id, user).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
-                onResult(response.body())
+                if (response.isSuccessful) {
+                    onResult(true, null)
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    onResult(false, errorMessage)
+                }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                onResult(null)
+                onResult(false, t.message)
             }
         })
     }

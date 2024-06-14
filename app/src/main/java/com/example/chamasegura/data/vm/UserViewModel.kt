@@ -38,11 +38,9 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun updateUser(id: Int, user: User) {
+    fun updateUser(id: Int, user: User, onResult: (Boolean, String?) -> Unit) {
         viewModelScope.launch {
-            repository.updateUser(id, user) {
-                this@UserViewModel.user.postValue(it)
-            }
+            repository.updateUser(id, user, onResult)
         }
     }
 }

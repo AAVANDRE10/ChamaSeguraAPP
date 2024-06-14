@@ -28,7 +28,11 @@
         android:id="@+id/fragment_manage_profile"
         android:name="com.example.chamasegura.fragments.fragment_manage_profile"
         android:label="fragment_manage_profile"
-        tools:layout="@layout/fragment_manage_profile" />
+        tools:layout="@layout/fragment_manage_profile" >
+        <action
+            android:id="@+id/action_fragment_manage_profile_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_new_burn"
         android:name="com.example.chamasegura.fragments.fragment_new_burn"

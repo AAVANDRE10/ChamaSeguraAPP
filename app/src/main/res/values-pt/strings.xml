@@ -10,4 +10,9 @@
     </string-array>
     <string name="open_nav">Abrir Navigation Drawer</string>
     <string name="close_nav">Fechar Navigation Drawer</string>
+    <string name="error_email_in_use">Este email já está em uso.</string>
+    <string name="error_nif_in_use">Este NIF já está em uso.</string>
+    <string name="error_update_profile">Erro ao atualizar perfil.</string>
+    <string name="profile_updated_success">Perfil atualizado com sucesso.</string>
+    <string name="error_user_id_extraction">Erro ao reconhecer o utilizador. Faça login novamente.</string>
 </resources>
