@@ -48,6 +48,7 @@ class fragment_manage_profile : Fragment() {
     private lateinit var buttonChangePhoto: Button
     private lateinit var profileImage: ImageView
     private lateinit var textViewMemberSince: TextView
+    private lateinit var buttonChangePassword: Button
 
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageUri: Uri? = null
@@ -75,6 +76,7 @@ class fragment_manage_profile : Fragment() {
         buttonChangePhoto = view.findViewById(R.id.buttonChangePhoto)
         profileImage = view.findViewById(R.id.imageViewProfile)
         textViewMemberSince = view.findViewById(R.id.memberSince)
+        buttonChangePassword = view.findViewById(R.id.buttonChangePassword)
 
         authManager = AuthManager(requireContext())
 
@@ -135,6 +137,7 @@ class fragment_manage_profile : Fragment() {
                     }
                     if (success) {
                         Toast.makeText(requireContext(), getString(R.string.profile_updated_success), Toast.LENGTH_LONG).show()
+                        findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_home)
                     } else {
                         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                     }
@@ -145,6 +148,10 @@ class fragment_manage_profile : Fragment() {
                 val intent = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
                 startActivityForResult(intent, PICK_IMAGE_REQUEST)
+            }
+
+            buttonChangePassword.setOnClickListener {
+                findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_change_password)
             }
         } else {
             // Trate o caso onde o ID do usuário não pôde ser extraído
