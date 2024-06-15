@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -32,6 +33,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 class fragment_manage_profile : Fragment() {
 
@@ -44,6 +47,7 @@ class fragment_manage_profile : Fragment() {
     private lateinit var buttonConfirm: Button
     private lateinit var buttonChangePhoto: Button
     private lateinit var profileImage: ImageView
+    private lateinit var textViewMemberSince: TextView
 
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageUri: Uri? = null
@@ -70,6 +74,7 @@ class fragment_manage_profile : Fragment() {
         buttonConfirm = view.findViewById(R.id.buttonConfirm)
         buttonChangePhoto = view.findViewById(R.id.buttonChangePhoto)
         profileImage = view.findViewById(R.id.imageViewProfile)
+        textViewMemberSince = view.findViewById(R.id.memberSince)
 
         authManager = AuthManager(requireContext())
 
@@ -87,6 +92,7 @@ class fragment_manage_profile : Fragment() {
                     editTextFullName.setText(user.name)
                     editTextEmail.setText(user.email)
                     editTextNif.setText(user.nif?.toString())
+                    textViewMemberSince.text = formatDate(user.createdAt)
 
                     // Carregar a imagem de perfil usando Glide
                     user.photo?.let {
@@ -216,5 +222,12 @@ class fragment_manage_profile : Fragment() {
         val contentResolver = requireContext().contentResolver
         val mimeTypeMap = android.webkit.MimeTypeMap.getSingleton()
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
+    }
+
+    private fun formatDate(dateString: String): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val date = sdf.parse(dateString)
+        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return outputFormat.format(date)
     }
 }
