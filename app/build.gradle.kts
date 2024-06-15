@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt")
     id ("androidx.navigation.safeargs.kotlin")
     id ("kotlin-parcelize")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -71,5 +72,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
 
 }
