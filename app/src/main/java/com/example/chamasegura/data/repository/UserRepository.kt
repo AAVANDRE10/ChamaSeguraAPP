@@ -1,11 +1,13 @@
 package com.example.chamasegura.data.repository
 
 import android.content.Context
+import android.util.Log
 import com.example.chamasegura.data.api.RetrofitInstance
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.utils.AuthManager
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,6 +69,25 @@ class UserRepository(private val context: Context) {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
+                onResult(false, t.message)
+            }
+        })
+    }
+
+    fun updatePhoto(id: Int, photo: MultipartBody.Part, onResult: (Boolean, String?) -> Unit) {
+        api.updatePhoto(id, photo).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onResult(true, null)
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    Log.e("UpdatePhoto", "Erro na resposta: $errorMessage")
+                    onResult(false, errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("UpdatePhoto", "Falha na requisição: ${t.message}")
                 onResult(false, t.message)
             }
         })

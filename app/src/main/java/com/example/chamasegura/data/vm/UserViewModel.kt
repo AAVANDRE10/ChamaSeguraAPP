@@ -3,11 +3,11 @@ package com.example.chamasegura.data.vm
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.repository.UserRepository
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -41,6 +41,12 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun updateUser(id: Int, user: User, onResult: (Boolean, String?) -> Unit) {
         viewModelScope.launch {
             repository.updateUser(id, user, onResult)
+        }
+    }
+
+    fun updatePhoto(id: Int, photo: MultipartBody.Part, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            repository.updatePhoto(id, photo, onResult)
         }
     }
 }

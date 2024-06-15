@@ -40,10 +40,11 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:id="@+id/imageViewProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_account_circle_24" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -75,6 +76,15 @@
                 android:text="12"/>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonChangePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Photo"
+        android:backgroundTint="@color/light_orange"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
