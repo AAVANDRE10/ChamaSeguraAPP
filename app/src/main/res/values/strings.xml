@@ -14,4 +14,9 @@
     <string name="error_update_profile">Error updating profile.</string>
     <string name="profile_updated_success">Profile updated successfully.</string>
     <string name="error_user_id_extraction">Error recognizing the user. Log in again.</string>
+    <string-array name="burn_types">
+        <item>REGCLEAN</item>
+        <item>PARTICULAR</item>
+    </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

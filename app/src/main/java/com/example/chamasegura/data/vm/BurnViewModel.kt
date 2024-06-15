@@ -13,6 +13,7 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
 
     private val repository = BurnRepository(application.applicationContext)
     val burns: MutableLiveData<List<Burn>> = MutableLiveData()
+    val createBurnResult: MutableLiveData<Pair<Boolean, String?>> = MutableLiveData()
 
     fun getBurns() {
         viewModelScope.launch {
@@ -24,8 +25,16 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
 
     fun createBurn(burn: Burn) {
         viewModelScope.launch {
-            repository.createBurn(burn) {
-                // Atualize o estado conforme necessário
+            repository.createBurn(burn) { success, newBurn, error ->
+                if (success) {
+                    // Adiciona o novo burn à lista existente
+                    val updatedBurns = burns.value?.toMutableList() ?: mutableListOf()
+                    newBurn?.let { updatedBurns.add(it) }
+                    burns.postValue(updatedBurns)
+                    createBurnResult.postValue(Pair(true, null))
+                } else {
+                    createBurnResult.postValue(Pair(false, error))
+                }
             }
         }
     }

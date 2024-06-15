@@ -23,14 +23,18 @@ class BurnRepository(private val context: Context) {
         })
     }
 
-    fun createBurn(burn: Burn, onResult: (Burn?) -> Unit) {
+    fun createBurn(burn: Burn, onResult: (Boolean, Burn?, String?) -> Unit) {
         api.createBurn(burn).enqueue(object : Callback<Burn> {
             override fun onResponse(call: Call<Burn>, response: Response<Burn>) {
-                onResult(response.body())
+                if (response.isSuccessful) {
+                    onResult(true, response.body(), null)
+                } else {
+                    onResult(false, null, response.errorBody()?.string())
+                }
             }
 
             override fun onFailure(call: Call<Burn>, t: Throwable) {
-                onResult(null)
+                onResult(false, null, t.message)
             }
         })
     }
