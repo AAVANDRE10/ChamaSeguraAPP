@@ -13,6 +13,9 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = UserRepository(application.applicationContext)
     val user: MutableLiveData<User> = MutableLiveData()
+    val users: MutableLiveData<List<User>?> = MutableLiveData()
+    private var isSortedAscending = true
+    private var originalUsers: List<User>? = null
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
@@ -35,6 +38,36 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             repository.getUser(id) {
                 user.postValue(it)
             }
+        }
+    }
+
+    fun getAllUsers() {
+        viewModelScope.launch {
+            repository.getAllUsers {
+                originalUsers = it
+                users.postValue(it)
+            }
+        }
+    }
+
+    fun sortUsersByName() {
+        val sortedUsers = if (isSortedAscending) {
+            users.value?.sortedBy { it.name }
+        } else {
+            users.value?.sortedByDescending { it.name }
+        }
+        isSortedAscending = !isSortedAscending
+        users.postValue(sortedUsers)
+    }
+
+    fun searchUsers(query: String) {
+        if (query.isEmpty()) {
+            users.postValue(originalUsers)
+        } else {
+            val filteredUsers = originalUsers?.filter {
+                it.name.contains(query, true) || it.email.contains(query, true)
+            }
+            users.postValue(filteredUsers)
         }
     }
 

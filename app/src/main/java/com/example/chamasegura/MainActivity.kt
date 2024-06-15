@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_manage_profile -> navController.navigate(R.id.fragment_manage_profile)
             R.id.nav_home -> navController.navigate(R.id.fragment_home)
             R.id.nav_burn_history -> navController.navigate(R.id.fragment_burn_history)
+            R.id.nav_manage_users -> navController.navigate(R.id.fragment_manage_users)
             R.id.nav_logout -> logout()
         }
         drawerLayout.closeDrawer(GravityCompat.START)

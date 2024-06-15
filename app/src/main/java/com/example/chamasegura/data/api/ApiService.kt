@@ -34,6 +34,9 @@ interface ApiService {
     @PUT("auth/changepassword/{id}")
     fun changePassword(@Path("id") userId: Int, @Header("Authorization") token: String, @Body passwordChangeRequest: PasswordChangeRequest): Call<Void>
 
+    @GET("auth/users")
+    fun getAllUsers(): Call<List<User>>
+
     @GET("burns")
     fun getBurns(): Call<List<Burn>>
 

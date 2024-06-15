@@ -75,6 +75,18 @@ class UserRepository(private val context: Context) {
         })
     }
 
+    fun getAllUsers(onResult: (List<User>?) -> Unit) {
+        api.getAllUsers().enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
+
     fun updatePhoto(id: Int, photo: MultipartBody.Part, onResult: (Boolean, String?) -> Unit) {
         api.updatePhoto(id, photo).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
