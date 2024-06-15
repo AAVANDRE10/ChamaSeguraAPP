@@ -32,16 +32,16 @@
 
     </RelativeLayout>
 
-        <Button
-            android:id="@+id/register_pile_burn_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Register New Pile Burn"
-            android:backgroundTint="@color/light_orange"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp"/>
+    <Button
+        android:id="@+id/register_pile_burn_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/light_orange"
+        android:text="Register New Pile Burn"
+        android:textColor="@android:color/white" />
 
-        <TextView
+    <TextView
             android:id="@+id/info_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
