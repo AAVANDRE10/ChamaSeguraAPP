@@ -31,45 +31,42 @@
             android:textSize="24sp"
             android:textColor="@color/light_orange"
             android:layout_centerInParent="true"/>
-
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_marginBottom="8dp"
-        android:gravity="end"
-        android:orientation="horizontal">
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <Spinner
             android:id="@+id/spinnerType"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginRight="120dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:entries="@array/burn_types" />
 
         <TextView
             android:id="@+id/sort_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
+            android:text="Sort"
+            android:textSize="18sp"
             android:drawableEnd="@drawable/baseline_sort_by_alpha_24"
             android:drawablePadding="8dp"
-            android:focusable="true"
-            android:padding="8dp"
-            android:text="Sort"
             android:textColor="@color/light_orange"
-            android:textSize="18sp" />
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_burn_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:padding="16dp"/>
+        android:layout_marginTop="8dp"/>
 </LinearLayout>

@@ -21,4 +21,6 @@
         <item>PARTICULAR</item>
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="logout">Sair</string>
+
 </resources>
