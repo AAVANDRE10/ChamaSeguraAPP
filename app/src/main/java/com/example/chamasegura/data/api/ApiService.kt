@@ -1,6 +1,7 @@
 package com.example.chamasegura.data.api
 
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.Municipality
 import com.example.chamasegura.data.entities.PasswordChangeRequest
@@ -36,8 +37,11 @@ interface ApiService {
     @GET("burns")
     fun getBurns(): Call<List<Burn>>
 
-    @GET("burns/{number}")
-    fun getBurnById(@Path("number") number: Int): Call<Burn>
+    @GET("burns/user/{id}")
+    fun getBurnsByUser(@Path("id") userId: Int): Call<List<Burn>>
+
+    @GET("burns/user/{userId}/type/{type}")
+    fun getBurnsByUserAndType(@Path("userId") userId: Int, @Path("type") type: BurnType): Call<List<Burn>>
 
     @POST("burns/create")
     fun createBurn(@Body burn: Burn): Call<Burn>

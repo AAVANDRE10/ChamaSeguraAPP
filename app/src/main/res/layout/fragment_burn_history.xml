@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/light_gray"
-    tools:context=".fragments.fragment_manage_profile">
+    tools:context=".fragments.fragment_burn_history">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,6 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="@drawable/baseline_menu_24"
             android:layout_gravity="center"/>
 
         <TextView
@@ -32,38 +34,42 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/search_bar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:hint="Search"
-        android:padding="12dp"
-        android:background="@drawable/search_background"/>
+        android:layout_marginBottom="8dp"
+        android:gravity="end"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/sort_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_below="@id/search_bar"
-        android:layout_marginTop="8dp"
-        android:text="Sort"
-        android:drawableEnd="@drawable/baseline_sort_by_alpha_24"
-        android:drawablePadding="8dp"
-        android:textColor="@color/light_orange"
-        android:clickable="true"
-        android:focusable="true"/>
+        <Spinner
+            android:id="@+id/spinnerType"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="120dp"
+            android:entries="@array/burn_types" />
+
+        <TextView
+            android:id="@+id/sort_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:drawableEnd="@drawable/baseline_sort_by_alpha_24"
+            android:drawablePadding="8dp"
+            android:focusable="true"
+            android:padding="8dp"
+            android:text="Sort"
+            android:textColor="@color/light_orange"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_burn_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/sort_button"
         android:layout_marginTop="8dp"
         android:padding="16dp"/>
 </LinearLayout>

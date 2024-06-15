@@ -3,6 +3,7 @@ package com.example.chamasegura.data.repository
 import android.content.Context
 import com.example.chamasegura.data.api.RetrofitInstance
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.BurnType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,6 +14,30 @@ class BurnRepository(private val context: Context) {
 
     fun getBurns(onResult: (List<Burn>?) -> Unit) {
         api.getBurns().enqueue(object : Callback<List<Burn>> {
+            override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Burn>>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
+
+    fun getBurnsByUser(userId: Int, onResult: (List<Burn>?) -> Unit) {
+        api.getBurnsByUser(userId).enqueue(object : Callback<List<Burn>> {
+            override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Burn>>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
+
+    fun getBurnsByUserAndType(userId: Int, type: BurnType, onResult: (List<Burn>?) -> Unit) {
+        api.getBurnsByUserAndType(userId, type).enqueue(object : Callback<List<Burn>> {
             override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {
                 onResult(response.body())
             }

@@ -6,18 +6,50 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.repository.BurnRepository
 import kotlinx.coroutines.launch
 
 class BurnViewModel (application: Application) : AndroidViewModel(application) {
 
     private val repository = BurnRepository(application.applicationContext)
-    val burns: MutableLiveData<List<Burn>> = MutableLiveData()
+    val burns: MutableLiveData<List<Burn>?> = MutableLiveData()
     val createBurnResult: MutableLiveData<Pair<Boolean, String?>> = MutableLiveData()
+    private var isSortedDescending = true
 
     fun getBurns() {
         viewModelScope.launch {
             repository.getBurns {
+                burns.postValue(it)
+            }
+        }
+    }
+
+    fun getBurnsByUser(userId: Int) {
+        viewModelScope.launch {
+            repository.getBurnsByUser(userId) {
+                burns.postValue(it)
+            }
+        }
+    }
+
+    fun getBurnsByUserOrderedByDate(userId: Int) {
+        viewModelScope.launch {
+            repository.getBurnsByUser(userId) {
+                val sortedBurns = if (isSortedDescending) {
+                    it?.sortedByDescending { burn -> burn.date }
+                } else {
+                    it?.sortedBy { burn -> burn.date }
+                }
+                isSortedDescending = !isSortedDescending
+                burns.postValue(sortedBurns)
+            }
+        }
+    }
+
+    fun getBurnsByUserAndType(userId: Int, type: BurnType) {
+        viewModelScope.launch {
+            repository.getBurnsByUserAndType(userId, type) {
                 burns.postValue(it)
             }
         }
