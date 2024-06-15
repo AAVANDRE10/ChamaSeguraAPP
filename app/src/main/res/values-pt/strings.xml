@@ -15,4 +15,9 @@
     <string name="error_update_profile">Erro ao atualizar perfil.</string>
     <string name="profile_updated_success">Perfil atualizado com sucesso.</string>
     <string name="error_user_id_extraction">Erro ao reconhecer o utilizador. Faça login novamente.</string>
+    <string-array name="burn_types">
+        <item>REGCLEAN</item>
+        <item>PARTICULAR</item>
+    </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

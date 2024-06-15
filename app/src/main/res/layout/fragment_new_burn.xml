@@ -45,37 +45,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Need assistance:"
-            android:paddingTop="16dp"/>
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioYes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Yes"/>
-            <RadioButton
-                android:id="@+id/radioNo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No"
-                android:checked="true"/>
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Reason:"
             android:paddingTop="16dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerReason"
+        <EditText
+            android:id="@+id/editTextReason"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Enter reason here"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,7 +64,9 @@
             android:id="@+id/editTextDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="dd/MM/yyyy"/>
+            android:hint="dd/MM/yyyy"
+            android:focusable="false"
+            android:clickable="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,6 +82,27 @@
             android:backgroundTint="@color/light_orange"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/selectedLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selected location will appear here"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/black"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other Data:"
+            android:paddingTop="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextOtherData"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Enter additional information here"/>
 
         <Button
             android:id="@+id/buttonConfirm"
