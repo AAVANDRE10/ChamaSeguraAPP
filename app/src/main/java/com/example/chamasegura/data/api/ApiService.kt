@@ -3,6 +3,7 @@ package com.example.chamasegura.data.api
 import com.example.chamasegura.data.entities.Burn
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.Municipality
+import com.example.chamasegura.data.entities.PasswordChangeRequest
 import com.example.chamasegura.data.entities.User
 import okhttp3.MultipartBody
 import retrofit2.http.GET
@@ -11,6 +12,7 @@ import retrofit2.http.Body
 import retrofit2.http.Path
 import retrofit2.Call
 import retrofit2.http.DELETE
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -27,6 +29,9 @@ interface ApiService {
 
     @PUT("auth/updateuser/{id}")
     fun updateUser(@Path("id") id: Int, @Body user: User): Call<User>
+
+    @PUT("auth/changepassword/{id}")
+    fun changePassword(@Path("id") userId: Int, @Header("Authorization") token: String, @Body passwordChangeRequest: PasswordChangeRequest): Call<Void>
 
     @GET("burns")
     fun getBurns(): Call<List<Burn>>

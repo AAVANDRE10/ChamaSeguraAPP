@@ -49,4 +49,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             repository.updatePhoto(id, photo, onResult)
         }
     }
+
+    fun changePassword(userId: Int, oldPassword: String, newPassword: String, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            repository.changePassword(userId, oldPassword, newPassword, onResult)
+        }
+    }
 }

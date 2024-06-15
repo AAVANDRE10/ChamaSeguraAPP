@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.example.chamasegura.data.api.RetrofitInstance
 import com.example.chamasegura.data.entities.LoginResponse
+import com.example.chamasegura.data.entities.PasswordChangeRequest
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.utils.AuthManager
@@ -88,6 +89,26 @@ class UserRepository(private val context: Context) {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.e("UpdatePhoto", "Falha na requisição: ${t.message}")
+                onResult(false, t.message)
+            }
+        })
+    }
+
+    fun changePassword(userId: Int, oldPassword: String, newPassword: String, onResult: (Boolean, String?) -> Unit) {
+        val token = authManager.getToken() ?: return onResult(false, "No token found")
+
+        val request = PasswordChangeRequest(oldPassword, newPassword)
+        api.changePassword(userId, "Bearer $token", request).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onResult(true, null)
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    onResult(false, errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 onResult(false, t.message)
             }
         })

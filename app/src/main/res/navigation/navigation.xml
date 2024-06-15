@@ -32,6 +32,12 @@
         <action
             android:id="@+id/action_fragment_manage_profile_to_fragment_login"
             app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_fragment_manage_profile_to_fragment_change_password"
+            app:destination="@id/fragment_change_password" />
+        <action
+            android:id="@+id/action_fragment_manage_profile_to_fragment_home"
+            app:destination="@id/fragment_home" />
     </fragment>
     <fragment
         android:id="@+id/fragment_new_burn"
