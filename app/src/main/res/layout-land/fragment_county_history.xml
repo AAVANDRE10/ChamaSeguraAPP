@@ -3,44 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/light_gray"
-    tools:context=".fragments.fragment_manage_profile">
+    tools:context=".fragments.fragment_county_history">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <ImageButton
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:navigationIcon="@drawable/baseline_menu_24"
-            android:layout_gravity="center"/>
+            android:background="@null"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:contentDescription="Back" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pending Burn Requests"
-            android:textSize="24sp"
+            android:layout_marginStart="8dp"
+            android:text="County History"
             android:textColor="@color/light_orange"
-            android:layout_centerInParent="true"/>
-
-    </RelativeLayout>
+            android:textSize="24sp"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:hint="Search"
         android:padding="12dp"
@@ -50,9 +46,6 @@
         android:id="@+id/sort_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_below="@id/search_bar"
         android:layout_marginTop="8dp"
         android:text="Sort"
         android:drawableEnd="@drawable/baseline_sort_by_alpha_24"
@@ -62,10 +55,9 @@
         android:focusable="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_pending_burn_requests"
+        android:id="@+id/recycler_view_county_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/sort_button"
         android:layout_marginTop="8dp"
         android:padding="16dp"/>
 </LinearLayout>
