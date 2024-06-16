@@ -35,6 +35,7 @@ class fragment_new_burn : Fragment() {
     private var latitude: Float = 0f
     private var longitude: Float = 0f
     private val MAP_REQUEST_CODE = 1001
+    private var formattedDate: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +47,6 @@ class fragment_new_burn : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         burnViewModel = ViewModelProvider(this).get(BurnViewModel::class.java)
 
@@ -63,7 +63,7 @@ class fragment_new_burn : Fragment() {
         val spinnerType = view.findViewById<Spinner>(R.id.spinnerType)
         ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.burn_types,
+            R.array.burn_types_new_burn,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -81,7 +81,9 @@ class fragment_new_burn : Fragment() {
 
         val buttonConfirm = view.findViewById<Button>(R.id.buttonConfirm)
         buttonConfirm.setOnClickListener {
-            createBurn(editTextDate, spinnerType, editTextReason, editTextOtherData)
+            if (validateInputs(editTextDate, spinnerType, editTextReason, editTextOtherData)) {
+                createBurn(spinnerType, editTextReason, editTextOtherData)
+            }
         }
 
         // Observar o resultado da criação do Burn
@@ -104,7 +106,8 @@ class fragment_new_burn : Fragment() {
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year, monthOfYear, dayOfMonth)
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                editText.setText(dateFormat.format(selectedDate.time))
+                formattedDate = dateFormat.format(selectedDate.time)
+                editText.setText(formattedDate)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -112,13 +115,42 @@ class fragment_new_burn : Fragment() {
         )
         datePickerDialog.show()
     }
-    private fun createBurn(
+
+    private fun validateInputs(
         editTextDate: EditText,
         spinnerType: Spinner,
         editTextReason: EditText,
         editTextOtherData: EditText
+    ): Boolean {
+        if (editTextDate.text.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Date is required", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (spinnerType.selectedItem == null) {
+            Toast.makeText(requireContext(), "Type is required", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (editTextReason.text.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Reason is required", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (editTextOtherData.text.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Other Data is required", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (latitude == 0f || longitude == 0f) {
+            Toast.makeText(requireContext(), "Location is required", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
+    private fun createBurn(
+        spinnerType: Spinner,
+        editTextReason: EditText,
+        editTextOtherData: EditText
     ) {
-        val dateString = editTextDate.text.toString()
+        val dateString = formattedDate!!
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val date = sdf.parse(dateString)
 
@@ -135,13 +167,15 @@ class fragment_new_burn : Fragment() {
         val token = authManager.getToken()
         val userId = token?.let { JwtUtils.getUserIdFromToken(it) }
 
+        val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+
         if (userId != null && date != null) {
             val burn = Burn(
                 id = 0,
-                date = date.toString(),
+                date = isoDateFormat.format(date),
                 reason = reason,
-                latitude = latitude, // Placeholder - você deve coletar latitude real
-                longitude = longitude, // Placeholder - você deve coletar longitude real
+                latitude = latitude,
+                longitude = longitude,
                 otherData = otherData,
                 createdAt = "",
                 updatedAt = "",
@@ -153,6 +187,7 @@ class fragment_new_burn : Fragment() {
             Toast.makeText(requireContext(), "Erro ao criar queima.", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun openMap() {
         val intent = Intent(requireContext(), MapsActivity::class.java)
         startActivityForResult(intent, MAP_REQUEST_CODE)
