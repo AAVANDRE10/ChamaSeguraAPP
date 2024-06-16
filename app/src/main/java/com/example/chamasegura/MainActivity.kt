@@ -1,7 +1,10 @@
 package com.example.chamasegura
 
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -31,6 +34,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Hide the status bar
+        if (Build.VERSION.SDK_INT < 16) {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+            supportActionBar?.hide()
+        }
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         authManager = AuthManager(this)
