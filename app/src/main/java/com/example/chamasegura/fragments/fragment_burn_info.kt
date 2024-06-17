@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.chamasegura.R
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class fragment_burn_info : Fragment() {
     private val args: fragment_burn_infoArgs by navArgs()
@@ -34,7 +36,14 @@ class fragment_burn_info : Fragment() {
         view.findViewById<TextView>(R.id.status).text = "Status: ${burn.state}"
         view.findViewById<TextView>(R.id.type).text = "Type: ${burn.type}"
         view.findViewById<TextView>(R.id.reason).text = "Reason: ${burn.reason}"
-        view.findViewById<TextView>(R.id.date).text = "Date: ${burn.date}"
+        view.findViewById<TextView>(R.id.date).text = "Date: ${formatDate(burn.date)}"
         view.findViewById<TextView>(R.id.location).text = "Location: ${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
+    }
+
+    private fun formatDate(dateStr: String): String {
+        val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val outputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val date = isoDateFormat.parse(dateStr)
+        return date?.let { outputDateFormat.format(it) } ?: dateStr
     }
 }
