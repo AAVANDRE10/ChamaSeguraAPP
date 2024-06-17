@@ -24,7 +24,7 @@ class fragment_my_burn_history : Fragment() {
 
     private lateinit var burnViewModel: BurnViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: BurnHistoryAdapter
+    private lateinit var adapter: MyBurnHistoryAdapter
     private var userId: Int? = null
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class fragment_my_burn_history : Fragment() {
 
         recyclerView = view.findViewById(R.id.recycler_view_burn_history)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = BurnHistoryAdapter { burn ->
+        adapter = MyBurnHistoryAdapter { burn ->
             val action = fragment_my_burn_historyDirections.actionFragmentBurnHistoryToFragmentBurnInfo(burn)
             findNavController().navigate(action)
         }

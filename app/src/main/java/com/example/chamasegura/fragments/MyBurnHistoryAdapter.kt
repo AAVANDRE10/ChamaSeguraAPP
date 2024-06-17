@@ -10,7 +10,7 @@ import com.example.chamasegura.data.entities.Burn
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class BurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView.Adapter<BurnHistoryAdapter.BurnViewHolder>() {
+class MyBurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView.Adapter<MyBurnHistoryAdapter.BurnViewHolder>() {
 
     private var burns: List<Burn> = listOf()
 
