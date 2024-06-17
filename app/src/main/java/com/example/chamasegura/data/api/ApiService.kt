@@ -24,7 +24,7 @@ interface ApiService {
     fun signIn(@Body user: User): Call<LoginResponse>
 
     @POST("auth/signup")
-    fun signUp(@Body user: User): Call<User>
+    fun signUp(@Body user: User): Call<LoginResponse>
 
     @GET("auth/user/{id}")
     fun getUser(@Path("id") id: Int): Call<User>
@@ -56,17 +56,17 @@ interface ApiService {
     @DELETE("burns/delete/{number}")
     fun deleteBurn(@Path("number") number: Int): Call<Void>
 
-    @GET("municipalities")
+    @GET("municipality")
     fun getMunicipalities(): Call<List<Municipality>>
 
-    @GET("municipalities/{number}")
+    @GET("municipality/{number}")
     fun getMunicipalityById(@Path("number") number: Int): Call<Municipality>
 
-    @POST("municipalities/create")
+    @POST("municipality/create")
     fun createMunicipality(@Body municipality: Municipality): Call<Municipality>
 
-    @PUT("municipalities/update/{number}")
-    fun updateMunicipality(@Path("number") number: Int, @Body municipality: Municipality): Call<Municipality>
+    @PUT("municipality/update/{number}")
+    fun updateMunicipality(@Path("number") number: Int, @Body updateData: Map<String, Int>): Call<Municipality>
 
     @DELETE("municipalities/delete/{number}")
     fun deleteMunicipality(@Path("number") number: Int): Call<Void>

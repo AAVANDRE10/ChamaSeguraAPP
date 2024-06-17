@@ -2,11 +2,11 @@ package com.example.chamasegura.data.entities
 
 data class Municipality(
     val id: Int,
+    val name: String,
     val taxNumber: String,
     val address: String,
-    val responsible: String,
     val state: State,
-    val userId: Int,
+    val responsible: Int?,
     val createdAt: String,
     val updatedAt: String
 )

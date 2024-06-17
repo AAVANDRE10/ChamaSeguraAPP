@@ -34,4 +34,21 @@ class MunicipalityRepository(private val context: Context) {
             }
         })
     }
+
+    fun updateMunicipalityResponsible(municipalityId: Int, userId: Int, onResult: (Boolean) -> Unit) {
+        val updateData = mapOf("responsible" to userId)
+        api.updateMunicipality(municipalityId, updateData).enqueue(object : Callback<Municipality> {
+            override fun onResponse(call: Call<Municipality>, response: Response<Municipality>) {
+                if (response.isSuccessful) {
+                    onResult(true)
+                } else {
+                    onResult(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Municipality>, t: Throwable) {
+                onResult(false)
+            }
+        })
+    }
 }

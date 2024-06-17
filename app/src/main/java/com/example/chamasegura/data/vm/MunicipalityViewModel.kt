@@ -29,4 +29,12 @@ class MunicipalityViewModel(application: Application) : AndroidViewModel(applica
             }
         }
     }
+
+    fun updateMunicipalityResponsible(municipalityId: Int, userId: Int) {
+        viewModelScope.launch {
+            repository.updateMunicipalityResponsible(municipalityId, userId) {
+                // Handle the result as needed
+            }
+        }
+    }
 }

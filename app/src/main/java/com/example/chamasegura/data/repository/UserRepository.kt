@@ -34,13 +34,13 @@ class UserRepository(private val context: Context) {
         })
     }
 
-    fun signUp(user: User, onResult: (User?) -> Unit) {
-        api.signUp(user).enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+    fun signUp(user: User, onResult: (LoginResponse?) -> Unit) {
+        api.signUp(user).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 onResult(response.body())
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 onResult(null)
             }
         })

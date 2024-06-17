@@ -64,6 +64,12 @@
             android:layout_marginBottom="16dp"
             android:entries="@array/user_types" />
 
+        <Spinner
+            android:id="@+id/municipality_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"

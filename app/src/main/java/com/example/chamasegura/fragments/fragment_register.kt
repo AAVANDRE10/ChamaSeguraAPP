@@ -52,21 +52,20 @@ class fragment_register : Fragment() {
                     createdAt = "",
                     updatedAt = ""
                 )
-                userViewModel.signUp(newUser)
+                userViewModel.signUp(newUser) { loginResponse ->
+                    val user = loginResponse?.name
+                    if (user != null) {
+                        //open fragment login
+                        findNavController().navigate(R.id.action_fragment_register_to_fragment_first_screen2)
+                    } else {
+                        // Sign-up failed
+                        Toast.makeText(requireContext(), "Sign-up failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } else {
                 Toast.makeText(requireContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
             }
         }
-
-        userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
-            if (user != null) {
-                //open fragment login
-                findNavController().navigate(R.id.action_fragment_register_to_fragment_first_screen2)
-            } else {
-                // Sign-up failed
-                Toast.makeText(requireContext(), "Sign-up failed", Toast.LENGTH_SHORT).show()
-            }
-        })
 
         return view
     }
