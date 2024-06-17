@@ -1,5 +1,7 @@
 package com.example.chamasegura
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -33,6 +35,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check if this is the first launch
+        val prefs: SharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE)
+        val firstLaunch = prefs.getBoolean("firstLaunch", true)
+
+        if (firstLaunch) {
+            // Launch OnboardingActivity
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
+
+            // Update the flag
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putBoolean("firstLaunch", false)
+            editor.apply()
+            return
+        }
+
         setContentView(R.layout.activity_main)
 
         if (Build.VERSION.SDK_INT < 16) {
