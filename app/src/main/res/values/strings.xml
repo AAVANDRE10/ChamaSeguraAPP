@@ -24,7 +24,13 @@
         <item>PARTICULAR</item>
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_onb" translatable="false">OnboardingActivity</string>
     <string name="logout">Log Out</string>
+    <string name="screen1" translatable="false">Click on the button to create a new burn request</string>
+    <string name="screen2" translatable="false">Fill in the information and click confirm</string>
+    <string name="screen3" translatable="false">Click on Burn History to see your current\nand past burn requests</string>
+    <string name="screen4" translatable="false">Click on the Request you just created</string>
+    <string name="screen5" translatable="false">Your Burn Request details</string>
     <string-array name="user_types">
         <item>Regular</item>
         <item>CM</item>

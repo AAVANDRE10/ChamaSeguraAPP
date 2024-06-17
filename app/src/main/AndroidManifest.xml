@@ -29,6 +29,11 @@
             android:label="@string/title_activity_maps"
             android:theme="@style/Theme.Chamasegura" />
         <activity
+            android:name=".OnboardingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_onb"
+            android:theme="@style/Theme.Chamasegura" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Chamasegura">
