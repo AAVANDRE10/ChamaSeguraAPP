@@ -20,7 +20,7 @@ import com.example.chamasegura.data.vm.BurnViewModel
 import com.example.chamasegura.utils.AuthManager
 import com.example.chamasegura.utils.JwtUtils
 
-class fragment_burn_history : Fragment() {
+class fragment_my_burn_history : Fragment() {
 
     private lateinit var burnViewModel: BurnViewModel
     private lateinit var recyclerView: RecyclerView
@@ -31,7 +31,7 @@ class fragment_burn_history : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_burn_history, container, false)
+        return inflater.inflate(R.layout.fragment_my_burn_history, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class fragment_burn_history : Fragment() {
         recyclerView = view.findViewById(R.id.recycler_view_burn_history)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = BurnHistoryAdapter { burn ->
-            val action = fragment_burn_historyDirections.actionFragmentBurnHistoryToFragmentBurnInfo(burn)
+            val action = fragment_my_burn_historyDirections.actionFragmentBurnHistoryToFragmentBurnInfo(burn)
             findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

@@ -81,10 +81,10 @@
         android:label="fragment_verification_code"
         tools:layout="@layout/fragment_verification_code" />
     <fragment
-        android:id="@+id/fragment_burn_history"
-        android:name="com.example.chamasegura.fragments.fragment_burn_history"
-        android:label="fragment_burn_history"
-        tools:layout="@layout/fragment_burn_history" >
+        android:id="@+id/fragment_my_burn_history"
+        android:name="com.example.chamasegura.fragments.fragment_my_burn_history"
+        android:label="fragment_my_burn_history"
+        tools:layout="@layout/fragment_my_burn_history" >
         <action
             android:id="@+id/action_fragment_burn_history_to_fragment_burn_info"
             app:destination="@id/fragment_burn_info" />
