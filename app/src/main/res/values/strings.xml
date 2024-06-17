@@ -25,5 +25,9 @@
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="logout">Log Out</string>
+    <string-array name="user_types">
+        <item>Regular</item>
+        <item>CM</item>
+    </string-array>
 
 </resources>
