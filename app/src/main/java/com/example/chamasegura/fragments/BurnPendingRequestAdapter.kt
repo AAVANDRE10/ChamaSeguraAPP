@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.Burn
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class BurnPendingRequestAdapter : RecyclerView.Adapter<BurnPendingRequestAdapter.BurnViewHolder>() {
     private var burns: List<Burn> = listOf()
@@ -38,7 +40,13 @@ class BurnPendingRequestAdapter : RecyclerView.Adapter<BurnPendingRequestAdapter
             reason.text = burn.reason
             location.text = "${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
             type.text = burn.type.toString()
-            date.text = burn.date
+            date.text = formatDate(burn.date)
+        }
+        private fun formatDate(dateStr: String): String {
+            val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            val outputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val date = isoDateFormat.parse(dateStr)
+            return date?.let { outputDateFormat.format(it) } ?: dateStr
         }
     }
 }
