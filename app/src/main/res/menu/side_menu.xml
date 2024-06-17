@@ -23,7 +23,7 @@
             android:id="@+id/nav_pending_burn_requests"
             android:title="Pending Burn Requests"/>
         <item
-            android:id="@+id/contact_us"
+            android:id="@+id/nav_contact_us"
             android:title="Contact Us"/>
     </group>
     <item android:title="">

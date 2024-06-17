@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="@drawable/baseline_menu_24"
             android:layout_gravity="center" />
 
         <TextView
@@ -27,9 +28,6 @@
             android:text="Contact Us"
             android:textSize="24sp"
             android:textColor="@color/light_orange"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
