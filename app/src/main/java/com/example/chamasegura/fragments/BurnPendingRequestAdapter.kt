@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.Burn
 
-class BurnPendingRequest : RecyclerView.Adapter<BurnPendingRequest.BurnViewHolder>() {
+class BurnPendingRequestAdapter : RecyclerView.Adapter<BurnPendingRequestAdapter.BurnViewHolder>() {
     private var burns: List<Burn> = listOf()
 
     fun setBurns(burns: List<Burn>) {

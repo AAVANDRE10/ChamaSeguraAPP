@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/light_gray"
-    tools:context=".fragments.fragment_manage_profile">
+    tools:context=".fragments.fragment_pending_burn_requests">
 
     <RelativeLayout
         android:layout_width="match_parent"
