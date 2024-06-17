@@ -132,4 +132,13 @@
         android:name="com.example.chamasegura.fragments.fragment_register_manage_users"
         android:label="fragment_register_manage_users"
         tools:layout="@layout/fragment_register_manage_users" />
+    <fragment
+        android:id="@+id/fragment_burn_history"
+        android:name="com.example.chamasegura.fragments.fragment_burn_history"
+        android:label="fragment_burn_history"
+        tools:layout="@layout/fragment_burn_history" >
+        <action
+            android:id="@+id/action_fragment_burn_history_to_fragment_burn_info"
+            app:destination="@id/fragment_burn_info" />
+    </fragment>
 </navigation>

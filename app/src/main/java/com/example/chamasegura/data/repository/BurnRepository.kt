@@ -24,6 +24,18 @@ class BurnRepository(private val context: Context) {
         })
     }
 
+    fun getBurnsByType(type: BurnType, onResult: (List<Burn>?) -> Unit) {
+        api.getBurnsByType(type).enqueue(object : Callback<List<Burn>> {
+            override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Burn>>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
+
     fun getBurnsByUser(userId: Int, onResult: (List<Burn>?) -> Unit) {
         api.getBurnsByUser(userId).enqueue(object : Callback<List<Burn>> {
             override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {

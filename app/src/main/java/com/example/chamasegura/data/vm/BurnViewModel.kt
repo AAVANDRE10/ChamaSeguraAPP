@@ -34,6 +34,28 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getBurnsOrderedByDate() {
+        viewModelScope.launch {
+            repository.getBurns {
+                val sortedBurns = if (isSortedDescending) {
+                    it?.sortedByDescending { burn -> burn.date }
+                } else {
+                    it?.sortedBy { burn -> burn.date }
+                }
+                isSortedDescending = !isSortedDescending
+                burns.postValue(sortedBurns)
+            }
+        }
+    }
+
+    fun getBurnsByType(type: BurnType) {
+        viewModelScope.launch {
+            repository.getBurnsByType(type) {
+                burns.postValue(it)
+            }
+        }
+    }
+
     fun getBurnsByUser(userId: Int) {
         viewModelScope.launch {
             repository.getBurnsByUser(userId) {

@@ -41,6 +41,9 @@ interface ApiService {
     @GET("burns")
     fun getBurns(): Call<List<Burn>>
 
+    @GET("burns/type/{type}")
+    fun getBurnsByType(@Path("type") type: BurnType): Call<List<Burn>>
+
     @GET("burns/user/{id}")
     fun getBurnsByUser(@Path("id") userId: Int): Call<List<Burn>>
 
