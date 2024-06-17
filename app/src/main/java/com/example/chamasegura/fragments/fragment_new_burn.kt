@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.chamasegura.MapsActivity
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.BurnState
 import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.vm.BurnViewModel
 import com.example.chamasegura.utils.AuthManager
@@ -195,7 +196,8 @@ class fragment_new_burn : Fragment() {
                 type = type,
                 distrito = distrito,
                 concelho = concelho,
-                freguesia = freguesia
+                freguesia = freguesia,
+                state = BurnState.PENDING
             )
             burnViewModel.createBurn(burn)
         } else {

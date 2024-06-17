@@ -63,4 +63,16 @@ class BurnRepository(private val context: Context) {
             }
         })
     }
+
+    fun getBurnsByState(state: String, onResult: (List<Burn>?) -> Unit) {
+        api.getBurnsByState(state).enqueue(object : Callback<List<Burn>> {
+            override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Burn>>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
 }

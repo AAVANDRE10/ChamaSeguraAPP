@@ -13,10 +13,18 @@ data class Burn(
     val type: BurnType,
     val distrito: String,
     val concelho: String,
-    val freguesia: String
+    val freguesia: String,
+    val state: BurnState
 )
 
 enum class BurnType {
     REGCLEAN,
     PARTICULAR
+}
+
+enum class BurnState {
+    APPROVED,
+    PENDING,
+    DENIED,
+    DELETED
 }

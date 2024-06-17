@@ -2,6 +2,7 @@ package com.example.chamasegura.data.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,6 +23,8 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
     val createBurnResult: MutableLiveData<Pair<Boolean, String?>> = MutableLiveData()
     private var isSortedDescending = true
     val locationInfo: MutableLiveData<LocationResponse> = MutableLiveData()
+    private val _pendingBurns = MutableLiveData<List<Burn>>()
+    val pendingBurns: LiveData<List<Burn>> get() = _pendingBurns
 
     fun getBurns() {
         viewModelScope.launch {
@@ -90,5 +93,13 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
                 // Handle failure
             }
         })
+    }
+
+    fun getPendingBurns() {
+        viewModelScope.launch {
+            repository.getBurnsByState("PENDING") {
+                _pendingBurns.value = it
+            }
+        }
     }
 }

@@ -14,7 +14,6 @@ data class Municipality(
 enum class State {
     APPROVED,
     PENDING,
-    PENDINGCM,
     DENIED,
     DELETED
 }

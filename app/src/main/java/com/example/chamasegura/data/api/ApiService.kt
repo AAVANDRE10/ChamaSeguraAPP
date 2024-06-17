@@ -17,6 +17,7 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("auth/signin")
@@ -48,6 +49,9 @@ interface ApiService {
 
     @POST("burns/create")
     fun createBurn(@Body burn: Burn): Call<Burn>
+
+    @GET("burns/state/{state}")
+    fun getBurnsByState(@Path("state") state: String): Call<List<Burn>>
 
     @DELETE("burns/delete/{number}")
     fun deleteBurn(@Path("number") number: Int): Call<Void>
