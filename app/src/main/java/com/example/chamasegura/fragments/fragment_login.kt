@@ -36,7 +36,7 @@ class fragment_login : Fragment() {
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 userViewModel.signIn(username, password)
             } else {
-                Toast.makeText(requireContext(), "Please enter username and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -46,7 +46,7 @@ class fragment_login : Fragment() {
                 findNavController().navigate(R.id.action_fragment_login_to_fragment_home)
             } else {
                 // Login failed
-                Toast.makeText(requireContext(), "Invalid username or password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Invalid email or password", Toast.LENGTH_SHORT).show()
             }
         })
 

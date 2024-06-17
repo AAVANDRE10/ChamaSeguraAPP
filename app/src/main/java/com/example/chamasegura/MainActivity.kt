@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Hide the status bar
         if (Build.VERSION.SDK_INT < 16) {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
