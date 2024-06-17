@@ -10,7 +10,10 @@ data class Burn(
     val createdAt: String,
     val updatedAt: String,
     val userId: Int,
-    val type: BurnType
+    val type: BurnType,
+    val distrito: String,
+    val concelho: String,
+    val freguesia: String
 )
 
 enum class BurnType {

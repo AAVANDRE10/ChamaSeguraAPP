@@ -31,17 +31,19 @@ import java.util.Locale
 class fragment_new_burn : Fragment() {
 
     private lateinit var burnViewModel: BurnViewModel
-    private lateinit var selectedLocationText: TextView
     private var latitude: Float = 0f
     private var longitude: Float = 0f
     private val MAP_REQUEST_CODE = 1001
     private var formattedDate: String? = null
+    private lateinit var locationInfoText: TextView
+    private var distrito: String = ""
+    private var concelho: String = ""
+    private var freguesia: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_new_burn, container, false)
     }
 
@@ -72,7 +74,7 @@ class fragment_new_burn : Fragment() {
 
         val editTextReason = view.findViewById<EditText>(R.id.editTextReason)
         val editTextOtherData = view.findViewById<EditText>(R.id.editTextOtherData)
-        selectedLocationText = view.findViewById(R.id.selectedLocation)
+        locationInfoText = view.findViewById(R.id.locationInfoText)
 
         val buttonOpenMap = view.findViewById<Button>(R.id.buttonOpenMap)
         buttonOpenMap.setOnClickListener {
@@ -86,7 +88,6 @@ class fragment_new_burn : Fragment() {
             }
         }
 
-        // Observar o resultado da criação do Burn
         burnViewModel.createBurnResult.observe(viewLifecycleOwner) { result ->
             val (success, message) = result
             if (success) {
@@ -94,6 +95,17 @@ class fragment_new_burn : Fragment() {
                 findNavController().navigateUp()
             } else {
                 Toast.makeText(requireContext(), "Erro ao criar burn: $message", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        burnViewModel.locationInfo.observe(viewLifecycleOwner) { location ->
+            location?.let {
+                distrito = it.distrito
+                concelho = it.concelho
+                freguesia = it.freguesia
+                val info = "Distrito: $distrito\nConcelho: $concelho\nFreguesia: $freguesia\n"
+                locationInfoText.text = info
+                locationInfoText.visibility = View.VISIBLE
             }
         }
     }
@@ -180,7 +192,10 @@ class fragment_new_burn : Fragment() {
                 createdAt = "",
                 updatedAt = "",
                 userId = userId,
-                type = type
+                type = type,
+                distrito = distrito,
+                concelho = concelho,
+                freguesia = freguesia
             )
             burnViewModel.createBurn(burn)
         } else {
@@ -198,8 +213,7 @@ class fragment_new_burn : Fragment() {
         if (requestCode == MAP_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             latitude = data.getFloatExtra("latitude", 0f)
             longitude = data.getFloatExtra("longitude", 0f)
-            selectedLocationText.text = "Lat: $latitude, Lng: $longitude"
-            selectedLocationText.visibility = View.VISIBLE
+            burnViewModel.fetchLocationInfo(latitude.toDouble(), longitude.toDouble())
         }
     }
 }

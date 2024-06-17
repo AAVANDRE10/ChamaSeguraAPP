@@ -1,3 +1,4 @@
+// RetrofitInstance.kt
 package com.example.chamasegura.data.api
 
 import android.content.Context
@@ -27,5 +28,16 @@ object RetrofitInstance {
 
     fun create(context: Context): ApiService {
         return getRetrofitInstance(context).create(ApiService::class.java)
+    }
+
+    private val geoApiRetrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://json.geoapi.pt/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    val geoApiService: GeoApiService by lazy {
+        geoApiRetrofit.create(GeoApiService::class.java)
     }
 }
