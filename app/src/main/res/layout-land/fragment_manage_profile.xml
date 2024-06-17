@@ -178,8 +178,6 @@
         android:gravity="center"
         android:padding="16dp">
 
-        <!-- Add any additional content here for the right side -->
-
         <Button
             android:id="@+id/buttonChangePassword"
             android:layout_width="match_parent"

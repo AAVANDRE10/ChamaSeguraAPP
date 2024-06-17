@@ -97,6 +97,13 @@
         <action
             android:id="@+id/action_fragment_manage_users_to_fragment_register_manage_users"
             app:destination="@id/fragment_register_manage_users" />
+        <action
+            android:id="@+id/action_fragment_manage_users_to_fragment_manage_user"
+            app:destination="@id/fragment_manage_user">
+            <argument
+                android:name="userId"
+                app:argType="integer" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/fragment_pending_burn_requests"
@@ -116,7 +123,11 @@
         android:id="@+id/fragment_manage_user"
         android:name="com.example.chamasegura.fragments.fragment_manage_user"
         android:label="fragment_manage_user"
-        tools:layout="@layout/fragment_manage_user" />
+        tools:layout="@layout/fragment_manage_user">
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_contact_us"
         android:name="com.example.chamasegura.fragments.fragment_contact_us"

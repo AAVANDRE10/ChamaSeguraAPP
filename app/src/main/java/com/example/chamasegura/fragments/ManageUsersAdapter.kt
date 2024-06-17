@@ -8,14 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.User
 
-class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class ManageUsersAdapter(private val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<ManageUsersAdapter.UserViewHolder>() {
 
     private var users: List<User> = emptyList()
 
-    class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.name)
         val email: TextView = itemView.findViewById(R.id.email)
         val nif: TextView = itemView.findViewById(R.id.nif)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClick(users[position].id)
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

@@ -22,7 +22,7 @@ import com.example.chamasegura.data.vm.UserViewModel
 class fragment_manage_users : Fragment() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: UserAdapter
+    private lateinit var adapter: ManageUsersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,10 @@ class fragment_manage_users : Fragment() {
 
         recyclerView = view.findViewById(R.id.recycler_view_manage_users)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = UserAdapter()
+        adapter = ManageUsersAdapter { userId ->
+            val action = fragment_manage_usersDirections.actionFragmentManageUsersToFragmentManageUser(userId)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
