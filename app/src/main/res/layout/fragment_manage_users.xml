@@ -68,6 +68,15 @@
             android:padding="8dp"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register New User"
+        android:backgroundTint="@color/light_orange"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_manage_users"
         android:layout_width="match_parent"

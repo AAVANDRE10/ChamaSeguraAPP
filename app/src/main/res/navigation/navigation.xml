@@ -89,7 +89,11 @@
         android:id="@+id/fragment_manage_users"
         android:name="com.example.chamasegura.fragments.fragment_manage_users"
         android:label="fragment_manage_users"
-        tools:layout="@layout/fragment_manage_users" />
+        tools:layout="@layout/fragment_manage_users" >
+        <action
+            android:id="@+id/action_fragment_manage_users_to_fragment_register_manage_users"
+            app:destination="@id/fragment_register_manage_users" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_pending_burn_requests"
         android:name="com.example.chamasegura.fragments.fragment_pending_burn_requests"
@@ -115,4 +119,9 @@
         android:name="com.example.chamasegura.fragments.fragment_county_history"
         android:label="fragment_county_history"
         tools:layout="@layout/fragment_county_history" />
+    <fragment
+        android:id="@+id/fragment_register_manage_users"
+        android:name="com.example.chamasegura.fragments.fragment_register_manage_users"
+        android:label="fragment_register_manage_users"
+        tools:layout="@layout/fragment_register_manage_users" />
 </navigation>
