@@ -56,6 +56,9 @@ interface ApiService {
     @GET("burns/state/{state}")
     fun getBurnsByState(@Path("state") state: String): Call<List<Burn>>
 
+    @GET("burns/state/{state}/type/{type}")
+    fun getBurnsByStateAndType(@Path("state") state: String, @Path("type") type: BurnType): Call<List<Burn>>
+
     @DELETE("burns/delete/{number}")
     fun deleteBurn(@Path("number") number: Int): Call<Void>
 

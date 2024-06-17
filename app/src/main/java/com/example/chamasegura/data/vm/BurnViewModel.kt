@@ -124,4 +124,26 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun getPendingBurnsOrderedByDate() {
+        viewModelScope.launch {
+            repository.getBurnsByState("PENDING") {
+                val sortedBurns = if (isSortedDescending) {
+                    it?.sortedByDescending { burn -> burn.date }
+                } else {
+                    it?.sortedBy { burn -> burn.date }
+                }
+                isSortedDescending = !isSortedDescending
+                _pendingBurns.value = sortedBurns
+            }
+        }
+    }
+
+    fun getPendingBurnsByType(type: BurnType) {
+        viewModelScope.launch {
+            repository.getBurnsByStateAndType("PENDING", type) {
+                _pendingBurns.value = it
+            }
+        }
+    }
 }
