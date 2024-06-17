@@ -1,5 +1,9 @@
 package com.example.chamasegura.data.entities
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Burn(
     val id: Int,
     val date: String,
@@ -15,7 +19,7 @@ data class Burn(
     val concelho: String,
     val freguesia: String,
     val state: BurnState
-)
+) : Parcelable
 
 enum class BurnType {
     REGCLEAN,

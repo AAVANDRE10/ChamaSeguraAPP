@@ -2,8 +2,10 @@ package com.example.chamasegura.data.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -25,11 +27,9 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun signUp(user: User) {
+    fun signUp(user: User, onResult: (LoginResponse?) -> Unit) {
         viewModelScope.launch {
-            repository.signUp(user) {
-                this@UserViewModel.user.postValue(it)
-            }
+            repository.signUp(user, onResult)
         }
     }
 
@@ -39,6 +39,16 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 user.postValue(it)
             }
         }
+    }
+
+    fun getUserById(userId: Int): LiveData<User?> {
+        val userLiveData = MutableLiveData<User?>()
+        viewModelScope.launch {
+            repository.getUser(userId) { user ->
+                userLiveData.postValue(user)
+            }
+        }
+        return userLiveData
     }
 
     fun getAllUsers() {

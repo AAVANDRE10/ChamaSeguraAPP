@@ -89,7 +89,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.fragment_contact_us,
                 R.id.fragment_county_history,
                 R.id.fragment_manage_users,
-                R.id.fragment_manage_user
+                R.id.fragment_manage_user,
+                R.id.fragment_pending_burn_requests
             ), drawerLayout
         )
 
@@ -103,7 +104,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.fragment_contact_us,
                 R.id.fragment_county_history,
                 R.id.fragment_manage_users,
-                R.id.fragment_manage_user -> {
+                R.id.fragment_manage_user,
+                R.id.fragment_pending_burn_requests -> {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 else -> {
