@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.chamasegura.R
+import com.example.chamasegura.data.vm.UserViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class fragment_burn_info : Fragment() {
     private val args: fragment_burn_infoArgs by navArgs()
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +35,12 @@ class fragment_burn_info : Fragment() {
             findNavController().navigateUp()
         }
 
-        view.findViewById<TextView>(R.id.from).text = "From: ${burn.userId}"
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+        userViewModel.getUserById(burn.userId).observe(viewLifecycleOwner) { user ->
+            view.findViewById<TextView>(R.id.from).text = "From: ${user?.name ?: "Unknown"}"
+        }
+
         view.findViewById<TextView>(R.id.status).text = "Status: ${burn.state}"
         view.findViewById<TextView>(R.id.type).text = "Type: ${burn.type}"
         view.findViewById<TextView>(R.id.reason).text = "Reason: ${burn.reason}"

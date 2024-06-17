@@ -2,6 +2,7 @@ package com.example.chamasegura.data.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.chamasegura.data.entities.User
@@ -39,6 +40,16 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 user.postValue(it)
             }
         }
+    }
+
+    fun getUserById(userId: Int): LiveData<User?> {
+        val userLiveData = MutableLiveData<User?>()
+        viewModelScope.launch {
+            repository.getUser(userId) { user ->
+                userLiveData.postValue(user)
+            }
+        }
+        return userLiveData
     }
 
     fun getAllUsers() {

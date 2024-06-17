@@ -58,6 +58,10 @@ class UserRepository(private val context: Context) {
         })
     }
 
+    fun getUserById(userId: Int): Call<User> {
+        return api.getUser(userId)
+    }
+
     fun updateUser(id: Int, user: User, onResult: (Boolean, String?) -> Unit) {
         api.updateUser(id, user).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {

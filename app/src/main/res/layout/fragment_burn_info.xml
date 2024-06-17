@@ -36,7 +36,7 @@
         android:id="@+id/from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="From: Nuno Lopes"
+        android:text="From: "
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp" />
 
@@ -44,7 +44,7 @@
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status: Pending"
+        android:text="Status: "
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp" />
 
@@ -52,7 +52,7 @@
         android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type: Terrain cleaning burn"
+        android:text="Type: "
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp" />
 
@@ -60,7 +60,7 @@
         android:id="@+id/reason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reason: Agricultural surplus management"
+        android:text="Reason: "
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp" />
 
@@ -68,7 +68,7 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date: 26/04/2024"
+        android:text="Date: "
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp" />
 
@@ -76,7 +76,7 @@
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location: Braga, Vila de Prado"
+        android:text="Location: "
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp" />
 
