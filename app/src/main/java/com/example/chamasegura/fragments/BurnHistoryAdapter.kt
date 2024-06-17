@@ -10,7 +10,7 @@ import com.example.chamasegura.data.entities.Burn
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class BurnHistoryAdapter : RecyclerView.Adapter<BurnHistoryAdapter.BurnViewHolder>() {
+class BurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView.Adapter<BurnHistoryAdapter.BurnViewHolder>() {
 
     private var burns: List<Burn> = listOf()
 
@@ -21,7 +21,7 @@ class BurnHistoryAdapter : RecyclerView.Adapter<BurnHistoryAdapter.BurnViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BurnViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_burn_history, parent, false)
-        return BurnViewHolder(view)
+        return BurnViewHolder(view, onItemClick)
     }
 
     override fun onBindViewHolder(holder: BurnViewHolder, position: Int) {
@@ -31,7 +31,7 @@ class BurnHistoryAdapter : RecyclerView.Adapter<BurnHistoryAdapter.BurnViewHolde
 
     override fun getItemCount(): Int = burns.size
 
-    class BurnViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class BurnViewHolder(itemView: View, private val onItemClick: (Burn) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val name: TextView = itemView.findViewById(R.id.name)
         private val location: TextView = itemView.findViewById(R.id.location)
         private val type: TextView = itemView.findViewById(R.id.type)
@@ -42,7 +42,9 @@ class BurnHistoryAdapter : RecyclerView.Adapter<BurnHistoryAdapter.BurnViewHolde
             location.text = "${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
             type.text = burn.type.toString()
             date.text = formatDate(burn.date)
+            itemView.setOnClickListener { onItemClick(burn) }
         }
+
         private fun formatDate(dateStr: String): String {
             val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
             val outputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

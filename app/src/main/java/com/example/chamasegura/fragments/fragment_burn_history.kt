@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
@@ -42,7 +43,10 @@ class fragment_burn_history : Fragment() {
 
         recyclerView = view.findViewById(R.id.recycler_view_burn_history)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = BurnHistoryAdapter()
+        adapter = BurnHistoryAdapter { burn ->
+            val action = fragment_burn_historyDirections.actionFragmentBurnHistoryToFragmentBurnInfo(burn)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
 
         burnViewModel = ViewModelProvider(this).get(BurnViewModel::class.java)
