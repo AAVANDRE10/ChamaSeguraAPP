@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/light_gray"
-    tools:context=".fragments.fragment_burn_history_cm">
+    tools:context=".fragments.fragment_burn_history">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Burn History CM"
+            android:text="Burn History ICNF"
             android:textSize="24sp"
             android:textColor="@color/light_orange"
             android:layout_centerInParent="true"/>

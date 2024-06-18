@@ -14,12 +14,8 @@
             android:id="@+id/nav_my_burn_history"
             android:title="My Burn History"/>
         <item
-            android:id="@+id/nav_burn_history_icnf"
-            android:title="Burn History - ICNF"/>
-
-        <item
-            android:id="@+id/nav_burn_history_cm"
-            android:title="Burn History - CM"/>
+            android:id="@+id/nav_burn_history"
+            android:title="Burn History"/>
         <item
             android:id="@+id/nav_manage_users"
             android:title="Manage Users"/>

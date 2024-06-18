@@ -18,10 +18,10 @@ import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.vm.BurnViewModel
 
-class fragment_burn_history_icnf : Fragment() {
+class fragment_burn_history : Fragment() {
     private lateinit var burnViewModel: BurnViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: BurnHistoryAdapterICNF
+    private lateinit var adapter: BurnHistoryAdapter
     private var userId: Int? = null
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class fragment_burn_history_icnf : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_burn_history_icnf, container, false)
+        return inflater.inflate(R.layout.fragment_burn_history, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,8 +41,8 @@ class fragment_burn_history_icnf : Fragment() {
 
         recyclerView = view.findViewById(R.id.recycler_view_burn_history)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = BurnHistoryAdapterICNF { burn ->
-            val action = fragment_burn_history_icnfDirections.actionFragmentBurnHistoryIcnfToFragmentBurnInfo(burn)
+        adapter = BurnHistoryAdapter { burn ->
+            val action = fragment_burn_historyDirections.actionFragmentBurnHistoryToFragmentBurnInfo(burn)
             findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

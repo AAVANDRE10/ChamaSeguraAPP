@@ -20,7 +20,7 @@ class MyBurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BurnViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_burn_history_icnf, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_burn_history, parent, false)
         return BurnViewHolder(view, onItemClick)
     }
 
