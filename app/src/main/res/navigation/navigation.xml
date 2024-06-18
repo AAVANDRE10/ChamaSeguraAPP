@@ -150,7 +150,11 @@
         android:id="@+id/fragment_county_history"
         android:name="com.example.chamasegura.fragments.fragment_county_history"
         android:label="fragment_county_history"
-        tools:layout="@layout/fragment_county_history" />
+        tools:layout="@layout/fragment_county_history" >
+        <action
+            android:id="@+id/action_fragment_burn_history_to_fragment_burn_info"
+            app:destination="@id/fragment_burn_info" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_register_manage_users"
         android:name="com.example.chamasegura.fragments.fragment_register_manage_users"

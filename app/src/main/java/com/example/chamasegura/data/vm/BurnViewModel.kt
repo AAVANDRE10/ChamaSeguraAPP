@@ -165,6 +165,32 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getBurnsByConcelho(concelho: String) {
+        viewModelScope.launch {
+            repository.getBurnsByConcelho(concelho) {
+                burns.postValue(it)
+            }
+        }
+    }
+
+    fun getBurnsByConcelhoOrdered(concelho: String, burnType: BurnType?) {
+        viewModelScope.launch {
+            repository.getBurnsByConcelho(concelho) { burns ->
+                val filteredBurns = burnType?.let { type ->
+                    burns?.filter { it.type == type }
+                } ?: burns
+
+                val sortedBurns = if (isSortedDescending) {
+                    filteredBurns?.sortedByDescending { it.date }
+                } else {
+                    filteredBurns?.sortedBy { it.date }
+                }
+                isSortedDescending = !isSortedDescending
+                this@BurnViewModel.burns.postValue(sortedBurns)
+            }
+        }
+    }
+
     fun updateBurnState(burnId: Int, newState: String) = liveData(Dispatchers.IO) {
         try {
             val success = repository.updateBurnState(burnId, newState)

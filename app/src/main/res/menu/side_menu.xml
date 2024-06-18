@@ -17,6 +17,9 @@
             android:id="@+id/nav_burn_history"
             android:title="Burn History"/>
         <item
+            android:id="@+id/nav_county_history"
+            android:title="County History"/>
+        <item
             android:id="@+id/nav_manage_users"
             android:title="Manage Users"/>
         <item
