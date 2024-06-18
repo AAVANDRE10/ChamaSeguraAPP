@@ -2,6 +2,7 @@ package com.example.chamasegura.data.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,5 +37,15 @@ class MunicipalityViewModel(application: Application) : AndroidViewModel(applica
                 // Handle the result as needed
             }
         }
+    }
+
+    fun getMunicipalityByResponsibleUser(userId: Int): LiveData<Municipality> {
+        val result = MutableLiveData<Municipality>()
+        viewModelScope.launch {
+            repository.getMunicipalityByUserId(userId) {
+                result.postValue(it)
+            }
+        }
+        return result
     }
 }

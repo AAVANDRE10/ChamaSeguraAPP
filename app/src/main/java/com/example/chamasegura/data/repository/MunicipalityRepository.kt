@@ -51,4 +51,16 @@ class MunicipalityRepository(private val context: Context) {
             }
         })
     }
+
+    fun getMunicipalityByUserId(userId: Int, onResult: (Municipality?) -> Unit) {
+        api.getMunicipalityByUserId(userId).enqueue(object : Callback<Municipality> {
+            override fun onResponse(call: Call<Municipality>, response: Response<Municipality>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<Municipality>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
 }

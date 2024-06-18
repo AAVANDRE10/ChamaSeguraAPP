@@ -2,6 +2,8 @@ package com.example.chamasegura.data.repository
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.chamasegura.data.api.RetrofitInstance
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.PasswordChangeRequest
@@ -46,16 +48,18 @@ class UserRepository(private val context: Context) {
         })
     }
 
-    fun getUser(id: Int, onResult: (User?) -> Unit) {
-        api.getUser(id).enqueue(object : Callback<User> {
+    fun getUser(userId: Int): LiveData<User?> {
+        val data = MutableLiveData<User?>()
+        api.getUser(userId).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
-                onResult(response.body())
+                data.value = response.body()
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                onResult(null)
+                data.value = null
             }
         })
+        return data
     }
 
     fun getUserById(userId: Int): Call<User> {

@@ -146,4 +146,20 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun getPendingBurnsByStateAndConcelho(state: String, concelho: String) {
+        viewModelScope.launch {
+            repository.getBurnsByState(state) { burns ->
+                _pendingBurns.value = burns?.filter { it.concelho == concelho }
+            }
+        }
+    }
+
+    fun getPendingBurnsByStateConcelhoAndType(state: String, concelho: String, type: BurnType) {
+        viewModelScope.launch {
+            repository.getBurnsByStateAndType(state, type) { burns ->
+                _pendingBurns.value = burns?.filter { it.concelho == concelho }
+            }
+        }
+    }
 }

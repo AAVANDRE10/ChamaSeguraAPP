@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -17,12 +18,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.BurnType
+import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.vm.BurnViewModel
+import com.example.chamasegura.data.vm.MunicipalityViewModel
+import com.example.chamasegura.data.vm.UserViewModel
+import com.example.chamasegura.utils.AuthManager
+import com.example.chamasegura.utils.JwtUtils
 
 class fragment_pending_burn_requests : Fragment() {
 
     private lateinit var burnViewModel: BurnViewModel
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var municipalityViewModel: MunicipalityViewModel
     private lateinit var burnAdapter: BurnPendingRequestAdapter
+    private var responsibleUserId: Int = 0 // Replace with actual user ID
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,11 +53,31 @@ class fragment_pending_burn_requests : Fragment() {
         recyclerView.adapter = burnAdapter
 
         burnViewModel = ViewModelProvider(this).get(BurnViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        municipalityViewModel = ViewModelProvider(this).get(MunicipalityViewModel::class.java)
+
         burnViewModel.pendingBurns.observe(viewLifecycleOwner, Observer {
             burnAdapter.setBurns(it)
         })
 
-        burnViewModel.getPendingBurns()
+        // Fetch responsible user ID from AuthManager or other source
+        val authManager = AuthManager(requireContext())
+        val token = authManager.getToken()
+        responsibleUserId = token?.let { JwtUtils.getUserIdFromToken(it) } ?: 0
+
+        if (responsibleUserId != 0) {
+            userViewModel.getUser(responsibleUserId).observe(viewLifecycleOwner, Observer { user ->
+                if (user != null && (user.type == UserType.CM || user.type == UserType.ICNF)) {
+                    municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId).observe(viewLifecycleOwner, Observer { municipality ->
+                        if (municipality != null) {
+                            burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", municipality.name)
+                        }
+                    })
+                } else {
+                    Toast.makeText(requireContext(), "Access Denied", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
 
         val sortButton = view.findViewById<TextView>(R.id.sort_button)
         sortButton.setOnClickListener {
@@ -69,14 +98,20 @@ class fragment_pending_burn_requests : Fragment() {
                     else -> null
                 }
                 if (selectedType != null) {
-                    burnViewModel.getPendingBurnsByType(selectedType)
-                } else {
-                    burnViewModel.getPendingBurns()
+                    municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId).observe(viewLifecycleOwner, Observer { municipality ->
+                        if (municipality != null) {
+                            burnViewModel.getPendingBurnsByStateConcelhoAndType("PENDING", municipality.name, selectedType)
+                        }
+                    })
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                burnViewModel.getPendingBurns()
+                municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId).observe(viewLifecycleOwner, Observer { municipality ->
+                    if (municipality != null) {
+                        burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", municipality.name)
+                    }
+                })
             }
         }
     }

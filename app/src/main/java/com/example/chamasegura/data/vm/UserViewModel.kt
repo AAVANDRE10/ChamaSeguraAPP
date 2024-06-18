@@ -33,22 +33,12 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getUser(id: Int) {
-        viewModelScope.launch {
-            repository.getUser(id) {
-                user.postValue(it)
-            }
-        }
+    fun getUser(userId: Int): LiveData<User?> {
+        return repository.getUser(userId)
     }
 
     fun getUserById(userId: Int): LiveData<User?> {
-        val userLiveData = MutableLiveData<User?>()
-        viewModelScope.launch {
-            repository.getUser(userId) { user ->
-                userLiveData.postValue(user)
-            }
-        }
-        return userLiveData
+        return repository.getUser(userId)
     }
 
     fun getAllUsers() {

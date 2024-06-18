@@ -99,4 +99,28 @@ class BurnRepository(private val context: Context) {
             }
         })
     }
+
+    fun getBurnsByStateAndConcelho(state: String, concelho: String, onResult: (List<Burn>?) -> Unit) {
+        api.getBurnsByStateAndConcelho(state, concelho).enqueue(object : Callback<List<Burn>> {
+            override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Burn>>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
+
+    fun getBurnsByStateConcelhoAndType(state: String, concelho: String, type: BurnType, onResult: (List<Burn>?) -> Unit) {
+        api.getBurnsByStateConcelhoAndType(state, concelho, type).enqueue(object : Callback<List<Burn>> {
+            override fun onResponse(call: Call<List<Burn>>, response: Response<List<Burn>>) {
+                onResult(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Burn>>, t: Throwable) {
+                onResult(null)
+            }
+        })
+    }
 }

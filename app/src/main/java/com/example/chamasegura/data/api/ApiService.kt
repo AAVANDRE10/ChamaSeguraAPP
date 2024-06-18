@@ -59,11 +59,20 @@ interface ApiService {
     @GET("burns/state/{state}/type/{type}")
     fun getBurnsByStateAndType(@Path("state") state: String, @Path("type") type: BurnType): Call<List<Burn>>
 
+    @GET("burns/state/{state}/concelho/{concelho}")
+    fun getBurnsByStateAndConcelho(@Path("state") state: String, @Path("concelho") concelho: String): Call<List<Burn>>
+
+    @GET("burns/state/{state}/concelho/{concelho}/type/{type}")
+    fun getBurnsByStateConcelhoAndType(@Path("state") state: String, @Path("concelho") concelho: String, @Path("type") type: BurnType): Call<List<Burn>>
+
     @DELETE("burns/delete/{number}")
     fun deleteBurn(@Path("number") number: Int): Call<Void>
 
     @GET("municipality")
     fun getMunicipalities(): Call<List<Municipality>>
+
+    @GET("municipality/responsible/{userId}")
+    fun getMunicipalityByUserId(@Path("userId") userId: Int): Call<Municipality>
 
     @GET("municipality/{number}")
     fun getMunicipalityById(@Path("number") number: Int): Call<Municipality>
