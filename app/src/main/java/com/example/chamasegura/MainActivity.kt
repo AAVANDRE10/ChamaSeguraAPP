@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.fragment_home,
                 R.id.fragment_manage_profile,
                 R.id.fragment_my_burn_history,
-                R.id.fragment_burn_history,
+                R.id.fragment_burn_history_icnf,
                 R.id.fragment_contact_us,
                 R.id.fragment_county_history,
                 R.id.fragment_manage_users,
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.fragment_home,
                 R.id.fragment_manage_profile,
                 R.id.fragment_my_burn_history,
-                R.id.fragment_burn_history,
+                R.id.fragment_burn_history_icnf,
                 R.id.fragment_contact_us,
                 R.id.fragment_county_history,
                 R.id.fragment_manage_users,
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_manage_profile -> navController.navigate(R.id.fragment_manage_profile)
             R.id.nav_home -> navController.navigate(R.id.fragment_home)
             R.id.nav_my_burn_history -> navController.navigate(R.id.fragment_my_burn_history)
-            R.id.nav_burn_history -> navController.navigate(R.id.fragment_burn_history)
+            R.id.nav_burn_history_icnf -> navController.navigate(R.id.fragment_burn_history_icnf)
             R.id.nav_manage_users -> navController.navigate(R.id.fragment_manage_users)
             R.id.nav_pending_burn_requests -> navController.navigate(R.id.fragment_pending_burn_requests)
             R.id.nav_contact_us -> navController.navigate(R.id.fragment_contact_us)

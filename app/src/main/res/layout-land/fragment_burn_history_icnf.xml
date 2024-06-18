@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/light_gray"
-    tools:context=".fragments.fragment_burn_history">
+    tools:context=".fragments.fragment_burn_history_icnf">
 
     <RelativeLayout
         android:layout_width="match_parent"

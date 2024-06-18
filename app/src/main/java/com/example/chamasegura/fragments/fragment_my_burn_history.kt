@@ -44,7 +44,7 @@ class fragment_my_burn_history : Fragment() {
         recyclerView = view.findViewById(R.id.recycler_view_burn_history)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = MyBurnHistoryAdapter { burn ->
-            val action = fragment_my_burn_historyDirections.actionFragmentBurnHistoryToFragmentBurnInfo(burn)
+            val action = fragment_my_burn_historyDirections.actionFragmentBurnHistoryIcnfToFragmentBurnInfo(burn)
             findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
