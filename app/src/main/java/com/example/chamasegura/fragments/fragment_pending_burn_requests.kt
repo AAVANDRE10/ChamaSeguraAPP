@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
@@ -48,7 +49,10 @@ class fragment_pending_burn_requests : Fragment() {
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.title = ""
 
-        burnAdapter = BurnPendingRequestAdapter()
+        burnAdapter = BurnPendingRequestAdapter { burn ->
+            val action = fragment_pending_burn_requestsDirections.actionFragmentPendingBurnRequestsToFragmentBurnInfoPending(burn)
+            findNavController().navigate(action)
+        }
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_pending_burn_requests)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = burnAdapter

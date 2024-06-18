@@ -109,7 +109,11 @@
         android:id="@+id/fragment_pending_burn_requests"
         android:name="com.example.chamasegura.fragments.fragment_pending_burn_requests"
         android:label="fragment_pending_burn_requests"
-        tools:layout="@layout/fragment_pending_burn_requests" />
+        tools:layout="@layout/fragment_pending_burn_requests">
+        <action
+            android:id="@+id/action_fragmentPendingBurnRequests_to_fragmentBurnInfoPending"
+            app:destination="@id/fragment_burn_info_pending" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_burn_info"
         android:name="com.example.chamasegura.fragments.fragment_burn_info"
@@ -160,5 +164,14 @@
         <action
             android:id="@+id/action_fragment_burn_history_to_fragment_burn_info"
             app:destination="@id/fragment_burn_info" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_burn_info_pending"
+        android:name="com.example.chamasegura.fragments.fragment_burn_info_pending"
+        android:label="fragment_burn_info_pending"
+        tools:layout="@layout/fragment_burn_info_pending">
+        <argument
+            android:name="burn"
+            app:argType="com.example.chamasegura.data.entities.Burn" />
     </fragment>
 </navigation>

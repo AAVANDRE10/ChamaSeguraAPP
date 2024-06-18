@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.chamasegura.data.api.RetrofitInstance
 import com.example.chamasegura.data.entities.Burn
 import com.example.chamasegura.data.entities.BurnType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -98,6 +100,17 @@ class BurnRepository(private val context: Context) {
                 onResult(null)
             }
         })
+    }
+
+    suspend fun updateBurnState(burnId: Int, newState: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = api.updateBurnState(burnId, newState).execute()
+                response.isSuccessful
+            } catch (e: Exception) {
+                false
+            }
+        }
     }
 
     fun getBurnsByStateAndConcelho(state: String, concelho: String, onResult: (List<Burn>?) -> Unit) {

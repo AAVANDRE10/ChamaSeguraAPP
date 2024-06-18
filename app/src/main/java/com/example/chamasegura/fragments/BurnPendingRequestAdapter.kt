@@ -10,7 +10,8 @@ import com.example.chamasegura.data.entities.Burn
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class BurnPendingRequestAdapter : RecyclerView.Adapter<BurnPendingRequestAdapter.BurnViewHolder>() {
+class BurnPendingRequestAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView.Adapter<BurnPendingRequestAdapter.BurnViewHolder>() {
+
     private var burns: List<Burn> = listOf()
 
     fun setBurns(burns: List<Burn>) {
@@ -20,7 +21,7 @@ class BurnPendingRequestAdapter : RecyclerView.Adapter<BurnPendingRequestAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BurnViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_pending_burn_requests, parent, false)
-        return BurnViewHolder(view)
+        return BurnViewHolder(view, onItemClick)
     }
 
     override fun onBindViewHolder(holder: BurnViewHolder, position: Int) {
@@ -30,7 +31,7 @@ class BurnPendingRequestAdapter : RecyclerView.Adapter<BurnPendingRequestAdapter
 
     override fun getItemCount(): Int = burns.size
 
-    class BurnViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class BurnViewHolder(itemView: View, private val onItemClick: (Burn) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val reason: TextView = itemView.findViewById(R.id.reason)
         private val location: TextView = itemView.findViewById(R.id.location)
         private val type: TextView = itemView.findViewById(R.id.type)
@@ -41,7 +42,12 @@ class BurnPendingRequestAdapter : RecyclerView.Adapter<BurnPendingRequestAdapter
             location.text = "${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
             type.text = burn.type.toString()
             date.text = formatDate(burn.date)
+
+            itemView.setOnClickListener {
+                onItemClick(burn)
+            }
         }
+
         private fun formatDate(dateStr: String): String {
             val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
             val outputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

@@ -4,13 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.chamasegura.data.api.RetrofitInstance
 import com.example.chamasegura.data.entities.Burn
 import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.entities.LocationResponse
 import com.example.chamasegura.data.repository.BurnRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -161,6 +162,15 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
             repository.getBurnsByStateAndType(state, type) { burns ->
                 _pendingBurns.value = burns?.filter { it.concelho == concelho }
             }
+        }
+    }
+
+    fun updateBurnState(burnId: Int, newState: String) = liveData(Dispatchers.IO) {
+        try {
+            val success = repository.updateBurnState(burnId, newState)
+            emit(success)
+        } catch (e: Exception) {
+            emit(false)
         }
     }
 }
