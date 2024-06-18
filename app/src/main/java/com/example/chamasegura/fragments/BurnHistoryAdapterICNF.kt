@@ -10,7 +10,7 @@ import com.example.chamasegura.data.entities.Burn
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class BurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView.Adapter<BurnHistoryAdapter.BurnViewHolder>() {
+class BurnHistoryAdapterICNF(private val onItemClick: (Burn) -> Unit) : RecyclerView.Adapter<BurnHistoryAdapterICNF.BurnViewHolder>() {
 
     private var burns: List<Burn> = listOf()
 
@@ -20,7 +20,7 @@ class BurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BurnViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_burn_history, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_burn_history_icnf, parent, false)
         return BurnViewHolder(view, onItemClick)
     }
 

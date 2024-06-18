@@ -161,4 +161,13 @@
             android:id="@+id/action_fragment_burn_history_icnf_to_fragment_burn_info"
             app:destination="@id/fragment_burn_info" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_burn_history_cm"
+        android:name="com.example.chamasegura.fragments.fragment_burn_history_cm"
+        android:label="fragment_burn_history_cm"
+        tools:layout="@layout/fragment_burn_history_cm" >
+        <action
+            android:id="@+id/action_fragment_burn_history_cm_to_fragment_burn_info"
+            app:destination="@id/fragment_burn_info" />
+    </fragment>
 </navigation>
