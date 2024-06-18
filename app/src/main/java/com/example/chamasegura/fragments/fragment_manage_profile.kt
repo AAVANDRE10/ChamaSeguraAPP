@@ -87,8 +87,7 @@ class fragment_manage_profile : Fragment() {
         val userId = token?.let { JwtUtils.getUserIdFromToken(it) }
 
         if (userId != null) {
-            userViewModel.getUser(userId)
-            userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+            userViewModel.getUser(userId).observe(viewLifecycleOwner, Observer { user ->
                 if (user != null) {
                     // Atualize a interface do usuário com os dados do usuário
                     editTextFullName.setText(user.name)

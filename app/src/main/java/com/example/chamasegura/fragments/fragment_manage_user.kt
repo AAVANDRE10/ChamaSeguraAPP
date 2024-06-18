@@ -79,8 +79,7 @@ class fragment_manage_user : Fragment() {
         }
 
         val userId = args.userId
-        userViewModel.getUser(userId)
-        userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+        userViewModel.getUser(userId).observe(viewLifecycleOwner, Observer { user ->
             if (user != null) {
                 // Atualize a interface do usuário com os dados do usuário
                 editTextFullName.setText(user.name)
