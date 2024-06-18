@@ -31,7 +31,8 @@ class fragment_pending_burn_requests : Fragment() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var municipalityViewModel: MunicipalityViewModel
     private lateinit var burnAdapter: BurnPendingRequestAdapter
-    private var responsibleUserId: Int = 0 // Replace with actual user ID
+    private var responsibleUserId: Int = 0
+    private var concelho: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +71,8 @@ class fragment_pending_burn_requests : Fragment() {
                 if (user != null && (user.type == UserType.CM || user.type == UserType.ICNF)) {
                     municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId).observe(viewLifecycleOwner, Observer { municipality ->
                         if (municipality != null) {
-                            burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", municipality.name)
+                            concelho = municipality.name
+                            burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", concelho!!)
                         }
                     })
                 } else {
@@ -81,7 +83,9 @@ class fragment_pending_burn_requests : Fragment() {
 
         val sortButton = view.findViewById<TextView>(R.id.sort_button)
         sortButton.setOnClickListener {
-            burnViewModel.getPendingBurnsOrderedByDate()
+            if (concelho != null) {
+                burnViewModel.getPendingBurnsOrderedByDate(concelho!!)
+            }
         }
 
         val spinnerType = view.findViewById<Spinner>(R.id.spinnerType)
@@ -92,26 +96,23 @@ class fragment_pending_burn_requests : Fragment() {
 
         spinnerType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedType = when (position) {
-                    1 -> BurnType.REGCLEAN
-                    2 -> BurnType.PARTICULAR
-                    else -> null
-                }
-                if (selectedType != null) {
-                    municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId).observe(viewLifecycleOwner, Observer { municipality ->
-                        if (municipality != null) {
-                            burnViewModel.getPendingBurnsByStateConcelhoAndType("PENDING", municipality.name, selectedType)
-                        }
-                    })
+                when (position) {
+                    0 -> if (concelho != null) {
+                        burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", concelho!!)
+                    }
+                    1 -> if (concelho != null) {
+                        burnViewModel.getPendingBurnsByStateConcelhoAndType("PENDING", concelho!!, BurnType.REGCLEAN)
+                    }
+                    2 -> if (concelho != null) {
+                        burnViewModel.getPendingBurnsByStateConcelhoAndType("PENDING", concelho!!, BurnType.PARTICULAR)
+                    }
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId).observe(viewLifecycleOwner, Observer { municipality ->
-                    if (municipality != null) {
-                        burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", municipality.name)
-                    }
-                })
+                if (concelho != null) {
+                    burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", concelho!!)
+                }
             }
         }
     }
