@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -56,6 +57,22 @@ class fragment_register_manage_users : Fragment() {
             municipalitySpinner.adapter = adapter
         }
 
+        // Setting up the user type spinner to disable municipality spinner if type is REGULAR
+        userTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedUserType = userTypeSpinner.selectedItem.toString()
+                if (selectedUserType == "REGULAR") {
+                    municipalitySpinner.isEnabled = false
+                } else {
+                    municipalitySpinner.isEnabled = true
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+
         confirmButton.setOnClickListener {
             val fullName = fullNameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
@@ -63,11 +80,11 @@ class fragment_register_manage_users : Fragment() {
             val confirmPassword = confirmPasswordEditText.text.toString().trim()
             val nif = nifEditText.text.toString().toIntOrNull()
             val userType = when (userTypeSpinner.selectedItem.toString()) {
-                "Regular" -> UserType.REGULAR
+                "REGULAR" -> UserType.REGULAR
                 "CM" -> UserType.CM
                 else -> UserType.REGULAR
             }
-            val selectedMunicipality = municipalitySpinner.selectedItem.toString()
+            val selectedMunicipality = if (municipalitySpinner.isEnabled) municipalitySpinner.selectedItem.toString() else ""
 
             if (fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && password == confirmPassword && nif != null) {
                 if (nif == null) {
@@ -77,7 +94,7 @@ class fragment_register_manage_users : Fragment() {
 
                 municipalityViewModel.municipalities.value?.let { municipalities ->
                     val municipality = municipalities.find { it.name == selectedMunicipality }
-                    if (municipality != null) {
+                    if (municipality != null || userType == UserType.REGULAR) {
                         val newUser = User(
                             id = 0,
                             name = fullName,
@@ -95,7 +112,9 @@ class fragment_register_manage_users : Fragment() {
                             if (token != null) {
                                 val userId = JwtUtils.getUserIdFromToken(token)
                                 if (userId != null) {
-                                    municipalityViewModel.updateMunicipalityResponsible(municipality.id, userId)
+                                    if (userType == UserType.CM && municipality != null) {
+                                        municipalityViewModel.updateMunicipalityResponsible(municipality.id, userId)
+                                    }
                                     findNavController().navigate(R.id.fragment_manage_users)
                                 } else {
                                     Toast.makeText(requireContext(), "Failed to get user ID from token", Toast.LENGTH_SHORT).show()

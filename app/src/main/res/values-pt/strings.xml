@@ -27,7 +27,7 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="logout">Sair</string>
     <string-array name="user_types">
-        <item>Regular</item>
+        <item>REGULAR</item>
         <item>CM</item>
     </string-array>
 

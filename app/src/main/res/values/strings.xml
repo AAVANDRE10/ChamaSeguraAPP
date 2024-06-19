@@ -32,7 +32,7 @@
     <string name="screen4" translatable="false">Click on the Request you just created</string>
     <string name="screen5" translatable="false">Your Burn Request details</string>
     <string-array name="user_types">
-        <item>Regular</item>
+        <item>REGULAR</item>
         <item>CM</item>
     </string-array>
 
