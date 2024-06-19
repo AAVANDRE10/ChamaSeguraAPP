@@ -34,6 +34,7 @@ class fragment_pending_burn_requests : Fragment() {
     private lateinit var burnAdapter: BurnPendingRequestAdapter
     private var responsibleUserId: Int = 0
     private var concelho: String? = null
+    private var selectedBurnType: BurnType? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +89,7 @@ class fragment_pending_burn_requests : Fragment() {
         val sortButton = view.findViewById<TextView>(R.id.sort_button)
         sortButton.setOnClickListener {
             if (concelho != null) {
-                burnViewModel.getPendingBurnsOrderedByDate(concelho!!)
+                burnViewModel.getPendingBurnsOrderedByDate(concelho!!, selectedBurnType)
             }
         }
 
@@ -100,20 +101,23 @@ class fragment_pending_burn_requests : Fragment() {
 
         spinnerType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                when (position) {
-                    0 -> if (concelho != null) {
+                selectedBurnType = when (position) {
+                    0 -> null
+                    1 -> BurnType.REGCLEAN
+                    2 -> BurnType.PARTICULAR
+                    else -> null
+                }
+                if (concelho != null) {
+                    if (selectedBurnType == null) {
                         burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", concelho!!)
-                    }
-                    1 -> if (concelho != null) {
-                        burnViewModel.getPendingBurnsByStateConcelhoAndType("PENDING", concelho!!, BurnType.REGCLEAN)
-                    }
-                    2 -> if (concelho != null) {
-                        burnViewModel.getPendingBurnsByStateConcelhoAndType("PENDING", concelho!!, BurnType.PARTICULAR)
+                    } else {
+                        burnViewModel.getPendingBurnsByStateConcelhoAndType("PENDING", concelho!!, selectedBurnType!!)
                     }
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
+                selectedBurnType = null
                 if (concelho != null) {
                     burnViewModel.getPendingBurnsByStateAndConcelho("PENDING", concelho!!)
                 }

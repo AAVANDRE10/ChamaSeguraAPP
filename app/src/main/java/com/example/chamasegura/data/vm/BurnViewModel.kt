@@ -126,14 +126,17 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getPendingBurnsOrderedByDate(concelho: String) {
+    fun getPendingBurnsOrderedByDate(concelho: String, burnType: BurnType?) {
         viewModelScope.launch {
-            repository.getBurnsByState("PENDING") { burns ->
-                val filteredBurns = burns?.filter { it.concelho == concelho }
+            repository.getBurnsByStateAndConcelho("PENDING", concelho) { burns ->
+                val filteredBurns = burnType?.let { type ->
+                    burns?.filter { it.type == type }
+                } ?: burns
+
                 val sortedBurns = if (isSortedDescending) {
-                    filteredBurns?.sortedByDescending { burn -> burn.date }
+                    filteredBurns?.sortedByDescending { it.date }
                 } else {
-                    filteredBurns?.sortedBy { burn -> burn.date }
+                    filteredBurns?.sortedBy { it.date }
                 }
                 isSortedDescending = !isSortedDescending
                 _pendingBurns.value = sortedBurns
