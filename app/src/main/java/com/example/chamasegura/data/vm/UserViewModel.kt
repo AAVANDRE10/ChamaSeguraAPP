@@ -18,6 +18,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val users: MutableLiveData<List<User>?> = MutableLiveData()
     private var isSortedAscending = true
     private var originalUsers: List<User>? = null
+    val numberOfBurnRequests = MutableLiveData<Int>()
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
@@ -35,6 +36,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getUser(userId: Int): LiveData<User?> {
         return repository.getUser(userId)
+    }
+
+    fun getNumberOfBurnRequests(userId: Int) {
+        viewModelScope.launch {
+            val count = repository.getNumberOfBurnRequests(userId)
+            numberOfBurnRequests.postValue(count)
+        }
     }
 
     fun getUserById(userId: Int): LiveData<User?> {

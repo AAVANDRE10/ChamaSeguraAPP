@@ -62,6 +62,10 @@ class UserRepository(private val context: Context) {
         return data
     }
 
+    suspend fun getNumberOfBurnRequests(userId: Int): Int {
+        return api.getNumberOfBurnRequests(userId).count
+    }
+
     fun getUserById(userId: Int): Call<User> {
         return api.getUser(userId)
     }

@@ -1,6 +1,7 @@
 package com.example.chamasegura.data.api
 
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.BurnCountResponse
 import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.Municipality
@@ -46,6 +47,9 @@ interface ApiService {
 
     @GET("burns/user/{id}")
     fun getBurnsByUser(@Path("id") userId: Int): Call<List<Burn>>
+
+    @GET("burns/count/{userId}")
+    suspend fun getNumberOfBurnRequests(@Path("userId") userId: Int): BurnCountResponse
 
     @GET("burns/user/{userId}/type/{type}")
     fun getBurnsByUserAndType(@Path("userId") userId: Int, @Path("type") type: BurnType): Call<List<Burn>>

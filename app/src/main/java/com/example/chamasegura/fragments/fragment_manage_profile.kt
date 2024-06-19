@@ -48,6 +48,7 @@ class fragment_manage_profile : Fragment() {
     private lateinit var buttonChangePhoto: Button
     private lateinit var profileImage: ImageView
     private lateinit var textViewMemberSince: TextView
+    private lateinit var textViewNumberOfBurnRequests: TextView
     private lateinit var buttonChangePassword: Button
 
     private val PICK_IMAGE_REQUEST = 1
@@ -76,6 +77,7 @@ class fragment_manage_profile : Fragment() {
         buttonChangePhoto = view.findViewById(R.id.buttonChangePhoto)
         profileImage = view.findViewById(R.id.imageViewProfile)
         textViewMemberSince = view.findViewById(R.id.memberSince)
+        textViewNumberOfBurnRequests = view.findViewById(R.id.numberOfBurnRequests)
         buttonChangePassword = view.findViewById(R.id.buttonChangePassword)
 
         authManager = AuthManager(requireContext())
@@ -104,6 +106,11 @@ class fragment_manage_profile : Fragment() {
                             .into(profileImage)
                     }
                 }
+            })
+
+            userViewModel.getNumberOfBurnRequests(userId)
+            userViewModel.numberOfBurnRequests.observe(viewLifecycleOwner, Observer { count ->
+                textViewNumberOfBurnRequests.text = count.toString()
             })
 
             buttonConfirm.setOnClickListener {
