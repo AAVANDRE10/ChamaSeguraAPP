@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
@@ -30,7 +31,7 @@ class fragment_county_history : Fragment() {
     private lateinit var burnViewModel: BurnViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var municipalityViewModel: MunicipalityViewModel
-    private lateinit var burnAdapter: BurnPendingRequestAdapter
+    private lateinit var burnAdapter: CountyHistoryAdapter
     private var responsibleUserId: Int = 0
     private var concelho: String? = null
     private var selectedBurnType: BurnType? = null
@@ -49,8 +50,10 @@ class fragment_county_history : Fragment() {
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.title = ""
 
-        burnAdapter = BurnPendingRequestAdapter { burn ->
-            // Handle burn item click if needed
+        burnAdapter = CountyHistoryAdapter { burn ->
+            val action =
+                fragment_county_historyDirections.actionFragmentCountyHistoryToFragmentBurnInfo(burn)
+            findNavController().navigate(action)
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_county_history)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -74,12 +77,13 @@ class fragment_county_history : Fragment() {
         if (responsibleUserId != 0) {
             userViewModel.getUser(responsibleUserId).observe(viewLifecycleOwner, Observer { user ->
                 if (user != null && (user.type == UserType.CM || user.type == UserType.ICNF)) {
-                    municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId).observe(viewLifecycleOwner, Observer { municipality ->
-                        if (municipality != null) {
-                            concelho = municipality.name
-                            burnViewModel.getBurnsByConcelho(concelho!!)
-                        }
-                    })
+                    municipalityViewModel.getMunicipalityByResponsibleUser(responsibleUserId)
+                        .observe(viewLifecycleOwner, Observer { municipality ->
+                            if (municipality != null) {
+                                concelho = municipality.name
+                                burnViewModel.getBurnsByConcelho(concelho!!)
+                            }
+                        })
                 } else {
                     Toast.makeText(requireContext(), "Access Denied", Toast.LENGTH_SHORT).show()
                 }
@@ -100,7 +104,12 @@ class fragment_county_history : Fragment() {
         spinnerType.adapter = adapter
 
         spinnerType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 selectedBurnType = when (position) {
                     0 -> null
                     1 -> BurnType.REGCLEAN
