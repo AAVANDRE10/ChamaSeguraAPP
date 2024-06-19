@@ -63,7 +63,9 @@ class fragment_pending_burn_requests : Fragment() {
         municipalityViewModel = ViewModelProvider(this).get(MunicipalityViewModel::class.java)
 
         burnViewModel.pendingBurns.observe(viewLifecycleOwner, Observer {
-            burnAdapter.setBurns(it)
+            if (it != null) {
+                burnAdapter.setBurns(it)
+            }
         })
 
         // Fetch responsible user ID from AuthManager or other source

@@ -24,8 +24,8 @@ class BurnViewModel (application: Application) : AndroidViewModel(application) {
     val createBurnResult: MutableLiveData<Pair<Boolean, String?>> = MutableLiveData()
     private var isSortedDescending = true
     val locationInfo: MutableLiveData<LocationResponse> = MutableLiveData()
-    private val _pendingBurns = MutableLiveData<List<Burn>>()
-    val pendingBurns: LiveData<List<Burn>> get() = _pendingBurns
+    private val _pendingBurns = MutableLiveData<List<Burn>?>()
+    val pendingBurns: MutableLiveData<List<Burn>?> get() = _pendingBurns
 
     fun getBurns() {
         viewModelScope.launch {
