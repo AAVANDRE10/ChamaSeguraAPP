@@ -124,34 +124,36 @@ class fragment_manage_profile : Fragment() {
                     return@setOnClickListener
                 }
 
-                userViewModel.getUser(userId).value?.let { user ->
-                    val updatedUser = User(
-                        id = userId,
-                        name = editTextFullName.text.toString(),
-                        email = email,
-                        password = "",
-                        photo = null,
-                        type = UserType.REGULAR,
-                        createdAt = "",
-                        updatedAt = "",
-                        nif = nif,
-                        state = user.state
-                    )
+                userViewModel.getUser(userId).observe(viewLifecycleOwner, Observer { user ->
+                    user?.let {
+                        val updatedUser = User(
+                            id = userId,
+                            name = editTextFullName.text.toString(),
+                            email = email,
+                            password = "",
+                            photo = null,
+                            type = it.type,
+                            createdAt = it.createdAt,
+                            updatedAt = it.updatedAt,
+                            nif = nif,
+                            state = it.state
+                        )
 
-                    userViewModel.updateUser(userId, updatedUser) { success, errorMessage ->
-                        val message = when {
-                            errorMessage?.contains("Email already in use by another user") == true -> getString(R.string.error_email_in_use)
-                            errorMessage?.contains("NIF already in use by another user") == true -> getString(R.string.error_nif_in_use)
-                            else -> getString(R.string.error_update_profile)
-                        }
-                        if (success) {
-                            Toast.makeText(requireContext(), getString(R.string.profile_updated_success), Toast.LENGTH_LONG).show()
-                            findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_home)
-                        } else {
-                            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                        userViewModel.updateUser(userId, updatedUser) { success, errorMessage ->
+                            val message = when {
+                                errorMessage?.contains("Email already in use by another user") == true -> getString(R.string.error_email_in_use)
+                                errorMessage?.contains("NIF already in use by another user") == true -> getString(R.string.error_nif_in_use)
+                                else -> getString(R.string.error_update_profile)
+                            }
+                            if (success) {
+                                Toast.makeText(requireContext(), getString(R.string.profile_updated_success), Toast.LENGTH_LONG).show()
+                                findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_home)
+                            } else {
+                                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                            }
                         }
                     }
-                }
+                })
             }
 
             buttonChangePhoto.setOnClickListener {
