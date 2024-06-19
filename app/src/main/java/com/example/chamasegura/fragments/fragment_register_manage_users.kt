@@ -18,6 +18,7 @@ import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
+import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.vm.MunicipalityViewModel
 import com.example.chamasegura.data.vm.UserViewModel
 import com.example.chamasegura.utils.JwtUtils
@@ -86,7 +87,8 @@ class fragment_register_manage_users : Fragment() {
                             nif = nif,
                             type = userType,
                             createdAt = "",
-                            updatedAt = ""
+                            updatedAt = "",
+                            state = StateUser.ENABLED // Default to ENABLED state
                         )
                         userViewModel.signUp(newUser) { response ->
                             val token = response?.token

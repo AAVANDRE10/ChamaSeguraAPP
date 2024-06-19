@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.chamasegura.data.entities.LoginResponse
+import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -36,6 +37,12 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getUser(userId: Int): LiveData<User?> {
         return repository.getUser(userId)
+    }
+
+    fun updateUserState(userId: Int, newState: StateUser, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            repository.updateUserState(userId, newState, onResult)
+        }
     }
 
     fun getNumberOfBurnRequests(userId: Int) {

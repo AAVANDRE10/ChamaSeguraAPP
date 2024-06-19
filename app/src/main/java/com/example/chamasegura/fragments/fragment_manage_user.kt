@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.chamasegura.R
+import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.vm.UserViewModel
@@ -49,6 +50,7 @@ class fragment_manage_user : Fragment() {
     private lateinit var textViewMemberSince: TextView
     private lateinit var textViewNumberOfBurnRequests: TextView
     private lateinit var buttonChangePassword: Button
+    private lateinit var buttonChangeState: Button
 
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageUri: Uri? = null
@@ -74,6 +76,7 @@ class fragment_manage_user : Fragment() {
         textViewMemberSince = view.findViewById(R.id.memberSince)
         textViewNumberOfBurnRequests = view.findViewById(R.id.numberOfBurnRequests)
         buttonChangePassword = view.findViewById(R.id.buttonChangePassword)
+        buttonChangeState = view.findViewById(R.id.buttonDeleteProfile)
 
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
         backButton.setOnClickListener {
@@ -103,6 +106,8 @@ class fragment_manage_user : Fragment() {
                     textViewNumberOfBurnRequests.text = count.toString()
                 })
 
+                updateButtonState(user.state)
+
                 buttonConfirm.setOnClickListener {
                     val email = editTextEmail.text.toString()
                     val nif = editTextNif.text.toString().toIntOrNull()
@@ -122,6 +127,7 @@ class fragment_manage_user : Fragment() {
                         type = UserType.REGULAR,
                         createdAt = "",
                         updatedAt = "",
+                        state = user.state,
                         nif = nif
                     )
 
@@ -146,6 +152,20 @@ class fragment_manage_user : Fragment() {
                     startActivityForResult(intent, PICK_IMAGE_REQUEST)
                 }
 
+                buttonChangeState.setOnClickListener {
+                    val newState = if (user.state == StateUser.ENABLED) StateUser.DISABLED else StateUser.ENABLED
+                    userViewModel.updateUserState(userId, newState) { success, errorMessage ->
+                        if (success) {
+                            user.state = newState
+                            updateButtonState(newState)
+                            val message = if (newState == StateUser.ENABLED) "Profile enabled successfully." else "Profile disabled successfully."
+                            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(requireContext(), "Error updating user state: $errorMessage", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
                 buttonChangePassword.setOnClickListener {
                     findNavController().navigate(R.id.action_fragment_manage_user_to_fragment_change_password)
                 }
@@ -156,6 +176,16 @@ class fragment_manage_user : Fragment() {
         })
 
         checkAndRequestPermissions()
+    }
+
+    private fun updateButtonState(state: StateUser) {
+        if (state == StateUser.ENABLED) {
+            buttonChangeState.text = "Disable Profile"
+            buttonChangeState.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
+        } else {
+            buttonChangeState.text = "Enable Profile"
+            buttonChangeState.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+        }
     }
 
     private fun checkAndRequestPermissions() {

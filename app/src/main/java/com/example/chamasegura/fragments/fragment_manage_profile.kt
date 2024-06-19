@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
+import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.vm.UserViewModel
 import com.example.chamasegura.utils.AuthManager
 import com.example.chamasegura.utils.JwtUtils
@@ -123,29 +124,32 @@ class fragment_manage_profile : Fragment() {
                     return@setOnClickListener
                 }
 
-                val updatedUser = User(
-                    id = userId,
-                    name = editTextFullName.text.toString(),
-                    email = email,
-                    password = "",
-                    photo = null,
-                    type = UserType.REGULAR,
-                    createdAt = "",
-                    updatedAt = "",
-                    nif = nif
-                )
+                userViewModel.getUser(userId).value?.let { user ->
+                    val updatedUser = User(
+                        id = userId,
+                        name = editTextFullName.text.toString(),
+                        email = email,
+                        password = "",
+                        photo = null,
+                        type = UserType.REGULAR,
+                        createdAt = "",
+                        updatedAt = "",
+                        nif = nif,
+                        state = user.state
+                    )
 
-                userViewModel.updateUser(userId, updatedUser) { success, errorMessage ->
-                    val message = when {
-                        errorMessage?.contains("Email already in use by another user") == true -> getString(R.string.error_email_in_use)
-                        errorMessage?.contains("NIF already in use by another user") == true -> getString(R.string.error_nif_in_use)
-                        else -> getString(R.string.error_update_profile)
-                    }
-                    if (success) {
-                        Toast.makeText(requireContext(), getString(R.string.profile_updated_success), Toast.LENGTH_LONG).show()
-                        findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_home)
-                    } else {
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                    userViewModel.updateUser(userId, updatedUser) { success, errorMessage ->
+                        val message = when {
+                            errorMessage?.contains("Email already in use by another user") == true -> getString(R.string.error_email_in_use)
+                            errorMessage?.contains("NIF already in use by another user") == true -> getString(R.string.error_nif_in_use)
+                            else -> getString(R.string.error_update_profile)
+                        }
+                        if (success) {
+                            Toast.makeText(requireContext(), getString(R.string.profile_updated_success), Toast.LENGTH_LONG).show()
+                            findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_home)
+                        } else {
+                            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }

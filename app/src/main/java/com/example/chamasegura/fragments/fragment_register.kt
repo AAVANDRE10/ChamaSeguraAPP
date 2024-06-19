@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
+import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.vm.UserViewModel
 
 class fragment_register : Fragment() {
@@ -50,7 +51,8 @@ class fragment_register : Fragment() {
                     nif = null,
                     type = UserType.REGULAR,
                     createdAt = "",
-                    updatedAt = ""
+                    updatedAt = "",
+                    state = StateUser.ENABLED
                 )
                 userViewModel.signUp(newUser) { loginResponse ->
                     val user = loginResponse?.name

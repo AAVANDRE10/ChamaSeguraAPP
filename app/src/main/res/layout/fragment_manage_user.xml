@@ -167,8 +167,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/design_default_color_error"
-        android:text="Delete Profile"
+        android:text=""
         android:textColor="@android:color/white" />
 
     <Button

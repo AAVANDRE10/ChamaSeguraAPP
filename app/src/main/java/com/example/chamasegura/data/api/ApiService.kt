@@ -39,6 +39,9 @@ interface ApiService {
     @GET("auth/users")
     fun getAllUsers(): Call<List<User>>
 
+    @PUT("auth/updatestate/{id}")
+    fun updateUserState(@Path("id") id: Int, @Body requestBody: Map<String, String>): Call<User>
+
     @GET("burns")
     fun getBurns(): Call<List<Burn>>
 

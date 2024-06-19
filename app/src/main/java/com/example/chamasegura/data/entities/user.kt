@@ -9,7 +9,8 @@ data class User(
     val photo: String?,
     val type: UserType,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
+    var state: StateUser
 )
 
 enum class UserType {
