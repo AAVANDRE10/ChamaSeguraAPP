@@ -102,7 +102,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Full name"
             android:background="@android:color/transparent"
             android:inputType="textPersonName"/>
     </LinearLayout>
@@ -126,7 +125,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Email"
             android:background="@android:color/transparent"
             android:inputType="textEmailAddress"/>
     </LinearLayout>
@@ -150,7 +148,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="NIF"
             android:background="@android:color/transparent"
             android:inputType="number"/>
     </LinearLayout>
