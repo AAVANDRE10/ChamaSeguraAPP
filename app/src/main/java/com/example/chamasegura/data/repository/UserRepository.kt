@@ -2,6 +2,7 @@ package com.example.chamasegura.data.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.chamasegura.data.api.RetrofitInstance
@@ -25,10 +26,18 @@ class UserRepository(private val context: Context) {
         val user = User(id = 0, name = "", email = email, password = password, photo = null, type = UserType.REGULAR, state = StateUser.ENABLED, createdAt = "", updatedAt = "")
         api.signIn(user).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                response.body()?.let {
-                    authManager.saveAuthData(it.name, it.token)
-                    onResult(User(id = 0, name = it.name, email = email, password = password, photo = null, type = UserType.REGULAR, state = StateUser.ENABLED, createdAt = "", updatedAt = ""))
-                } ?: onResult(null)
+                if (response.code() == 403) {
+                    // Account is disabled
+                    onResult(null)
+                    Toast.makeText(context, "Account is disabled", Toast.LENGTH_SHORT).show()
+                } else if (response.isSuccessful) {
+                    response.body()?.let {
+                        authManager.saveAuthData(it.name, it.token)
+                        onResult(User(id = 0, name = it.name, email = email, password = password, photo = null, type = UserType.REGULAR, state = StateUser.ENABLED, createdAt = "", updatedAt = ""))
+                    } ?: onResult(null)
+                } else {
+                    onResult(null)
+                }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
