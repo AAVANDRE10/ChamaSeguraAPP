@@ -30,5 +30,6 @@
         <item>REGULAR</item>
         <item>CM</item>
     </string-array>
+    <string name="delete_profile_confirmation">Tem certeza de que deseja deletar seu perfil?</string>
 
 </resources>

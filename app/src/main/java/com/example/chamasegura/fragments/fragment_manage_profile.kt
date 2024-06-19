@@ -1,6 +1,7 @@
 package com.example.chamasegura.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -51,6 +52,7 @@ class fragment_manage_profile : Fragment() {
     private lateinit var textViewMemberSince: TextView
     private lateinit var textViewNumberOfBurnRequests: TextView
     private lateinit var buttonChangePassword: Button
+    private lateinit var buttonDeleteProfile: Button
 
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageUri: Uri? = null
@@ -80,6 +82,7 @@ class fragment_manage_profile : Fragment() {
         textViewMemberSince = view.findViewById(R.id.memberSince)
         textViewNumberOfBurnRequests = view.findViewById(R.id.numberOfBurnRequests)
         buttonChangePassword = view.findViewById(R.id.buttonChangePassword)
+        buttonDeleteProfile = view.findViewById(R.id.buttonDeleteProfile)
 
         authManager = AuthManager(requireContext())
 
@@ -165,12 +168,35 @@ class fragment_manage_profile : Fragment() {
             buttonChangePassword.setOnClickListener {
                 findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_change_password)
             }
+
+            buttonDeleteProfile.setOnClickListener {
+                showDeleteConfirmationDialog(userId)
+            }
+
         } else {
             // Trate o caso onde o ID do usuário não pôde ser extraído
             Toast.makeText(requireContext(), getString(R.string.error_user_id_extraction), Toast.LENGTH_LONG).show()
             // Redirecionar para o fragmento de login
             findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_login)
         }
+    }
+
+    private fun showDeleteConfirmationDialog(userId: Int) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Delete Profile")
+            .setMessage("Are you sure you want to delete your profile?")
+            .setPositiveButton("Yes") { dialog, which ->
+                userViewModel.updateUserState(userId, StateUser.DISABLED) { success, errorMessage ->
+                    if (success) {
+                        Toast.makeText(requireContext(), "Profile has been deleted.", Toast.LENGTH_LONG).show()
+                        findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_login)
+                    } else {
+                        Toast.makeText(requireContext(), "Error: $errorMessage", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun checkAndRequestPermissions() {
