@@ -36,13 +36,14 @@ class CountyHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerVi
         private val location: TextView = itemView.findViewById(R.id.location)
         private val type: TextView = itemView.findViewById(R.id.type)
         private val date: TextView = itemView.findViewById(R.id.date)
+        private val state: TextView = itemView.findViewById(R.id.state)
 
         fun bind(burn: Burn) {
             reason.text = burn.reason
             location.text = "${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
             type.text = burn.type.toString()
             date.text = formatDate(burn.date)
-
+            state.text = burn.state.toString()
             itemView.setOnClickListener {
                 onItemClick(burn)
             }

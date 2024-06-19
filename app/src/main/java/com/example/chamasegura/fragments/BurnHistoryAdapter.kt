@@ -44,7 +44,9 @@ class BurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView
             type.text = burn.type.toString()
             date.text = formatDate(burn.date)
             state.text = burn.state.toString()
-            itemView.setOnClickListener { onItemClick(burn) }
+            itemView.setOnClickListener {
+                onItemClick(burn)
+            }
         }
 
         private fun formatDate(dateStr: String): String {
