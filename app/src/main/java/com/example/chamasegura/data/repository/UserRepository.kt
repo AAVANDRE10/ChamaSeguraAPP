@@ -12,6 +12,7 @@ import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.utils.AuthManager
+import com.example.chamasegura.utils.JwtUtils
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,18 +24,32 @@ class UserRepository(private val context: Context) {
     private val authManager = AuthManager(context)
 
     fun signIn(email: String, password: String, onResult: (User?) -> Unit) {
-        val user = User(id = 0, name = "", email = email, password = password, photo = null, type = UserType.REGULAR, state = StateUser.ENABLED, createdAt = "", updatedAt = "")
-        api.signIn(user).enqueue(object : Callback<LoginResponse> {
+        val credentials = mapOf("email" to email, "password" to password)
+        api.signIn(credentials).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                if (response.code() == 403) {
-                    // Account is disabled
-                    onResult(null)
-                    Toast.makeText(context, "Account is disabled", Toast.LENGTH_SHORT).show()
-                } else if (response.isSuccessful) {
+                if (response.isSuccessful) {
                     response.body()?.let {
                         authManager.saveAuthData(it.name, it.token)
-                        onResult(User(id = 0, name = it.name, email = email, password = password, photo = null, type = UserType.REGULAR, state = StateUser.ENABLED, createdAt = "", updatedAt = ""))
-                    } ?: onResult(null)
+                        val userId = JwtUtils.getUserIdFromToken(it.token) ?: 0
+                        val userName = it.name
+                        val userType = JwtUtils.getUserTypeFromToken(it.token)
+                        val userState = JwtUtils.getUserStateFromToken(it.token)
+                        Log.d("UserRepository", "User type: $userType, User state: $userState")
+                        onResult(User(
+                            id = userId,
+                            name = userName,
+                            email = email,
+                            password = password,
+                            photo = null,
+                            type = userType,
+                            state = userState,
+                            createdAt = "",
+                            updatedAt = ""
+                        ))
+                    } ?: run {
+                        Log.e("UserRepository", "Login response body is null")
+                        onResult(null)
+                    }
                 } else {
                     onResult(null)
                 }
@@ -135,13 +150,11 @@ class UserRepository(private val context: Context) {
                     onResult(true, null)
                 } else {
                     val errorMessage = response.errorBody()?.string()
-                    Log.e("UpdatePhoto", "Erro na resposta: $errorMessage")
                     onResult(false, errorMessage)
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("UpdatePhoto", "Falha na requisição: ${t.message}")
                 onResult(false, t.message)
             }
         })

@@ -22,7 +22,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @POST("auth/signin")
-    fun signIn(@Body user: User): Call<LoginResponse>
+    fun signIn(@Body credentials: Map<String, String>): Call<LoginResponse>
 
     @POST("auth/signup")
     fun signUp(@Body user: User): Call<LoginResponse>

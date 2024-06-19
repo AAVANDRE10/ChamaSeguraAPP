@@ -1,6 +1,7 @@
 package com.example.chamasegura.data.vm
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
+import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.repository.UserRepository
+import com.example.chamasegura.utils.JwtUtils
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 
@@ -23,8 +26,19 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
-            repository.signIn(email, password) {
-                user.postValue(it)
+            repository.signIn(email, password) { user ->
+                user?.let {
+                    Log.d("UserViewModel", "User state: ${it.state}")
+                    if (it.state == StateUser.ENABLED) {
+                        this@UserViewModel.user.postValue(it)
+                    } else {
+                        this@UserViewModel.user.postValue(null)
+                        Log.e("UserViewModel", "Account is disabled")
+                    }
+                } ?: run {
+                    this@UserViewModel.user.postValue(null)
+                    Log.e("UserViewModel", "Login failed")
+                }
             }
         }
     }
