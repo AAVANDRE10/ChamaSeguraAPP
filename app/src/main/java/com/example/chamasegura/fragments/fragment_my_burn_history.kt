@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,7 @@ class fragment_my_burn_history : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyBurnHistoryAdapter
     private var userId: Int? = null
+    private var selectedBurnType: BurnType? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,21 +70,27 @@ class fragment_my_burn_history : Fragment() {
         val sortButton = view.findViewById<TextView>(R.id.sort_button)
         sortButton.setOnClickListener {
             userId?.let {
-                burnViewModel.getBurnsByUserOrderedByDate(it)
+                burnViewModel.getBurnsByUserOrderedByDate(it, selectedBurnType)
             }
         }
 
         val spinnerType = view.findViewById<Spinner>(R.id.spinnerType)
+        val types = resources.getStringArray(R.array.burn_types)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, types)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerType.adapter = adapter
+
         spinnerType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedType = when (position) {
+                selectedBurnType = when (position) {
+                    0 -> null
                     1 -> BurnType.REGCLEAN
                     2 -> BurnType.PARTICULAR
                     else -> null
                 }
                 userId?.let { userId ->
-                    if (selectedType != null) {
-                        burnViewModel.getBurnsByUserAndType(userId, selectedType)
+                    if (selectedBurnType != null) {
+                        burnViewModel.getBurnsByUserAndType(userId, selectedBurnType!!)
                     } else {
                         burnViewModel.getBurnsByUser(userId)
                     }
@@ -90,6 +98,7 @@ class fragment_my_burn_history : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
+                selectedBurnType = null
                 userId?.let { burnViewModel.getBurnsByUser(it) }
             }
         }
