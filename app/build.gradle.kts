@@ -1,11 +1,11 @@
 import java.util.Properties
 
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
+val keysProperties = Properties()
+val keysPropertiesFile = rootProject.file("keys.properties")
 
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.inputStream().use { stream ->
-        localProperties.load(stream)
+if (keysPropertiesFile.exists()) {
+    keysPropertiesFile.inputStream().use { stream ->
+        keysProperties.load(stream)
     }
 }
 
@@ -30,7 +30,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders["mapToken"] = localProperties.getProperty("MAP_TOKEN")
+        manifestPlaceholders["mapToken"] = keysProperties.getProperty("MAP_TOKEN")
     }
 
     buildTypes {
