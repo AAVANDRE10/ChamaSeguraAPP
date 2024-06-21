@@ -88,6 +88,14 @@
                 android:text="Location: Braga, Vila de Prado"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/otherData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other Data: "
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp" />
         </LinearLayout>
     </ScrollView>
 

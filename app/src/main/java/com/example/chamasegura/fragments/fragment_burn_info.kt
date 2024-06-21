@@ -46,6 +46,7 @@ class fragment_burn_info : Fragment() {
         view.findViewById<TextView>(R.id.reason).text = "Reason: ${burn.reason}"
         view.findViewById<TextView>(R.id.date).text = "Date: ${formatDate(burn.date)}"
         view.findViewById<TextView>(R.id.location).text = "Location: ${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
+        view.findViewById<TextView>(R.id.otherData).text = "Other Data: ${burn.otherData}"
     }
 
     private fun formatDate(dateStr: String): String {

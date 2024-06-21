@@ -147,10 +147,7 @@ class fragment_new_burn : Fragment() {
             Toast.makeText(requireContext(), "Reason is required", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (editTextOtherData.text.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Other Data is required", Toast.LENGTH_SHORT).show()
-            return false
-        }
+
         if (latitude == 0f || longitude == 0f) {
             Toast.makeText(requireContext(), "Location is required", Toast.LENGTH_SHORT).show()
             return false

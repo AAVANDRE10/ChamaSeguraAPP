@@ -1,5 +1,6 @@
 package com.example.chamasegura.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,22 +54,40 @@ class fragment_burn_info_pending : Fragment() {
         view.findViewById<TextView>(R.id.reason).text = "Reason: ${burn.reason}"
         view.findViewById<TextView>(R.id.date).text = "Date: ${formatDate(burn.date)}"
         view.findViewById<TextView>(R.id.location).text = "Location: ${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
+        view.findViewById<TextView>(R.id.otherData).text = "Other Data: ${burn.otherData}"
 
         confirmButton.setOnClickListener {
-            updateBurnState(burn.id, "APPROVED")
+            showConfirmationDialog(burn.id, "APPROVED")
         }
 
         denyButton.setOnClickListener {
-            updateBurnState(burn.id, "DENIED")
+            showConfirmationDialog(burn.id, "DENIED")
         }
+    }
+
+    private fun showConfirmationDialog(burnId: Int, newState: String) {
+        val message = if (newState == "APPROVED") {
+            "Tem certeza de que deseja aprovar esta queima?"
+        } else {
+            "Tem certeza de que deseja negar esta queima?"
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setMessage(message)
+            .setPositiveButton("Sim") { _, _ ->
+                updateBurnState(burnId, newState)
+            }
+            .setNegativeButton("Não", null)
+            .show()
     }
 
     private fun updateBurnState(burnId: Int, newState: String) {
         burnViewModel.updateBurnState(burnId, newState).observe(viewLifecycleOwner) { success ->
             if (success) {
+                Toast.makeText(requireContext(), "Estado da queima atualizado com sucesso", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
             } else {
-                // Handle the error
+                Toast.makeText(requireContext(), "Erro ao atualizar o estado da queima", Toast.LENGTH_SHORT).show()
             }
         }
     }
