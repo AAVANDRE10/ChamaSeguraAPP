@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -33,22 +34,30 @@ class fragment_register : Fragment() {
         val emailEditText: EditText = view.findViewById(R.id.email)
         val passwordEditText: EditText = view.findViewById(R.id.password)
         val confirmPasswordEditText: EditText = view.findViewById(R.id.confirm_password)
+        val nifEditText: EditText = view.findViewById(R.id.nif)
         val confirmButton: Button = view.findViewById(R.id.confirm_button)
+
+        val backButton = view.findViewById<ImageButton>(R.id.backButton)
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         confirmButton.setOnClickListener {
             val fullName = fullNameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
+            val nifString = nifEditText.text.toString().trim()
+            val nif = nifString.toIntOrNull()
             val confirmPassword = confirmPasswordEditText.text.toString().trim()
 
-            if (fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && password == confirmPassword) {
+            if (fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && nif != null && password == confirmPassword) {
                 val newUser = User(
                     id = 0,
                     name = fullName,
                     email = email,
                     password = password,
                     photo = null,
-                    nif = null,
+                    nif = nif,
                     type = UserType.REGULAR,
                     createdAt = "",
                     updatedAt = "",
@@ -57,7 +66,6 @@ class fragment_register : Fragment() {
                 userViewModel.signUp(newUser) { loginResponse ->
                     val user = loginResponse?.name
                     if (user != null) {
-                        //open fragment login
                         findNavController().navigate(R.id.action_fragment_register_to_fragment_first_screen2)
                     } else {
                         // Sign-up failed

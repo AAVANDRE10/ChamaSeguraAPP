@@ -31,13 +31,13 @@ class UserRepository(private val context: Context) {
                     response.body()?.let {
                         authManager.saveAuthData(it.name, it.token)
                         val userId = JwtUtils.getUserIdFromToken(it.token) ?: 0
-                        val userName = it.name
+                        val name = it.name
                         val userType = JwtUtils.getUserTypeFromToken(it.token)
                         val userState = JwtUtils.getUserStateFromToken(it.token)
                         Log.d("UserRepository", "User type: $userType, User state: $userState")
                         onResult(User(
                             id = userId,
-                            name = userName,
+                            name = name,
                             email = email,
                             password = password,
                             photo = null,

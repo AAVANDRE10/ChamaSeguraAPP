@@ -9,6 +9,15 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@null"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:contentDescription="Back" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -34,43 +43,57 @@
             android:textSize="22sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_weight="1">
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
-            android:layout_marginBottom="16dp" />
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_marginBottom="16dp" />
+            <TextView
+                android:id="@+id/register_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textSize="24sp"
+                android:textColor="#A0522D"
+                android:layout_marginBottom="24dp" />
 
-        <Button
-            android:id="@+id/login_confirm_button"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Confirm"
-            android:backgroundTint="@color/light_orange"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="E-mail"
+                android:layout_marginBottom="16dp" />
 
-        <Spinner
-            android:id="@+id/language_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/languages"
-            android:layout_marginTop="16dp"
-            android:spinnerMode="dropdown" />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/login_confirm_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:backgroundTint="@color/light_orange"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp" />
+
+            <Spinner
+                android:id="@+id/language_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/languages"
+                android:layout_marginTop="16dp"
+                android:spinnerMode="dropdown" />
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

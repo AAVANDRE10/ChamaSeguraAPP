@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -28,6 +29,11 @@ class fragment_login : Fragment() {
         val loginButton: Button = view.findViewById(R.id.login_confirm_button)
         val emailEditText: EditText = view.findViewById(R.id.email)
         val passwordEditText: EditText = view.findViewById(R.id.password)
+
+        val backButton = view.findViewById<ImageButton>(R.id.backButton)
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         loginButton.setOnClickListener {
             val username = emailEditText.text.toString().trim()
