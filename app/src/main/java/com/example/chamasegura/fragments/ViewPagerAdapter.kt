@@ -1,17 +1,17 @@
 package com.example.chamasegura.fragments
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.example.chamasegura.R
-import android.content.Context
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
+import com.example.chamasegura.R
 
 class ViewPagerAdapter(var context: Context) : PagerAdapter() {
-    private var sliderAllImages: IntArray = intArrayOf(
+    private val sliderAllImages = intArrayOf(
         R.drawable.onboarding1,
         R.drawable.onboarding2,
         R.drawable.onboarding3,
@@ -19,7 +19,7 @@ class ViewPagerAdapter(var context: Context) : PagerAdapter() {
         R.drawable.onboarding5,
     )
 
-    var sliderAllTitle: IntArray = intArrayOf(
+    private val sliderAllTitle = intArrayOf(
         R.string.screen1,
         R.string.screen2,
         R.string.screen3,
@@ -32,16 +32,15 @@ class ViewPagerAdapter(var context: Context) : PagerAdapter() {
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view === `object` as LinearLayout
+        return view == `object`
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layoutInflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view: View = layoutInflater.inflate(R.layout.fragment_onboarding_home, container, false)
+        val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = layoutInflater.inflate(R.layout.fragment_onboarding_home, container, false)
 
-        val sliderImage = view.findViewById<View>(R.id.sliderImage) as ImageView
-        val sliderTitle = view.findViewById<View>(R.id.sliderTitle) as TextView
+        val sliderImage = view.findViewById<ImageView>(R.id.sliderImage)
+        val sliderTitle = view.findViewById<TextView>(R.id.sliderTitle)
 
         sliderImage.setImageResource(sliderAllImages[position])
         sliderTitle.setText(sliderAllTitle[position])
@@ -51,6 +50,6 @@ class ViewPagerAdapter(var context: Context) : PagerAdapter() {
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as LinearLayout)
+        container.removeView(`object` as View)
     }
 }
