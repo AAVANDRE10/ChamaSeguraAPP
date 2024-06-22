@@ -37,6 +37,7 @@ class fragment_burn_info_pending : Fragment() {
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
         val confirmButton = view.findViewById<Button>(R.id.confirmButton)
         val denyButton = view.findViewById<Button>(R.id.denyButton)
+        val openMapButton = view.findViewById<Button>(R.id.openMapButton)
 
         backButton.setOnClickListener {
             findNavController().navigateUp()
@@ -55,6 +56,11 @@ class fragment_burn_info_pending : Fragment() {
         view.findViewById<TextView>(R.id.date).text = "Date: ${formatDate(burn.date)}"
         view.findViewById<TextView>(R.id.location).text = "Location: ${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
         view.findViewById<TextView>(R.id.otherData).text = "Other Data: ${burn.otherData}"
+
+        openMapButton.setOnClickListener {
+            val action = fragment_burn_info_pendingDirections.actionFragmentBurnInfoPendingToFragmentMapBurnInfo(burn.latitude, burn.longitude)
+            findNavController().navigate(action)
+        }
 
         confirmButton.setOnClickListener {
             showConfirmationDialog(burn.id, "APPROVED")

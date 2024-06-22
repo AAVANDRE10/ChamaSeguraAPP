@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,7 @@ class fragment_burn_info : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val burn = args.burn
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
+        val openMapButton = view.findViewById<Button>(R.id.openMapButton)
 
         backButton.setOnClickListener {
             findNavController().navigateUp()
@@ -47,6 +49,11 @@ class fragment_burn_info : Fragment() {
         view.findViewById<TextView>(R.id.date).text = "Date: ${formatDate(burn.date)}"
         view.findViewById<TextView>(R.id.location).text = "Location: ${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
         view.findViewById<TextView>(R.id.otherData).text = "Other Data: ${burn.otherData}"
+
+        openMapButton.setOnClickListener {
+            val action = fragment_burn_infoDirections.actionFragmentBurnInfoToFragmentMapBurnInfo(burn.latitude, burn.longitude)
+            findNavController().navigate(action)
+        }
     }
 
     private fun formatDate(dateStr: String): String {

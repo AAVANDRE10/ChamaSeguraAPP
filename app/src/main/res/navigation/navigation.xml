@@ -122,6 +122,9 @@
         <argument
             android:name="burn"
             app:argType="com.example.chamasegura.data.entities.Burn" />
+        <action
+            android:id="@+id/action_fragment_burn_info_to_fragment_map_burn_info"
+            app:destination="@id/fragment_map_burn_info" />
     </fragment>
     <fragment
         android:id="@+id/fragment_manage_user"
@@ -177,5 +180,19 @@
         <argument
             android:name="burn"
             app:argType="com.example.chamasegura.data.entities.Burn" />
+        <action
+            android:id="@+id/action_fragment_burn_info_pending_to_fragment_map_burn_info"
+            app:destination="@id/fragment_map_burn_info" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_map_burn_info"
+        android:name="com.example.chamasegura.fragments.fragment_map_burn_info"
+        android:label="fragment_map_burn_info">
+        <argument
+            android:name="latitude"
+            app:argType="float"/>
+        <argument
+            android:name="longitude"
+            app:argType="float"/>
     </fragment>
 </navigation>

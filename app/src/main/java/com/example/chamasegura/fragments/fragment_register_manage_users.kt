@@ -1,22 +1,16 @@
 package com.example.chamasegura.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.chamasegura.R
-import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.entities.StateUser
@@ -27,6 +21,8 @@ import com.example.chamasegura.utils.JwtUtils
 class fragment_register_manage_users : Fragment() {
     private val userViewModel: UserViewModel by viewModels()
     private val municipalityViewModel: MunicipalityViewModel by viewModels()
+    private var passwordVisible = false
+    private var confirmPasswordVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +39,35 @@ class fragment_register_manage_users : Fragment() {
         val municipalitySpinner: Spinner = view.findViewById(R.id.municipality_spinner)
         val confirmButton: Button = view.findViewById(R.id.confirm_button)
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
+        val togglePasswordVisibilityButton = view.findViewById<ImageButton>(R.id.toggle_password_visibility)
+        val toggleConfirmPasswordVisibilityButton = view.findViewById<ImageButton>(R.id.toggle_confirm_password_visibility)
 
         backButton.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        togglePasswordVisibilityButton.setOnClickListener {
+            passwordVisible = !passwordVisible
+            if (passwordVisible) {
+                passwordEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                togglePasswordVisibilityButton.setImageResource(R.drawable.baseline_visibility_24)
+            } else {
+                passwordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                togglePasswordVisibilityButton.setImageResource(R.drawable.baseline_visibility_off_24)
+            }
+            passwordEditText.setSelection(passwordEditText.text.length)
+        }
+
+        toggleConfirmPasswordVisibilityButton.setOnClickListener {
+            confirmPasswordVisible = !confirmPasswordVisible
+            if (confirmPasswordVisible) {
+                confirmPasswordEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                toggleConfirmPasswordVisibilityButton.setImageResource(R.drawable.baseline_visibility_24)
+            } else {
+                confirmPasswordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                toggleConfirmPasswordVisibilityButton.setImageResource(R.drawable.baseline_visibility_off_24)
+            }
+            confirmPasswordEditText.setSelection(confirmPasswordEditText.text.length)
         }
 
         // Observing municipalities data
@@ -105,7 +127,7 @@ class fragment_register_manage_users : Fragment() {
                             type = userType,
                             createdAt = "",
                             updatedAt = "",
-                            state = StateUser.ENABLED // Default to ENABLED state
+                            state = StateUser.ENABLED
                         )
                         userViewModel.signUp(newUser) { response ->
                             val token = response?.token
