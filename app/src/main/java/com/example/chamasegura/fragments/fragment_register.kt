@@ -1,7 +1,7 @@
 package com.example.chamasegura.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +9,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.chamasegura.R
+import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
-import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.vm.UserViewModel
 
 class fragment_register : Fragment() {
@@ -36,10 +36,20 @@ class fragment_register : Fragment() {
         val confirmPasswordEditText: EditText = view.findViewById(R.id.confirm_password)
         val nifEditText: EditText = view.findViewById(R.id.nif)
         val confirmButton: Button = view.findViewById(R.id.confirm_button)
+        val showPasswordButton: ImageButton = view.findViewById(R.id.show_password_button)
+        val showConfirmPasswordButton: ImageButton = view.findViewById(R.id.show_confirm_password_button)
 
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
         backButton.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        showPasswordButton.setOnClickListener {
+            togglePasswordVisibility(passwordEditText, showPasswordButton)
+        }
+
+        showConfirmPasswordButton.setOnClickListener {
+            togglePasswordVisibility(confirmPasswordEditText, showConfirmPasswordButton)
         }
 
         confirmButton.setOnClickListener {
@@ -78,5 +88,16 @@ class fragment_register : Fragment() {
         }
 
         return view
+    }
+
+    private fun togglePasswordVisibility(editText: EditText, button: ImageButton) {
+        if (editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            button.setImageResource(R.drawable.baseline_visibility_24)
+        } else {
+            editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            button.setImageResource(R.drawable.baseline_visibility_off_24)
+        }
+        editText.setSelection(editText.text.length)
     }
 }

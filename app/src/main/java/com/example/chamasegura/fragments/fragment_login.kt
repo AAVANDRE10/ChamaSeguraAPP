@@ -1,6 +1,7 @@
 package com.example.chamasegura.fragments
 
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.room.InvalidationTracker
 import com.example.chamasegura.R
 import com.example.chamasegura.data.vm.UserViewModel
 
@@ -29,10 +29,15 @@ class fragment_login : Fragment() {
         val loginButton: Button = view.findViewById(R.id.login_confirm_button)
         val emailEditText: EditText = view.findViewById(R.id.email)
         val passwordEditText: EditText = view.findViewById(R.id.password)
+        val showPasswordButton: ImageButton = view.findViewById(R.id.show_password_button)
 
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
         backButton.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        showPasswordButton.setOnClickListener {
+            togglePasswordVisibility(passwordEditText, showPasswordButton)
         }
 
         loginButton.setOnClickListener {
@@ -57,5 +62,16 @@ class fragment_login : Fragment() {
         })
 
         return view
+    }
+
+    private fun togglePasswordVisibility(editText: EditText, button: ImageButton) {
+        if (editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            button.setImageResource(R.drawable.baseline_visibility_24)
+        } else {
+            editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            button.setImageResource(R.drawable.baseline_visibility_off_24)
+        }
+        editText.setSelection(editText.text.length)
     }
 }

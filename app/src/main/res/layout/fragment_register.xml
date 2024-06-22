@@ -86,21 +86,53 @@
                     android:layout_marginBottom="16dp"
                     android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/password"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp">
 
-                <EditText
-                    android:id="@+id/confirm_password"
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:paddingEnd="48dp" />
+
+                    <ImageButton
+                        android:id="@+id/show_password_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:src="@drawable/baseline_visibility_24"
+                        android:contentDescription="Show password" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm password"
-                    android:inputType="textPassword"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Confirm password"
+                        android:inputType="textPassword"
+                        android:paddingEnd="48dp" />
+
+                    <ImageButton
+                        android:id="@+id/show_confirm_password_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:src="@drawable/baseline_visibility_24"
+                        android:contentDescription="Show confirm password" />
+                </RelativeLayout>
 
                 <Button
                     android:id="@+id/confirm_button"

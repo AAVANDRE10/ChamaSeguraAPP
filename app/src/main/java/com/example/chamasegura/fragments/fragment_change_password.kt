@@ -1,6 +1,7 @@
 package com.example.chamasegura.fragments
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,9 @@ class fragment_change_password : Fragment() {
     private lateinit var newPasswordInput: EditText
     private lateinit var confirmPasswordInput: EditText
     private lateinit var confirmButton: Button
+    private lateinit var showOldPasswordButton: ImageButton
+    private lateinit var showNewPasswordButton: ImageButton
+    private lateinit var showConfirmPasswordButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +43,27 @@ class fragment_change_password : Fragment() {
         newPasswordInput = view.findViewById(R.id.newPasswordInput)
         confirmPasswordInput = view.findViewById(R.id.confirmPasswordInput)
         confirmButton = view.findViewById(R.id.confirmButton)
+        showOldPasswordButton = view.findViewById(R.id.show_old_password_button)
+        showNewPasswordButton = view.findViewById(R.id.show_new_password_button)
+        showConfirmPasswordButton = view.findViewById(R.id.show_confirm_password_button)
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
 
         authManager = AuthManager(requireContext())
 
         backButton.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        showOldPasswordButton.setOnClickListener {
+            togglePasswordVisibility(oldPasswordInput, showOldPasswordButton)
+        }
+
+        showNewPasswordButton.setOnClickListener {
+            togglePasswordVisibility(newPasswordInput, showNewPasswordButton)
+        }
+
+        showConfirmPasswordButton.setOnClickListener {
+            togglePasswordVisibility(confirmPasswordInput, showConfirmPasswordButton)
         }
 
         confirmButton.setOnClickListener {
@@ -78,5 +97,16 @@ class fragment_change_password : Fragment() {
                 Toast.makeText(requireContext(), "User ID extraction failed", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun togglePasswordVisibility(editText: EditText, button: ImageButton) {
+        if (editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            button.setImageResource(R.drawable.baseline_visibility_24)
+        } else {
+            editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            button.setImageResource(R.drawable.baseline_visibility_off_24)
+        }
+        editText.setSelection(editText.text.length)
     }
 }
