@@ -1,6 +1,7 @@
 package com.example.chamasegura.data.vm
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -30,6 +31,9 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 user?.let {
                     Log.d("UserViewModel", "User state: ${it.state}")
                     if (it.state == StateUser.ENABLED) {
+                        val sharedPreferences = getApplication<Application>().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        sharedPreferences.edit().putString("user_type", it.type.name).apply()
+                        Log.d("UserViewModel", "User type saved: ${it.type.name}")
                         this@UserViewModel.user.postValue(it)
                     } else {
                         this@UserViewModel.user.postValue(null)

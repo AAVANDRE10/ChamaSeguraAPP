@@ -30,11 +30,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navigationView: NavigationView
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var userViewModel: UserViewModel
     private lateinit var authManager: AuthManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         // Check if this is the first launch
         val prefs: SharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE)
@@ -51,8 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             editor.apply()
             return
         }
-
-        setContentView(R.layout.activity_main)
 
         if (Build.VERSION.SDK_INT < 16) {
             window.setFlags(
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav)
@@ -123,13 +124,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Configurar cabeçalho do NavigationView
         setupNavigationHeader()
 
-        // Obtenha o ID do usuário do token e carregue os dados do usuário
-        val token = authManager.getToken()
-        val userId = token?.let { JwtUtils.getUserIdFromToken(it) }
+        sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        if (userId != null) {
-            userViewModel.getUser(userId)
+        // Observe the user type change
+        userViewModel.user.observe(this) {
+            it?.let {
+                sharedPreferences.edit().putString("user_type", it.type.name).apply()
+                updateNavigationMenu(it.type.name)
+            }
         }
+
+        // Initialize the menu based on the last known user type
+        updateNavigationMenu(sharedPreferences.getString("user_type", "User") ?: "User")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateNavigationMenu(sharedPreferences.getString("user_type", "User") ?: "User")
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -154,6 +166,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Redirecionar para o fragment_first_screen
         navController.navigate(R.id.fragment_first_screen)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        sharedPreferences.edit().remove("user_type").apply()
+        updateNavigationMenu("User")
     }
 
     private fun setupNavigationHeader() {
@@ -187,5 +201,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             @Suppress("DEPRECATION")
             super.onBackPressed()
         }
+    }
+
+    private fun updateNavigationMenu(userType: String) {
+        val menu = navigationView.menu
+
+        menu.findItem(R.id.nav_manage_profile).isVisible = true
+        menu.findItem(R.id.nav_home).isVisible = true
+        menu.findItem(R.id.nav_my_burn_history).isVisible = true
+        menu.findItem(R.id.nav_contact_us).isVisible = true
+        menu.findItem(R.id.nav_logout).isVisible = true
+
+        menu.findItem(R.id.nav_burn_history).isVisible = userType == "ICNF"
+        menu.findItem(R.id.nav_county_history).isVisible = userType == "ICNF" || userType == "CM"
+        menu.findItem(R.id.nav_manage_users).isVisible = userType == "ICNF"
+        menu.findItem(R.id.nav_pending_burn_requests).isVisible = userType == "ICNF" || userType == "CM"
     }
 }
