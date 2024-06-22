@@ -99,6 +99,11 @@ class fragment_manage_user : Fragment() {
                         .load(imageUrl)
                         .placeholder(R.drawable.baseline_account_circle_24)
                         .into(profileImage)
+
+                    profileImage.setOnClickListener {
+                        val dialogFragment = fragment_expanded_image.newInstance(imageUrl)
+                        dialogFragment.show(parentFragmentManager, "expandedImage")
+                    }
                 }
 
                 userViewModel.getNumberOfBurnRequests(userId)
