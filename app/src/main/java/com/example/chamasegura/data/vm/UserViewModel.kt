@@ -139,6 +139,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                         val fullMessage = """
                         |$message
                         |
+                        |
                         |Nome: ${user.name}
                         |Email: ${user.email}
                         |NIF: ${user.nif}
