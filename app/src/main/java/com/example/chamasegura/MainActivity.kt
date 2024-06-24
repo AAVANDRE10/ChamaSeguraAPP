@@ -22,6 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.example.chamasegura.data.entities.User
+import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.vm.UserViewModel
 import com.example.chamasegura.utils.AuthManager
 import com.google.android.material.navigation.NavigationView
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navigationView: NavigationView
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var userViewModel: UserViewModel
     private lateinit var authManager: AuthManager
 
@@ -121,24 +121,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navController.navigate(R.id.fragment_first_screen)
         }
 
-        sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-
         // Observe the user type change
         userViewModel.user.observe(this) {
             it?.let {
-                sharedPreferences.edit().putString("user_type", it.type.name).apply()
-                updateNavigationMenu(it.type.name)
                 updateNavigationHeader(it)
             }
         }
 
-        // Initialize the menu based on the last known user type
-        updateNavigationMenu(sharedPreferences.getString("user_type", "User") ?: "User")
+        // Call updateMenuItems with the current user type if user data is already loaded
+        userViewModel.user.value?.let {
+            updateMenuItems(it.type)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        updateNavigationMenu(sharedPreferences.getString("user_type", "User") ?: "User")
+        // Call updateMenuItems with the current user type if user data is already loaded
+        userViewModel.user.value?.let {
+            updateMenuItems(it.type)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -163,15 +164,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Redirecionar para o fragment_first_screen
         navController.navigate(R.id.fragment_first_screen)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        sharedPreferences.edit().remove("user_type").apply()
-        updateNavigationMenu("User")
     }
 
     fun updateNavigationHeader(user: User) {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navigationView.getHeaderView(0)
         val textViewName = headerView.findViewById<TextView>(R.id.textViewName)
-        val imageView = headerView.findViewById<ImageView>(R.id.imageView)
         val textViewNIF = headerView.findViewById<TextView>(R.id.textViewNIF)
         val textViewEmail = headerView.findViewById<TextView>(R.id.textViewEmail)
 
@@ -179,12 +177,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         textViewNIF.text = user.nif.toString()
         textViewEmail.text = user.email
 
-        user.photo?.let {
-            val imageUrl = it
-            Glide.with(this)
-                .load(imageUrl)
-                .into(imageView)
-        }
+        updateMenuItems(user.type)
+    }
+
+    fun updateMenuItems(userType: UserType) {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val menu = navigationView.menu
+
+        menu.findItem(R.id.nav_manage_profile).isVisible = true
+        menu.findItem(R.id.nav_home).isVisible = true
+        menu.findItem(R.id.nav_my_burn_history).isVisible = true
+        menu.findItem(R.id.nav_contact_us).isVisible = true
+        menu.findItem(R.id.nav_logout).isVisible = true
+
+        menu.findItem(R.id.nav_burn_history).isVisible = userType == UserType.ICNF
+        menu.findItem(R.id.nav_county_history).isVisible = userType == UserType.CM
+        menu.findItem(R.id.nav_manage_users).isVisible = userType == UserType.ICNF
+        menu.findItem(R.id.nav_pending_burn_requests).isVisible = userType == UserType.CM
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -198,20 +207,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             @Suppress("DEPRECATION")
             super.onBackPressed()
         }
-    }
-
-    private fun updateNavigationMenu(userType: String) {
-        val menu = navigationView.menu
-
-        menu.findItem(R.id.nav_manage_profile).isVisible = true
-        menu.findItem(R.id.nav_home).isVisible = true
-        menu.findItem(R.id.nav_my_burn_history).isVisible = true
-        menu.findItem(R.id.nav_contact_us).isVisible = true
-        menu.findItem(R.id.nav_logout).isVisible = true
-
-        menu.findItem(R.id.nav_burn_history).isVisible = userType == "ICNF"
-        menu.findItem(R.id.nav_county_history).isVisible = userType == "ICNF" || userType == "CM"
-        menu.findItem(R.id.nav_manage_users).isVisible = userType == "ICNF"
-        menu.findItem(R.id.nav_pending_burn_requests).isVisible = userType == "ICNF" || userType == "CM"
     }
 }

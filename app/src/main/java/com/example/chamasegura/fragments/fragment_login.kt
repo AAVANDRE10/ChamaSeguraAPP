@@ -56,6 +56,7 @@ class fragment_login : Fragment() {
             if (user != null) {
                 // Login successful, open home fragment
                 (activity as? MainActivity)?.updateNavigationHeader(user)
+                (activity as? MainActivity)?.updateMenuItems(user.type)
                 findNavController().navigate(R.id.action_fragment_login_to_fragment_home)
             } else {
                 // Login failed
