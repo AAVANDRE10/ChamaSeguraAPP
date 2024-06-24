@@ -12,6 +12,7 @@ import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.repository.UserRepository
+import com.example.chamasegura.utils.AuthManager
 import com.example.chamasegura.utils.JwtUtils
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -125,6 +126,33 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun changePasswordIcnf(userId: Int, newPassword: String, onResult: (Boolean, String?) -> Unit) {
         viewModelScope.launch {
             repository.changePasswordIcnf(userId, newPassword, onResult)
+        }
+    }
+
+    fun sendContactMessage(subject: String, message: String, onResult: (Boolean, String?) -> Unit) {
+        val token = AuthManager(getApplication()).getToken()
+        if (token != null) {
+            val userId = JwtUtils.getUserIdFromToken(token)
+            if (userId != null) {
+                repository.getUser(userId).observeForever { user ->
+                    if (user != null) {
+                        val fullMessage = """
+                        |$message
+                        |
+                        |Nome: ${user.name}
+                        |Email: ${user.email}
+                        |NIF: ${user.nif}
+                    """.trimMargin()
+                        repository.sendContactMessage(token, subject, fullMessage, onResult)
+                    } else {
+                        onResult(false, "User data not found")
+                    }
+                }
+            } else {
+                onResult(false, "User ID not found")
+            }
+        } else {
+            onResult(false, "Token not found")
         }
     }
 }

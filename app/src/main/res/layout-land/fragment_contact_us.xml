@@ -99,12 +99,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Subject"
+            android:textSize="16sp"
+            android:textColor="#8E8E8E"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/subjectEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:hint="Subject"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Send us a message"
             android:textSize="16sp"
             android:textColor="#8E8E8E"
             android:layout_marginBottom="8dp" />
 
         <EditText
+            android:id="@+id/messageEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
@@ -116,6 +134,7 @@
             android:layout_marginBottom="16dp" />
 
         <Button
+            android:id="@+id/sendButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Send"

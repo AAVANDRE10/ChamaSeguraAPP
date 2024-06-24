@@ -204,4 +204,22 @@ class UserRepository(private val context: Context) {
             }
         })
     }
+
+    fun sendContactMessage(token: String, subject: String, message: String, onResult: (Boolean, String?) -> Unit) {
+        val messageMap = mapOf("subject" to subject, "message" to message)
+        api.sendContactMessage("Bearer $token", messageMap).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onResult(true, null)
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    onResult(false, errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                onResult(false, t.message)
+            }
+        })
+    }
 }

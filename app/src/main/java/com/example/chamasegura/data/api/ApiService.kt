@@ -105,4 +105,7 @@ interface ApiService {
     @Multipart
     @PUT("photo/updatephoto/{id}")
     fun updatePhoto(@Path("id") id: Int, @Part photo: MultipartBody.Part): Call<Void>
+
+    @POST("contact/send-message")
+    fun sendContactMessage(@Header("Authorization") token: String, @Body message: Map<String, String>): Call<Void>
 }
