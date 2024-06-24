@@ -68,7 +68,5 @@
         android:id="@+id/recycler_view_pending_burn_requests"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/sort_button"
-        android:layout_marginTop="8dp"
-        android:padding="16dp"/>
+        android:layout_marginTop="8dp"/>
 </LinearLayout>
