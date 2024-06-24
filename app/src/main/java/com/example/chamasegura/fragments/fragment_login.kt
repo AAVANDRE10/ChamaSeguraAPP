@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.chamasegura.MainActivity
 import com.example.chamasegura.R
 import com.example.chamasegura.data.vm.UserViewModel
 
@@ -54,6 +55,7 @@ class fragment_login : Fragment() {
         userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
             if (user != null) {
                 // Login successful, open home fragment
+                (activity as? MainActivity)?.updateNavigationHeader(user)
                 findNavController().navigate(R.id.action_fragment_login_to_fragment_home)
             } else {
                 // Login failed

@@ -3,7 +3,7 @@ package com.example.chamasegura.data.entities
 data class User(
     val id: Int,
     val name: String,
-    val nif: Int? = null,
+    val nif: Int,
     val email: String,
     val password: String,
     val photo: String?,

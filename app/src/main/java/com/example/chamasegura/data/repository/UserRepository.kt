@@ -2,7 +2,6 @@ package com.example.chamasegura.data.repository
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.chamasegura.data.api.RetrofitInstance
@@ -10,7 +9,6 @@ import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.PasswordChangeRequest
 import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
-import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.utils.AuthManager
 import com.example.chamasegura.utils.JwtUtils
 import okhttp3.MultipartBody
@@ -28,24 +26,30 @@ class UserRepository(private val context: Context) {
         api.signIn(credentials).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        authManager.saveAuthData(it.name, it.token)
-                        val userId = JwtUtils.getUserIdFromToken(it.token) ?: 0
-                        val name = it.name
-                        val userType = JwtUtils.getUserTypeFromToken(it.token)
-                        val userState = JwtUtils.getUserStateFromToken(it.token)
-                        Log.d("UserRepository", "User type: $userType, User state: $userState")
-                        onResult(User(
-                            id = userId,
-                            name = name,
-                            email = email,
-                            password = password,
-                            photo = null,
-                            type = userType,
-                            state = userState,
-                            createdAt = "",
-                            updatedAt = ""
-                        ))
+                    response.body()?.let { loginResponse ->
+                        authManager.saveAuthData(loginResponse.name, loginResponse.token)
+                        val userId = JwtUtils.getUserIdFromToken(loginResponse.token) ?: 0
+                        // Fetch user profile to get additional details like nif
+                        api.getUser(userId).enqueue(object : Callback<User> {
+                            override fun onResponse(call: Call<User>, response: Response<User>) {
+                                if (response.isSuccessful) {
+                                    response.body()?.let { user ->
+                                        onResult(user)
+                                    } ?: run {
+                                        Log.e("UserRepository", "User profile response body is null")
+                                        onResult(null)
+                                    }
+                                } else {
+                                    Log.e("UserRepository", "Failed to fetch user profile")
+                                    onResult(null)
+                                }
+                            }
+
+                            override fun onFailure(call: Call<User>, t: Throwable) {
+                                Log.e("UserRepository", "Failed to fetch user profile: ${t.message}")
+                                onResult(null)
+                            }
+                        })
                     } ?: run {
                         Log.e("UserRepository", "Login response body is null")
                         onResult(null)

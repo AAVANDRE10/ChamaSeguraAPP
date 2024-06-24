@@ -21,9 +21,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
+import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.vm.UserViewModel
 import com.example.chamasegura.utils.AuthManager
-import com.example.chamasegura.utils.JwtUtils
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -121,17 +121,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navController.navigate(R.id.fragment_first_screen)
         }
 
-        // Configurar cabeçalho do NavigationView
-        setupNavigationHeader()
-
         sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         // Observe the user type change
         userViewModel.user.observe(this) {
             it?.let {
                 sharedPreferences.edit().putString("user_type", it.type.name).apply()
                 updateNavigationMenu(it.type.name)
+                updateNavigationHeader(it)
             }
         }
 
@@ -170,23 +167,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         updateNavigationMenu("User")
     }
 
-    private fun setupNavigationHeader() {
+    fun updateNavigationHeader(user: User) {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navigationView.getHeaderView(0)
+        val textViewName = headerView.findViewById<TextView>(R.id.textViewName)
         val imageView = headerView.findViewById<ImageView>(R.id.imageView)
         val textViewNIF = headerView.findViewById<TextView>(R.id.textViewNIF)
         val textViewEmail = headerView.findViewById<TextView>(R.id.textViewEmail)
 
-        userViewModel.user.observe(this) { user ->
-            user?.let {
-                textViewNIF.text = it.nif.toString()
-                textViewEmail.text = it.email
-                if (it.photo != null) {
-                    Glide.with(this)
-                        .load(it.photo)
-                        .into(imageView)
-                }
-            }
+        textViewName.text = user.name
+        textViewNIF.text = user.nif.toString()
+        textViewEmail.text = user.email
+
+        user.photo?.let {
+            val imageUrl = it
+            Glide.with(this)
+                .load(imageUrl)
+                .into(imageView)
         }
     }
 
