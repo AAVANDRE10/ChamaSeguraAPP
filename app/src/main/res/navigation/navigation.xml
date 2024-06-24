@@ -135,8 +135,8 @@
             android:name="userId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_fragment_manage_user_to_fragment_change_password"
-            app:destination="@id/fragment_change_password" />
+            android:id="@+id/action_fragment_manage_user_to_fragment_change_password_icnf"
+            app:destination="@id/fragment_change_password_icnf" />
         <action
             android:id="@+id/action_fragment_manage_user_to_fragment_manage_users"
             app:destination="@id/fragment_manage_users" />
@@ -195,4 +195,9 @@
             android:name="longitude"
             app:argType="float"/>
     </fragment>
+    <fragment
+        android:id="@+id/fragment_change_password_icnf"
+        android:name="com.example.chamasegura.fragments.fragment_change_password_icnf"
+        android:label="fragment_change_password_icnf"
+        tools:layout="@layout/fragment_change_password_icnf" />
 </navigation>

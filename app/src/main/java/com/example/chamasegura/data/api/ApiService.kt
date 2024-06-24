@@ -6,6 +6,7 @@ import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.entities.LoginResponse
 import com.example.chamasegura.data.entities.Municipality
 import com.example.chamasegura.data.entities.PasswordChangeRequest
+import com.example.chamasegura.data.entities.PasswordChangeRequestIcnf
 import com.example.chamasegura.data.entities.User
 import okhttp3.MultipartBody
 import retrofit2.http.GET
@@ -35,6 +36,8 @@ interface ApiService {
 
     @PUT("auth/changepassword/{id}")
     fun changePassword(@Path("id") userId: Int, @Header("Authorization") token: String, @Body passwordChangeRequest: PasswordChangeRequest): Call<Void>
+
+    @PUT("auth/changePasswordicnf/{id}") fun changePasswordIcnf(@Path("id") userId: Int, @Header("Authorization") token: String, @Body request: PasswordChangeRequestIcnf): Call<Void>
 
     @GET("auth/users")
     fun getAllUsers(): Call<List<User>>

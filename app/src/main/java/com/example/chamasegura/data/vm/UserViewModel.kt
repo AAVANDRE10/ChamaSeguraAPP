@@ -121,4 +121,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             repository.changePassword(userId, oldPassword, newPassword, onResult)
         }
     }
+
+    fun changePasswordIcnf(userId: Int, newPassword: String, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            repository.changePasswordIcnf(userId, newPassword, onResult)
+        }
+    }
 }
