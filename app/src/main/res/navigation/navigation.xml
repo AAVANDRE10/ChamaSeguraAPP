@@ -199,5 +199,9 @@
         android:id="@+id/fragment_change_password_icnf"
         android:name="com.example.chamasegura.fragments.fragment_change_password_icnf"
         android:label="fragment_change_password_icnf"
-        tools:layout="@layout/fragment_change_password_icnf" />
+        tools:layout="@layout/fragment_change_password_icnf">
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

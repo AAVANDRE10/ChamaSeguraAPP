@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.chamasegura.R
 import com.example.chamasegura.data.vm.UserViewModel
 import com.example.chamasegura.utils.AuthManager
@@ -20,6 +21,7 @@ import com.example.chamasegura.utils.JwtUtils
 class fragment_change_password_icnf : Fragment() {
 
     private val userViewModel: UserViewModel by viewModels()
+    private val args: fragment_change_password_icnfArgs by navArgs()
     private lateinit var authManager: AuthManager
     private lateinit var newPasswordInput: EditText
     private lateinit var confirmPasswordInput: EditText
@@ -50,7 +52,6 @@ class fragment_change_password_icnf : Fragment() {
             findNavController().navigateUp()
         }
 
-
         showNewPasswordButton.setOnClickListener {
             togglePasswordVisibility(newPasswordInput, showNewPasswordButton)
         }
@@ -68,25 +69,20 @@ class fragment_change_password_icnf : Fragment() {
                 return@setOnClickListener
             }
 
-            val token = authManager.getToken()
-            val userId = token?.let { JwtUtils.getUserIdFromToken(it) }
+            val userId = args.userId
 
-            if (userId != null) {
-                userViewModel.changePasswordIcnf(userId, newPassword) { success, errorMessage ->
-                    if (success) {
-                        Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    } else {
-                        val message = when {
-                            errorMessage?.contains("Invalid old password") == true -> "Invalid old password"
-                            errorMessage?.contains("User not found") == true -> "User not found"
-                            else -> "Failed to change password"
-                        }
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            userViewModel.changePasswordIcnf(userId, newPassword) { success, errorMessage ->
+                if (success) {
+                    Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_LONG).show()
+                    findNavController().popBackStack()
+                } else {
+                    val message = when {
+                        errorMessage?.contains("Invalid old password") == true -> "Invalid old password"
+                        errorMessage?.contains("User not found") == true -> "User not found"
+                        else -> "Failed to change password"
                     }
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                 }
-            } else {
-                Toast.makeText(requireContext(), "User ID extraction failed", Toast.LENGTH_LONG).show()
             }
         }
     }

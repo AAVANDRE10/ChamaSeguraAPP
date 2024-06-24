@@ -172,7 +172,8 @@ class fragment_manage_user : Fragment() {
                 }
 
                 buttonChangePassword.setOnClickListener {
-                    findNavController().navigate(R.id.action_fragment_manage_user_to_fragment_change_password_icnf)
+                    val action = fragment_manage_userDirections.actionFragmentManageUserToFragmentChangePasswordIcnf(userId)
+                    findNavController().navigate(action)
                 }
             } else {
                 Toast.makeText(requireContext(), getString(R.string.error_user_id_extraction), Toast.LENGTH_LONG).show()
