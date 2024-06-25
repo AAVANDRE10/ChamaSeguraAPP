@@ -55,22 +55,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Member since:"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
             <TextView
                 android:id="@+id/memberSince"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Number of burn requests:"
                 android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/black"/>
             <TextView
                 android:id="@+id/numberOfBurnRequests"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -87,7 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Full name:"
-        android:paddingTop="8dp"/>
+        android:paddingTop="8dp"
+        android:textColor="@android:color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,6 +100,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="8dp"
+        android:background="@drawable/rounded_edittext"
         android:layout_marginTop="8dp">
 
         <EditText
@@ -102,15 +108,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:inputType="textPersonName"
             android:background="@android:color/transparent"
-            android:inputType="textPersonName"/>
+            android:textColor="@android:color/black"/>
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email:"
-        android:paddingTop="16dp"/>
+        android:paddingTop="16dp"
+        android:textColor="@android:color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,6 +126,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="8dp"
+        android:background="@drawable/rounded_edittext"
         android:layout_marginTop="8dp">
 
         <EditText
@@ -125,15 +134,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:inputType="textEmailAddress"
             android:background="@android:color/transparent"
-            android:inputType="textEmailAddress"/>
+            android:textColor="@android:color/black"/>
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NIF:"
-        android:paddingTop="16dp"/>
+        android:paddingTop="16dp"
+        android:textColor="@android:color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -141,6 +152,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="8dp"
+        android:background="@drawable/rounded_edittext"
         android:layout_marginTop="8dp">
 
         <EditText
@@ -148,8 +160,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:inputType="number"
             android:background="@android:color/transparent"
-            android:inputType="number"/>
+            android:textColor="@android:color/black"/>
     </LinearLayout>
 
     <Button
