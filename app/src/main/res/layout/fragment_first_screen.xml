@@ -45,12 +45,13 @@
         android:text="@string/register_btn"
         android:textColor="#FFFFFF" />
 
-    <Spinner
-        android:id="@+id/language_select"
+    <TextView
+        android:id="@+id/forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/languages"
         android:layout_marginTop="16dp"
-        android:spinnerMode="dropdown" />
+        android:text="@string/forgot_password"
+        android:textColor="@color/light_orange"
+        android:textSize="16sp" />
 
 </LinearLayout>

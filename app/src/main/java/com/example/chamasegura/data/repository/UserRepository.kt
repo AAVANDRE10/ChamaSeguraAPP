@@ -222,4 +222,58 @@ class UserRepository(private val context: Context) {
             }
         })
     }
+
+    fun sendPasswordResetCode(email: String, onResult: (Boolean, String?) -> Unit) {
+        val request = mapOf("email" to email)
+        api.sendPasswordResetCode(request).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onResult(true, null)
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    onResult(false, errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                onResult(false, t.message)
+            }
+        })
+    }
+
+    fun verifyPasswordResetCode(code: String, onResult: (Boolean, String?) -> Unit) {
+        val request = mapOf("token" to code)
+        api.verifyPasswordResetCode(request).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onResult(true, null)
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    onResult(false, errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                onResult(false, t.message)
+            }
+        })
+    }
+
+    fun resetPassword(token: String, password: String, onResult: (Boolean, String?) -> Unit) {
+        val request = mapOf("token" to token, "password" to password)
+        api.resetPassword(request).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onResult(true, null)
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    onResult(false, errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                onResult(false, t.message)
+            }
+        })
+    }
 }

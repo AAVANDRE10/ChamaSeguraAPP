@@ -31,5 +31,6 @@
         <item>CM</item>
     </string-array>
     <string name="delete_profile_confirmation">Tem certeza de que deseja deletar seu perfil?</string>
+    <string name="forgot_password">Não sabes a tua palavra-passe?</string>
 
 </resources>

@@ -156,4 +156,22 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             onResult(false, "Token not found")
         }
     }
+
+    fun sendPasswordResetCode(email: String, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            repository.sendPasswordResetCode(email, onResult)
+        }
+    }
+
+    fun verifyPasswordResetCode(code: String, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            repository.verifyPasswordResetCode(code, onResult)
+        }
+    }
+
+    fun resetPassword(token: String, newPassword: String, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            repository.resetPassword(token, newPassword, onResult)
+        }
+    }
 }

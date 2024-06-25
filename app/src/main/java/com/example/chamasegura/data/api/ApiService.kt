@@ -108,4 +108,13 @@ interface ApiService {
 
     @POST("contact/send-message")
     fun sendContactMessage(@Header("Authorization") token: String, @Body message: Map<String, String>): Call<Void>
+
+    @POST("auth/forgotpassword")
+    fun sendPasswordResetCode(@Body email: Map<String, String>): Call<Void>
+
+    @POST("auth/resetpassword/verify")
+    fun verifyPasswordResetCode(@Body code: Map<String, String>): Call<Void>
+
+    @POST("auth/resetpassword")
+    fun resetPassword(@Body request: Map<String, String>): Call<Void>
 }

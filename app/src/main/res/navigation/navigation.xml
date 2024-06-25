@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_fragment_first_screen_to_fragment_register"
             app:destination="@id/fragment_register" />
+        <action
+            android:id="@+id/action_fragment_first_screen_to_fragment_forgot_password"
+            app:destination="@id/fragment_forgot_password" />
     </fragment>
     <fragment
         android:id="@+id/fragment_home"
@@ -74,12 +77,24 @@
         android:id="@+id/fragment_forgot_password"
         android:name="com.example.chamasegura.fragments.fragment_forgot_password"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_fragment_forgot_password_to_fragment_verification_code"
+            app:destination="@id/fragment_verification_code" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_verification_code"
         android:name="com.example.chamasegura.fragments.fragment_verification_code"
         android:label="fragment_verification_code"
-        tools:layout="@layout/fragment_verification_code" />
+        tools:layout="@layout/fragment_verification_code" >
+        <action
+            android:id="@+id/action_fragment_verification_code_to_fragment_change_password_user"
+            app:destination="@id/fragment_change_password_user">
+            <argument
+                android:name="token"
+                app:argType="string" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/fragment_my_burn_history"
         android:name="com.example.chamasegura.fragments.fragment_my_burn_history"
@@ -203,5 +218,17 @@
         <argument
             android:name="userId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_change_password_user"
+        android:name="com.example.chamasegura.fragments.fragment_change_password_user"
+        android:label="fragment_change_password_user"
+        tools:layout="@layout/fragment_change_password_user" >
+        <argument
+            android:name="token"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragment_change_password_user_to_fragment_first_screen"
+            app:destination="@id/fragment_first_screen" />
     </fragment>
 </navigation>
