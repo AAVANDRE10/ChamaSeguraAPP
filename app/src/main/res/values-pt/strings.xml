@@ -25,7 +25,6 @@
         <item>PARTICULAR</item>
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="logout">Sair</string>
     <string-array name="user_types">
         <item>REGULAR</item>
         <item>CM</item>
@@ -39,5 +38,13 @@
     <string name="confirmPassword">Confirmar Palavra-Passe</string>
     <string name="fullName">Nome Completo</string>
     <string name="nif">Número de identificação fiscal</string>
-
+    <string name="manageProfile">Gerir Perfil</string>
+    <string name="home">Home</string>
+    <string name="myBurnHistory">Meu histórico de Queimadas</string>
+    <string name="burnHistory">Histórico de Queimadas</string>
+    <string name="countyHistory">Histórico do Concelho</string>
+    <string name="manageUsers">Gerir Perfis</string>
+    <string name="pendingBurnRequests">Pedidos de Queimada Pendentes</string>
+    <string name="contactUs">Contactos</string>
+    <string name="logout">Sair</string>
 </resources>

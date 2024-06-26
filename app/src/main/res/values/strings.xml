@@ -25,7 +25,6 @@
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_onb" translatable="false">OnboardingActivity</string>
-    <string name="logout">Log Out</string>
     <string name="screen1" translatable="false">Click on the button to create a new burn request</string>
     <string name="screen2" translatable="false">Fill in the information and click confirm</string>
     <string name="screen3" translatable="false">Click on Burn History to see your current\nand past burn requests</string>
@@ -44,4 +43,13 @@
     <string name="confirmPassword">Confirm Password</string>
     <string name="fullName">Full Name</string>
     <string name="nif">Tax Identification Number</string>
+    <string name="manageProfile">Manage Profile</string>
+    <string name="home">Home</string>
+    <string name="myBurnHistory">My Burn History</string>
+    <string name="burnHistory">Burn History</string>
+    <string name="countyHistory">County History</string>
+    <string name="manageUsers">Manage Users</string>
+    <string name="pendingBurnRequests">Pending Burn Requests</string>
+    <string name="contactUs">Contact Us</string>
+    <string name="logout">Log Out</string>
 </resources>

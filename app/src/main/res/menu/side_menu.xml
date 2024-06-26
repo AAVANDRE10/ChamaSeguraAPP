@@ -6,28 +6,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_manage_profile"
-            android:title="Manage Profile"/>
+            android:title="@string/manageProfile"/>
         <item
             android:id="@+id/nav_home"
-            android:title="Home"/>
+            android:title="@string/home"/>
         <item
             android:id="@+id/nav_my_burn_history"
-            android:title="My Burn History"/>
+            android:title="@string/myBurnHistory"/>
         <item
             android:id="@+id/nav_burn_history"
-            android:title="Burn History"/>
+            android:title="@string/burnHistory"/>
         <item
             android:id="@+id/nav_county_history"
-            android:title="County History"/>
+            android:title="@string/countyHistory"/>
         <item
             android:id="@+id/nav_manage_users"
-            android:title="Manage Users"/>
+            android:title="@string/manageUsers"/>
         <item
             android:id="@+id/nav_pending_burn_requests"
-            android:title="Pending Burn Requests"/>
+            android:title="@string/pendingBurnRequests"/>
         <item
             android:id="@+id/nav_contact_us"
-            android:title="Contact Us"/>
+            android:title="@string/contactUs"/>
     </group>
     <item android:title="">
         <menu>
