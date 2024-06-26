@@ -17,6 +17,7 @@ import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.vm.MunicipalityViewModel
 import com.example.chamasegura.data.vm.UserViewModel
 import com.example.chamasegura.utils.JwtUtils
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 
 class fragment_register_manage_users : Fragment() {
     private val userViewModel: UserViewModel by viewModels()
@@ -36,7 +37,7 @@ class fragment_register_manage_users : Fragment() {
         val confirmPasswordEditText: EditText = view.findViewById(R.id.confirm_password)
         val nifEditText: EditText = view.findViewById(R.id.nif)
         val userTypeSpinner: Spinner = view.findViewById(R.id.user_type_spinner)
-        val municipalitySpinner: Spinner = view.findViewById(R.id.municipality_spinner)
+        val municipalitySpinner: SearchableSpinner = view.findViewById(R.id.municipality_spinner)
         val confirmButton: Button = view.findViewById(R.id.confirm_button)
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
         val togglePasswordVisibilityButton = view.findViewById<ImageButton>(R.id.toggle_password_visibility)
@@ -77,6 +78,8 @@ class fragment_register_manage_users : Fragment() {
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, municipalityNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             municipalitySpinner.adapter = adapter
+            municipalitySpinner.setTitle("Select Municipality")
+            municipalitySpinner.setPositiveButton("OK")
         }
 
         // Setting up the user type spinner to disable municipality spinner if type is REGULAR
@@ -85,6 +88,7 @@ class fragment_register_manage_users : Fragment() {
                 val selectedUserType = userTypeSpinner.selectedItem.toString()
                 if (selectedUserType == "REGULAR") {
                     municipalitySpinner.isEnabled = false
+                    municipalitySpinner.setSelection(0) // Optionally clear the selection
                 } else {
                     municipalitySpinner.isEnabled = true
                 }

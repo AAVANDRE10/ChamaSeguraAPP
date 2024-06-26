@@ -76,11 +76,12 @@
                 android:layout_marginBottom="16dp"
                 android:entries="@array/user_types" />
 
-            <Spinner
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/municipality_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:hint="Select Municipality" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

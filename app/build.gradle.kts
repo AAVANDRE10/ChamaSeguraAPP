@@ -86,5 +86,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1")
 
 }
