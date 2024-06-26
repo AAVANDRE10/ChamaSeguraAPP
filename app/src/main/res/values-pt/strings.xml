@@ -47,4 +47,20 @@
     <string name="pendingBurnRequests">Pedidos de Queimada Pendentes</string>
     <string name="contactUs">Contactos</string>
     <string name="logout">Sair</string>
+    <string name="memberSince">Membro desde:</string>
+    <string name="numberOfBurnRequests">Número de pedidos de queimadas:</string>
+    <string name="changePhoto">Mudar foto</string>
+    <string name="changePassword">Mudar Palavra-Passe</string>
+    <string name="deleteProfile">Eliminar Perfil</string>
+    <string name="invalidNifMessage">Número de identificação fiscal inválido</string>
+    <string name="delete_profile_message">Tem certeza de que deseja eliminar o seu perfil?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="profile_deleted_message">O seu perfil foi eliminado.</string>
+    <string name="error_message">Erro: %1$s</string>
+    <string name="permission_denied_message">Permissões necessárias não foram atribuídas.</string>
+    <string name="profile_photo_update_success">Foto de perfil atualizada com sucesso.</string>
+    <string name="profile_photo_update_error">Erro ao atualizar foto de perfil: %1$s</string>
+    <string name="file_processing_error">Erro ao processar o arquivo: %1$s</string>
+    <string name="invalid_image_file_error">Erro: Apenas são permitidos arquivos de imagem!</string>
 </resources>

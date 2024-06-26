@@ -52,4 +52,20 @@
     <string name="pendingBurnRequests">Pending Burn Requests</string>
     <string name="contactUs">Contact Us</string>
     <string name="logout">Log Out</string>
+    <string name="memberSince">Member since:</string>
+    <string name="numberOfBurnRequests">Number of burn requests:</string>
+    <string name="changePhoto">Change Photo</string>
+    <string name="changePassword">Change Password</string>
+    <string name="deleteProfile">Delete Profile</string>
+    <string name="invalidNifMessage">Invalid Tax Identification Number</string>
+    <string name="delete_profile_message">Are you sure you want to delete your profile?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="profile_deleted_message">Profile has been deleted.</string>
+    <string name="error_message">Error: %1$s</string>
+    <string name="permission_denied_message">Permissions have not been secured.</string>
+    <string name="profile_photo_update_success">Profile photo updated successfully.</string>
+    <string name="profile_photo_update_error">Error updating profile photo: %1$s</string>
+    <string name="file_processing_error">Error processing file: %1$s</string>
+    <string name="invalid_image_file_error">Error: Only image files are allowed!</string>
 </resources>

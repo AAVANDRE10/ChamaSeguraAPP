@@ -36,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Manage Profile"
+                    android:text="@string/manageProfile"
                     android:textSize="24sp"
                     android:textColor="@color/light_orange"
                     android:layout_centerInParent="true"/>
@@ -65,7 +65,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Member since:"
+                        android:text="@string/memberSince"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"/>
                     <TextView
@@ -77,7 +77,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Number of burn requests:"
+                        android:text="@string/numberOfBurnRequests"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
                         android:textColor="@android:color/black"/>
@@ -93,15 +93,16 @@
                 android:id="@+id/buttonChangePhoto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Change Photo"
+                android:text="@string/changePhoto"
                 android:backgroundTint="@color/light_orange"
+                android:background="@drawable/rounded_button"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full name:"
+                android:text="@string/fullName"
                 android:paddingTop="8dp"
                 android:textColor="@android:color/black"/>
 
@@ -127,7 +128,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email:"
+                android:text="E-mail:"
                 android:paddingTop="16dp"/>
 
             <LinearLayout
@@ -152,7 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NIF:"
+                android:text="@string/nif"
                 android:paddingTop="16dp"/>
 
             <LinearLayout
@@ -189,7 +190,7 @@
             android:id="@+id/buttonChangePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change Password"
+            android:text="@string/changePassword"
             android:backgroundTint="@color/light_orange"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"/>
@@ -200,14 +201,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/design_default_color_error"
-            android:text="Delete Profile"
+            android:text="@string/deleteProfile"
             android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/buttonConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Confirm"
+            android:text="@string/buttonConfirm"
             android:backgroundTint="@color/light_orange"
             android:textColor="@android:color/white"
             android:layout_marginTop="24dp"/>

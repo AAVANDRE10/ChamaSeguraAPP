@@ -72,7 +72,7 @@ class fragment_manage_profile : Fragment() {
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.title = ""
 
-        // Inicialize as visualizações
+        // Inicializar as visualizações
         editTextFullName = view.findViewById(R.id.editTextFullName)
         editTextEmail = view.findViewById(R.id.editTextEmail)
         editTextNif = view.findViewById(R.id.editTextNif)
@@ -95,7 +95,7 @@ class fragment_manage_profile : Fragment() {
         if (userId != null) {
             userViewModel.getUser(userId).observe(viewLifecycleOwner, Observer { user ->
                 if (user != null) {
-                    // Atualize a interface do usuário com os dados do usuário
+                    // Atualizar a interface do utilizador com os dados do utilizador
                     editTextFullName.setText(user.name)
                     editTextEmail.setText(user.email)
                     editTextNif.setText(user.nif?.toString())
@@ -128,7 +128,7 @@ class fragment_manage_profile : Fragment() {
 
                 // Verifique se o nif é válido
                 if (nif == null) {
-                    Toast.makeText(requireContext(), "NIF inválido.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.invalidNifMessage), Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
 
@@ -179,7 +179,7 @@ class fragment_manage_profile : Fragment() {
             }
 
         } else {
-            // Trate o caso onde o ID do usuário não pôde ser extraído
+            // Trate o caso onde o ID do utilizador não se conseguiu extraír
             Toast.makeText(requireContext(), getString(R.string.error_user_id_extraction), Toast.LENGTH_LONG).show()
             // Redirecionar para o fragmento de login
             findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_login)
@@ -188,19 +188,19 @@ class fragment_manage_profile : Fragment() {
 
     private fun showDeleteConfirmationDialog(userId: Int) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Profile")
-            .setMessage("Are you sure you want to delete your profile?")
-            .setPositiveButton("Yes") { dialog, which ->
+            .setTitle(getString(R.string.deleteProfile))
+            .setMessage(getString(R.string.delete_profile_message))
+            .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                 userViewModel.updateUserState(userId, StateUser.DISABLED) { success, errorMessage ->
                     if (success) {
-                        Toast.makeText(requireContext(), "Profile has been deleted.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.profile_deleted_message), Toast.LENGTH_LONG).show()
                         findNavController().navigate(R.id.action_fragment_manage_profile_to_fragment_login)
                     } else {
-                        Toast.makeText(requireContext(), "Error: $errorMessage", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.error_message, errorMessage), Toast.LENGTH_LONG).show()
                     }
                 }
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton(getString(R.string.no), null)
             .show()
     }
 
@@ -224,7 +224,7 @@ class fragment_manage_profile : Fragment() {
                 // Permissão concedida, continue com a ação
             } else {
                 // Permissão negada, mostre uma mensagem ou tome outra ação apropriada
-                Toast.makeText(requireContext(), "Permissões necessárias não foram concedidas.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.permission_denied_message), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -253,16 +253,16 @@ class fragment_manage_profile : Fragment() {
 
                         userViewModel.updatePhoto(userId, body) { success, errorMessage ->
                             if (success) {
-                                Toast.makeText(requireContext(), "Foto de perfil atualizada com sucesso.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(requireContext(), getString(R.string.profile_photo_update_success), Toast.LENGTH_LONG).show()
                             } else {
-                                Toast.makeText(requireContext(), "Erro ao atualizar foto de perfil: $errorMessage", Toast.LENGTH_LONG).show()
+                                Toast.makeText(requireContext(), getString(R.string.profile_photo_update_error, errorMessage), Toast.LENGTH_LONG).show()
                             }
                         }
                     } catch (e: Exception) {
-                        Toast.makeText(requireContext(), "Erro ao processar o arquivo: ${e.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.file_processing_error, e.message), Toast.LENGTH_LONG).show()
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Erro: Apenas são permitidos arquivos de imagem!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.invalid_image_file_error), Toast.LENGTH_LONG).show()
                 }
             }
         }
