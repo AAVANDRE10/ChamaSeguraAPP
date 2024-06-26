@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,7 +23,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var selectedLocation: LatLng
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +36,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         findViewById<ImageButton>(R.id.backButton).setOnClickListener {
+            finish()
+        }
+
+        findViewById<Button>(R.id.buttonConfirmLocation).setOnClickListener {
+            val centerLatLng = mMap.cameraPosition.target
+            val resultIntent = Intent().apply {
+                putExtra("latitude", centerLatLng.latitude.toFloat())
+                putExtra("longitude", centerLatLng.longitude.toFloat())
+            }
+            setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }
     }
@@ -55,21 +65,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 LOCATION_PERMISSION_REQUEST_CODE
             )
         }
-
-        mMap.setOnMapClickListener { latLng ->
-            mMap.clear()
-            mMap.addMarker(MarkerOptions().position(latLng).title("Selected Location"))
-            selectedLocation = latLng
-        }
-
-        findViewById<Button>(R.id.buttonConfirmLocation).setOnClickListener {
-            val resultIntent = Intent().apply {
-                putExtra("latitude", selectedLocation.latitude.toFloat())
-                putExtra("longitude", selectedLocation.longitude.toFloat())
-            }
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
-        }
     }
 
     private fun getCurrentLocation() {
@@ -79,7 +74,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12.0f))
                     mMap.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
-                    selectedLocation = currentLatLng
                 } else {
                     val defaultLocation = LatLng(41.5329, -8.78101) // Esposende
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12.0f))
