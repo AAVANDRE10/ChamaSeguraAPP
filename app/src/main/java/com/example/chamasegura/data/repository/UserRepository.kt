@@ -230,7 +230,11 @@ class UserRepository(private val context: Context) {
                 if (response.isSuccessful) {
                     onResult(true, null)
                 } else {
-                    val errorMessage = response.errorBody()?.string()
+                    val errorMessage = if (response.code() == 404) {
+                        "Email not found"
+                    } else {
+                        response.errorBody()?.string()
+                    }
                     onResult(false, errorMessage)
                 }
             }

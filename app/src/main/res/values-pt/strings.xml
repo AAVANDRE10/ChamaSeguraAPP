@@ -73,4 +73,10 @@
     <string name="password_change_success">A palavra-passe foi alterada com sucesso</string>
     <string name="password_change_failure">Falha ao alterar a palavra-passe</string>
     <string name="empty_password">Os campos de palavra-passe não podem ficar vazios</string>
+    <string name="verification_code_sent">Código de verificação enviado para o seu e-mail</string>
+    <string name="failed_to_send_verification_code">Falha ao enviar o código de verificação</string>
+    <string name="please_enter_email">Por favor introduza o seu e-mail</string>
+    <string name="invalid_verification_code">Código de verificação inválido</string>
+    <string name="please_enter_verification_code">Por favor, insira o código de verificação</string>
+    <string name="email_not_found">E-mail não encontrado</string>
 </resources>

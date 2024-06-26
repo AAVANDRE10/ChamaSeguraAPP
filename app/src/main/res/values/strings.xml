@@ -78,4 +78,10 @@
     <string name="password_change_success">Password changed successfully</string>
     <string name="password_change_failure">Failed to change password</string>
     <string name="empty_password">Password fields cannot be empty</string>
+    <string name="verification_code_sent">Verification code sent to your email</string>
+    <string name="failed_to_send_verification_code">Failed to send verification code</string>
+    <string name="please_enter_email">Please enter your email</string>
+    <string name="invalid_verification_code">Invalid verification code</string>
+    <string name="please_enter_verification_code">Please enter the verification code</string>
+    <string name="email_not_found">E-mail not found</string>
 </resources>

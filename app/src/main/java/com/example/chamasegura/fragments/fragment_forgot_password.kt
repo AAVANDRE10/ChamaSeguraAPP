@@ -41,14 +41,15 @@ class fragment_forgot_password : Fragment() {
             if (email.isNotEmpty()) {
                 userViewModel.sendPasswordResetCode(email) { success, errorMessage ->
                     if (success) {
-                        Toast.makeText(requireContext(), "Verification code sent to your email", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.verification_code_sent), Toast.LENGTH_LONG).show()
                         findNavController().navigate(R.id.action_fragment_forgot_password_to_fragment_verification_code)
                     } else {
-                        Toast.makeText(requireContext(), errorMessage ?: "Failed to send verification code", Toast.LENGTH_LONG).show()
+                        val message = errorMessage ?: getString(R.string.failed_to_send_verification_code)
+                        Toast.makeText(requireContext(), if (message == "Email not found") getString(R.string.email_not_found) else message, Toast.LENGTH_LONG).show()
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "Please enter your email", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.please_enter_email), Toast.LENGTH_LONG).show()
             }
         }
     }

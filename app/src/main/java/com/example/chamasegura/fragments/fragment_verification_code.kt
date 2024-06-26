@@ -44,11 +44,11 @@ class fragment_verification_code : Fragment() {
                         val action = fragment_verification_codeDirections.actionFragmentVerificationCodeToFragmentChangePasswordUser(code)
                         findNavController().navigate(action)
                     } else {
-                        Toast.makeText(requireContext(), errorMessage ?: "Invalid verification code", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), errorMessage ?: getString(R.string.invalid_verification_code), Toast.LENGTH_LONG).show()
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "Please enter the verification code", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.please_enter_verification_code), Toast.LENGTH_LONG).show()
             }
         }
     }
