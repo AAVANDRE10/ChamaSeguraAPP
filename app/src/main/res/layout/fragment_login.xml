@@ -58,7 +58,7 @@
                 android:id="@+id/register_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="@string/login_btn"
                 android:textSize="24sp"
                 android:textColor="#A0522D"
                 android:layout_marginBottom="24dp" />
@@ -79,7 +79,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:paddingEnd="48dp" />
 
@@ -98,7 +98,8 @@
                 android:id="@+id/login_confirm_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm"
+                android:text="@string/buttonConfirm"
+                android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/light_orange"
                 android:textColor="#FFFFFF" />
         </LinearLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Chama Segura</string>
-    <string name="login_btn">Fazer Login</string>
-    <string name="register_btn">Registar</string>
+    <string name="login_btn">Iniciar sessão</string>
+    <string name="register_btn">Criar nova Conta</string>
     <string name="language">Idioma</string>
     <string-array name="languages">
         <item>English</item>
@@ -34,5 +34,10 @@
     <string name="forgot_password">Não sabes a tua palavra-passe?</string>
     <string name="info_text">O uso do fogo encontra-se associado à prática agrícola e florestal, no entanto as queimadas constituem atividades de risco, com graves danos ambientais, ecológicos e socioeconômicos. Cerca de 98% dos incêndios em Portugal Continental são causados por uso negligente do fogo.</string>
     <string name="register_pile_burn">Registar nova queimada</string>
+    <string name="buttonConfirm">Confirmar</string>
+    <string name="password">Palavra-Passe</string>
+    <string name="confirmPassword">Confirmar Palavra-Passe</string>
+    <string name="fullName">Nome Completo</string>
+    <string name="nif">Número de identificação fiscal</string>
 
 </resources>

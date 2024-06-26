@@ -47,6 +47,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_button"
             android:backgroundTint="@color/light_orange"
             android:text="@string/login_btn"
             android:textColor="#FFFFFF" />
@@ -57,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/black"
+            android:background="@drawable/rounded_button"
             android:text="@string/register_btn"
             android:textColor="#FFFFFF" />
 

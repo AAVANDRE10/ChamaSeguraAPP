@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Chama Segura</string>
     <string name="login_btn">Log In</string>
-    <string name="register_btn">Register</string>
+    <string name="register_btn">Create new account</string>
     <string name="language">Language</string>
     <string-array name="languages">
         <item>English</item>
@@ -39,4 +39,9 @@
     <string name="forgot_password">Forgotten password?</string>
     <string name="info_text">The use of fire is associated with agricultural and forestry practices, however fires constitute risky activities, with serious environmental, ecological and socioeconomic damage. Around 98% of fires in mainland Portugal are caused by negligent use of fire.</string>
     <string name="register_pile_burn">Register New Pile Burn</string>
+    <string name="buttonConfirm">Confirm</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="fullName">Full Name</string>
+    <string name="nif">Tax Identification Number</string>
 </resources>
