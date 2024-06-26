@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navigationView: NavigationView
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var userViewModel: UserViewModel
     private lateinit var authManager: AuthManager
 
@@ -117,13 +118,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
+        sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
         if (savedInstanceState == null) {
             navController.navigate(R.id.fragment_first_screen)
         }
 
         // Observe the user type change
         userViewModel.user.observe(this) {
-            it?.let {
+            it?.let { user ->
+                sharedPreferences.edit().putString("user_type", user.type.name).apply()
                 updateNavigationHeader(it)
             }
         }
@@ -136,9 +141,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
-        // Call updateMenuItems with the current user type if user data is already loaded
+        // Initialize the menu based on the last known user type
+        val userTypeString = sharedPreferences.getString("user_type", "REGULAR")
+        val userType = UserType.valueOf(userTypeString ?: "REGULAR")
+        updateMenuItems(userType)
+
+        // Update the navigation header with the current user data if available
         userViewModel.user.value?.let {
-            updateMenuItems(it.type)
+            updateNavigationHeader(it)
         }
     }
 
@@ -160,15 +170,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun logout() {
         authManager.clearAuthData()
+        sharedPreferences.edit().remove("user_type").apply()
         Toast.makeText(this, "Logout realizado com sucesso!", Toast.LENGTH_SHORT).show()
         // Redirecionar para o fragment_first_screen
         navController.navigate(R.id.fragment_first_screen)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        updateMenuItems(UserType.REGULAR)
     }
 
     fun updateNavigationHeader(user: User) {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navigationView.getHeaderView(0)
+        val imageView = findViewById<ImageView>(R.id.imageView)
         val textViewName = headerView.findViewById<TextView>(R.id.textViewName)
         val textViewNIF = headerView.findViewById<TextView>(R.id.textViewNIF)
         val textViewEmail = headerView.findViewById<TextView>(R.id.textViewEmail)
@@ -176,6 +189,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         textViewName.text = user.name
         textViewNIF.text = user.nif.toString()
         textViewEmail.text = user.email
+
+        // Carregar a imagem de perfil usando Glide
+        user.photo?.let {
+            val imageUrl = it
+            Glide.with(this)
+                .load(imageUrl)
+                .placeholder(R.drawable.baseline_account_circle_24)
+                .into(imageView)
+        }
 
         updateMenuItems(user.type)
     }
