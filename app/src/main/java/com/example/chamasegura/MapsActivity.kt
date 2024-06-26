@@ -73,7 +73,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (location != null) {
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12.0f))
-                    mMap.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
                 } else {
                     val defaultLocation = LatLng(41.5329, -8.78101) // Esposende
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12.0f))
