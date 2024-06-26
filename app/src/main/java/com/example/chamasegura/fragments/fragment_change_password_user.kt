@@ -63,8 +63,13 @@ class fragment_change_password_user : Fragment() {
             val newPassword = newPasswordInput.text.toString()
             val confirmPassword = confirmPasswordInput.text.toString()
 
+            if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(requireContext(), getString(R.string.empty_password), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             if (newPassword != confirmPassword) {
-                Toast.makeText(requireContext(), "New passwords do not match", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.passwords_do_not_match), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
@@ -72,10 +77,10 @@ class fragment_change_password_user : Fragment() {
 
             userViewModel.resetPassword(token, newPassword) { success, errorMessage ->
                 if (success) {
-                    Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.password_change_success), Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_fragment_change_password_user_to_fragment_first_screen)
                 } else {
-                    val message = errorMessage ?: "Failed to change password"
+                    val message = errorMessage ?: getString(R.string.password_change_failure)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                 }
             }

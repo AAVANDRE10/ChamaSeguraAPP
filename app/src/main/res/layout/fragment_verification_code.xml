@@ -22,7 +22,7 @@
         android:layout_below="@id/backButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Verification Code"
+        android:text="@string/verificationCode"
         android:textColor="@color/light_orange"
         android:textSize="24sp"/>
 
@@ -33,11 +33,12 @@
         android:layout_below="@id/verificationPrompt"
         android:layout_margin="32dp"
         android:layout_marginTop="16dp"
-        android:background="@android:drawable/edit_text"
-        android:hint="Code"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/code"
         android:inputType="number"
         android:padding="16dp"
         android:textColor="#000"
+        android:textColorHint="#808080"
         android:textSize="18sp" />
 
     <Button
@@ -47,7 +48,8 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="32dp"
         android:backgroundTint="@color/light_orange"
-        android:text="Confirm"
+        android:background="@drawable/rounded_button"
+        android:text="@string/buttonConfirm"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="18sp"

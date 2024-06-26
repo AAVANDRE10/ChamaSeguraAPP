@@ -128,8 +128,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="E-mail:"
-                android:paddingTop="16dp"/>
+                android:text="E-mail"
+                android:paddingTop="16dp"
+                android:textColor="@android:color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -154,7 +155,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nif"
-                android:paddingTop="16dp"/>
+                android:paddingTop="16dp"
+                android:textColor="@android:color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -192,6 +194,7 @@
             android:layout_height="wrap_content"
             android:text="@string/changePassword"
             android:backgroundTint="@color/light_orange"
+            android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"/>
 
@@ -201,6 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/design_default_color_error"
+            android:background="@drawable/rounded_button"
             android:text="@string/deleteProfile"
             android:textColor="@android:color/white" />
 
@@ -210,6 +214,7 @@
             android:layout_height="wrap_content"
             android:text="@string/buttonConfirm"
             android:backgroundTint="@color/light_orange"
+            android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
             android:layout_marginTop="24dp"/>
     </LinearLayout>

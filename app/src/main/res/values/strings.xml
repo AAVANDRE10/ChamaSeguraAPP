@@ -52,8 +52,8 @@
     <string name="pendingBurnRequests">Pending Burn Requests</string>
     <string name="contactUs">Contact Us</string>
     <string name="logout">Log Out</string>
-    <string name="memberSince">Member since:</string>
-    <string name="numberOfBurnRequests">Number of burn requests:</string>
+    <string name="memberSince">Member since</string>
+    <string name="numberOfBurnRequests">Number of burn requests</string>
     <string name="changePhoto">Change Photo</string>
     <string name="changePassword">Change Password</string>
     <string name="deleteProfile">Delete Profile</string>
@@ -68,4 +68,14 @@
     <string name="profile_photo_update_error">Error updating profile photo: %1$s</string>
     <string name="file_processing_error">Error processing file: %1$s</string>
     <string name="invalid_image_file_error">Error: Only image files are allowed!</string>
+    <string name="newPassword">New Password</string>
+    <string name="recoverPassword">Recover Password</string>
+    <string name="verificationCode">Verification code</string>
+    <string name="code">Code</string>
+    <string name="confirmNewPassword">Confirm New Password</string>
+    <string name="currentPassword">Current Password</string>
+    <string name="passwords_do_not_match">New passwords do not match</string>
+    <string name="password_change_success">Password changed successfully</string>
+    <string name="password_change_failure">Failed to change password</string>
+    <string name="empty_password">Password fields cannot be empty</string>
 </resources>
