@@ -32,5 +32,7 @@
     </string-array>
     <string name="delete_profile_confirmation">Tem certeza de que deseja deletar seu perfil?</string>
     <string name="forgot_password">Não sabes a tua palavra-passe?</string>
+    <string name="info_text">O uso do fogo encontra-se associado à prática agrícola e florestal, no entanto as queimadas constituem atividades de risco, com graves danos ambientais, ecológicos e socioeconômicos. Cerca de 98% dos incêndios em Portugal Continental são causados por uso negligente do fogo.</string>
+    <string name="register_pile_burn">Registar nova queimada</string>
 
 </resources>

@@ -37,5 +37,6 @@
     </string-array>
     <string name="delete_profile_confirmation">Are you sure you want to delete your profile?</string>
     <string name="forgot_password">Forgotten password?</string>
-
+    <string name="info_text">The use of fire is associated with agricultural and forestry practices, however fires constitute risky activities, with serious environmental, ecological and socioeconomic damage. Around 98% of fires in mainland Portugal are caused by negligent use of fire.</string>
+    <string name="register_pile_burn">Register New Pile Burn</string>
 </resources>

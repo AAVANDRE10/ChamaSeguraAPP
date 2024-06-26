@@ -37,20 +37,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/light_orange"
-        android:text="Register New Pile Burn"
+        android:background="@drawable/rounded_button"
+        android:text="@string/register_pile_burn"
         android:textColor="@android:color/white" />
 
     <TextView
-            android:id="@+id/info_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="O uso do fogo encontra-se associado à prática agrícola e florestal, no entanto as queimadas constituem atividades de risco, com graves danos ambientais, ecológicos e socioeconômicos. Cerca de 98% dos incêndios em Portugal Continental são causados por uso negligente do fogo."
-            android:layout_below="@id/register_pile_burn_button"
-            android:layout_marginTop="16dp"
-            android:padding="8dp"
-            android:background="@android:color/darker_gray"
-            android:textColor="@android:color/white"/>
+        android:id="@+id/info_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/info_text"
+        android:layout_below="@id/register_pile_burn_button"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_background"
+        android:textColor="@android:color/white"/>
 
     <ImageView
         android:id="@+id/image_view"
@@ -58,7 +58,7 @@
         android:layout_height="373dp"
         android:layout_below="@id/info_text"
         android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:src="@drawable/burn_home" />
 
 </LinearLayout>
