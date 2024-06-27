@@ -25,6 +25,7 @@ class fragment_contact_us : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_contact_us, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,15 +43,15 @@ class fragment_contact_us : Fragment() {
             if (subject.isNotEmpty() && message.isNotEmpty()) {
                 userViewModel.sendContactMessage(subject, message) { success, errorMessage ->
                     if (success) {
-                        Toast.makeText(requireContext(), "Message sent successfully", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.message_sent_success), Toast.LENGTH_LONG).show()
                         subjectEditText.text.clear()
                         messageEditText.text.clear()
                     } else {
-                        Toast.makeText(requireContext(), "Failed to send message: $errorMessage", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.message_sent_failure, errorMessage), Toast.LENGTH_LONG).show()
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "Please enter a subject and message", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.enter_subject_message), Toast.LENGTH_LONG).show()
             }
         }
     }

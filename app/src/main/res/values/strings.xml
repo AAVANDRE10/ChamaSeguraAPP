@@ -148,5 +148,14 @@
     <string name="enterReasonHere">Enter reason here</string>
     <string name="enterAdditionalInformationHere">Enter additional information here</string>
     <string name="ddmmyy">DD/MM/YYYY</string>
+    <string name="app_help_number">Customer support line:</string>
+    <string name="subject">Subject</string>
+    <string name="subject_hint">Write here subject…</string>
+    <string name="send_us_message">Send us a message</string>
+    <string name="message_hint">Write here…</string>
+    <string name="send_button">Send</string>
+    <string name="message_sent_success">Message sent successfully</string>
+    <string name="message_sent_failure">Failed to send message: %1$s</string>
+    <string name="enter_subject_message">Please enter a subject and message</string>
 
 </resources>

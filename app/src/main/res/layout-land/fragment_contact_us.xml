@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact Us"
+                android:text="@string/contactUs"
                 android:textSize="24sp"
                 android:textColor="@color/light_orange"
                 android:layout_centerInParent="true"/>
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFFFF"
+            android:background="@drawable/rounded_edittext"
             android:padding="16dp"
             android:layout_marginBottom="24dp"
             android:elevation="4dp">
@@ -49,9 +49,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="APP related help number:"
+                android:text="@string/app_help_number"
                 android:textSize="16sp"
-                android:textColor="#8E8E8E"
+                android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
 
             <LinearLayout
@@ -99,34 +99,36 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subject"
+            android:text="@string/subject"
             android:textSize="16sp"
-            android:textColor="#8E8E8E"
+            android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/subjectEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:hint="Subject"
+            android:background="@drawable/rounded_edittext"
+            android:textColorHint="@android:color/black"
+            android:hint="@string/subject_hint"
             android:padding="16dp"
             android:layout_marginBottom="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send us a message"
+            android:text="@string/send_us_message"
             android:textSize="16sp"
-            android:textColor="#8E8E8E"
+            android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/messageEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:hint="Write here..."
+            android:background="@drawable/rounded_edittext"
+            android:textColorHint="@android:color/black"
+            android:hint="@string/message_hint"
             android:padding="16dp"
             android:gravity="top"
             android:inputType="textMultiLine"
@@ -137,9 +139,10 @@
             android:id="@+id/sendButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Send"
+            android:text="@string/send_button"
             android:textColor="#FFFFFF"
             android:backgroundTint="@color/light_orange"
+            android:background="@drawable/rounded_button"
             android:layout_marginBottom="16dp" />
     </LinearLayout>
 </ScrollView>

@@ -143,5 +143,14 @@
     <string name="enterReasonHere">Insira o motivo aqui</string>
     <string name="enterAdditionalInformationHere">Insira outros dados relevantes aqui</string>
     <string name="ddmmyy">DD/MM/AAAA</string>
+    <string name="app_help_number">Linha de apoio ao cliente:</string>
+    <string name="subject">Assunto</string>
+    <string name="subject_hint">Escreve aqui o assunto…</string>
+    <string name="send_us_message">Envie-nos uma mensagem</string>
+    <string name="message_hint">Escreve aqui…</string>
+    <string name="send_button">Enviar</string>
+    <string name="message_sent_success">Mensagem enviada com sucesso</string>
+    <string name="message_sent_failure">Falha no envio da mensagem: %1$s</string>
+    <string name="enter_subject_message">Por favor insira um assunto e uma mensagem</string>
 
 </resources>
