@@ -142,9 +142,9 @@
     <string name="location_required">Location is required</string>
     <string name="burn_created_success">Burn created successfully!</string>
     <string name="burn_creation_error">Error creating burn: %1$s</string>
-    <string name="distrito">Distrito</string>
-    <string name="concelho">Concelho</string>
-    <string name="freguesia">Freguesia</string>
+    <string name="distrito">District</string>
+    <string name="concelho">County</string>
+    <string name="freguesia">Parish</string>
     <string name="enterReasonHere">Enter reason here</string>
     <string name="enterAdditionalInformationHere">Enter additional information here</string>
     <string name="ddmmyy">DD/MM/YYYY</string>
