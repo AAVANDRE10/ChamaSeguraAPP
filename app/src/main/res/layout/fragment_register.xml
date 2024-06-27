@@ -68,14 +68,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/fullName"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
+                    android:backgroundTint="@android:color/black"/>
 
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="E-mail"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
+                    android:backgroundTint="@android:color/black"/>
 
                 <EditText
                     android:id="@+id/nif"
@@ -83,7 +89,10 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/nif"
                     android:layout_marginBottom="16dp"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
+                    android:backgroundTint="@android:color/black"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -96,7 +105,10 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
                         android:inputType="textPassword"
-                        android:paddingEnd="48dp" />
+                        android:paddingEnd="48dp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@android:color/black"
+                        android:backgroundTint="@android:color/black"/>
 
                     <ImageButton
                         android:id="@+id/show_password_button"
@@ -120,7 +132,10 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/confirmPassword"
                         android:inputType="textPassword"
-                        android:paddingEnd="48dp" />
+                        android:paddingEnd="48dp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@android:color/black"
+                        android:backgroundTint="@android:color/black"/>
 
                     <ImageButton
                         android:id="@+id/show_confirm_password_button"

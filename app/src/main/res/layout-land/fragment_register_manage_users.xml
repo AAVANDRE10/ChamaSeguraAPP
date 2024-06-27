@@ -54,7 +54,8 @@
                 android:hint="@string/fullName"
                 android:layout_marginBottom="16dp"
                 android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"/>
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"/>
 
             <EditText
                 android:id="@+id/email"
@@ -63,7 +64,8 @@
                 android:layout_marginBottom="16dp"
                 android:hint="E-mail"
                 android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"/>
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"/>
 
             <EditText
                 android:id="@+id/nif"
@@ -73,7 +75,8 @@
                 android:layout_marginBottom="16dp"
                 android:inputType="number"
                 android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"/>
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -119,7 +122,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_toStartOf="@id/toggle_password_visibility"
                     android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"/>
+                    android:textColorHint="@android:color/black"
+                    android:backgroundTint="@android:color/black"/>
 
                 <ImageButton
                     android:id="@+id/toggle_password_visibility"
@@ -146,7 +150,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_toStartOf="@id/toggle_confirm_password_visibility"
                     android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"/>
+                    android:textColorHint="@android:color/black"
+                    android:backgroundTint="@android:color/black"/>
 
                 <ImageButton
                     android:id="@+id/toggle_confirm_password_visibility"
