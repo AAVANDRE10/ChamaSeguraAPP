@@ -100,5 +100,7 @@
     <string name="invalid_email">Invalid e-mail format</string>
     <string name="password_too_short">Password must be at least 6 characters</string>
     <string name="sign_up_failed">Sign-up failed</string>
+    <string name="registerNewUser">Register new user</string>
+    <string name="search">Search</string>
 
 </resources>

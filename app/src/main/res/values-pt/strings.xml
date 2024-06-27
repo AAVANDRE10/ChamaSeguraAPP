@@ -95,4 +95,7 @@
     <string name="invalid_email">Formato de E-mail inválido</string>
     <string name="password_too_short">A palavra-passe deve ter pelo menos 6 caracteres</string>
     <string name="sign_up_failed">Falha no iniciar sessão</string>
+    <string name="registerNewUser">Registar novo user</string>
+    <string name="search">Procurar</string>
+
 </resources>
