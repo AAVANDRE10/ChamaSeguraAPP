@@ -60,11 +60,16 @@ class fragment_change_password_user : Fragment() {
         }
 
         confirmButton.setOnClickListener {
-            val newPassword = newPasswordInput.text.toString()
-            val confirmPassword = confirmPasswordInput.text.toString()
+            val newPassword = newPasswordInput.text.toString().trim()
+            val confirmPassword = confirmPasswordInput.text.toString().trim()
 
             if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(requireContext(), getString(R.string.empty_password), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            if (newPassword.length < 6) {
+                Toast.makeText(requireContext(), getString(R.string.password_too_short), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 

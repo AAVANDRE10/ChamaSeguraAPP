@@ -67,12 +67,17 @@ class fragment_change_password : Fragment() {
         }
 
         confirmButton.setOnClickListener {
-            val oldPassword = oldPasswordInput.text.toString()
-            val newPassword = newPasswordInput.text.toString()
-            val confirmPassword = confirmPasswordInput.text.toString()
+            val oldPassword = oldPasswordInput.text.toString().trim()
+            val newPassword = newPasswordInput.text.toString().trim()
+            val confirmPassword = confirmPasswordInput.text.toString().trim()
 
             if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(requireContext(), getString(R.string.empty_password), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            if (newPassword.length < 6) {
+                Toast.makeText(requireContext(), getString(R.string.password_too_short), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
