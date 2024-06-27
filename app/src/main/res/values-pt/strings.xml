@@ -152,5 +152,6 @@
     <string name="message_sent_success">Mensagem enviada com sucesso</string>
     <string name="message_sent_failure">Falha no envio da mensagem: %1$s</string>
     <string name="enter_subject_message">Por favor insira um assunto e uma mensagem</string>
+    <string name="exit_app">Sair da aplicação</string>
 
 </resources>

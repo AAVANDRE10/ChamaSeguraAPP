@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.chamasegura.R
@@ -22,6 +23,8 @@ class fragment_first_screen : Fragment() {
         val loginButton: Button = view.findViewById(R.id.login_button)
         val registerButton: Button = view.findViewById(R.id.register_button)
         val forgotPassword: TextView = view.findViewById(R.id.forgot_password)
+        val exitButton: ImageButton = view.findViewById(R.id.exit_button)
+
         loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_first_screen_to_fragment_login)
         }
@@ -32,6 +35,10 @@ class fragment_first_screen : Fragment() {
 
         forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_first_screen_to_fragment_forgot_password)
+        }
+
+        exitButton.setOnClickListener {
+            activity?.finishAffinity()
         }
 
         return view
