@@ -158,5 +158,9 @@
     <string name="message_sent_failure">Failed to send message: %1$s</string>
     <string name="enter_subject_message">Please enter a subject and message</string>
     <string name="exit_app">Exit application</string>
+    <string name="next_button">Next</string>
+    <string name="finish_button">Finish</string>
+    <string name="skip">Skip</string>
+    <string name="back">Back</string>
 
 </resources>

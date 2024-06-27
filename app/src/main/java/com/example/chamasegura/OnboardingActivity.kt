@@ -37,9 +37,9 @@ class OnboardingActivity : AppCompatActivity() {
                 backButton!!.visibility = View.INVISIBLE
             }
             if (position == 4) {
-                nextButton!!.text = "Finish"
+                nextButton!!.text = getString(R.string.finish_button)
             } else {
-                nextButton!!.text = "Next"
+                nextButton!!.text = getString(R.string.next_button)
             }
         }
 
