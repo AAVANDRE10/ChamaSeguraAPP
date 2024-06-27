@@ -35,7 +35,7 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Burn Request"
+                    android:text="@string/burnRequest"
                     android:textSize="24sp"
                     android:textColor="@color/light_orange"
                     android:layout_centerInParent="true"/>
@@ -45,57 +45,63 @@
                 android:id="@+id/from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From: Nuno Lopes"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status: Pending"
+                android:text="@string/status"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Type: Terrain cleaning burn"
+                android:text="@string/type"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/reason"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reason: Agricultural surplus management"
+                android:text="@string/reason"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date: 26/04/2024"
+                android:text="@string/date"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location: Braga, Vila de Prado"
+                android:text="@string/location"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/otherData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Other Data: "
+                android:text="@string/otherData"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"/>
         </LinearLayout>
     </ScrollView>
 
@@ -109,8 +115,9 @@
             android:id="@+id/openMapButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Open \nMap"
+            android:text="@string/open_map"
             android:backgroundTint="@color/light_orange"
+            android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
@@ -121,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Confirm"
-            android:background="@color/light_orange"
+            android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
@@ -131,8 +138,9 @@
             android:id="@+id/denyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deny"
-            android:background="@color/design_default_color_error"
+            android:text="@string/reject"
+            android:background="@drawable/rounded_button_change_state"
+            android:backgroundTint="@color/design_default_color_error"
             android:textColor="@android:color/white"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"

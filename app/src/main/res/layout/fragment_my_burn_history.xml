@@ -9,7 +9,7 @@
     android:background="@color/light_gray"
     tools:context=".fragments.fragment_my_burn_history">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp">
@@ -21,17 +21,21 @@
             android:background="@android:color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:navigationIcon="@drawable/baseline_menu_24"
-            android:layout_gravity="center"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Burn History"
-            android:textSize="24sp"
+            android:layout_width="330dp"
+            android:layout_height="match_parent"
+            android:text="@string/myBurnHistory"
             android:textColor="@color/light_orange"
-            android:layout_centerInParent="true"/>
-    </RelativeLayout>
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

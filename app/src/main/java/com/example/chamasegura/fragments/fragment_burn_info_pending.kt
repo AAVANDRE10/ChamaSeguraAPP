@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.chamasegura.R
+import com.example.chamasegura.data.entities.BurnState
+import com.example.chamasegura.data.entities.BurnType
 import com.example.chamasegura.data.vm.BurnViewModel
 import com.example.chamasegura.data.vm.UserViewModel
 import java.text.SimpleDateFormat
@@ -47,15 +49,15 @@ class fragment_burn_info_pending : Fragment() {
         burnViewModel = ViewModelProvider(this).get(BurnViewModel::class.java)
 
         userViewModel.getUserById(burn.userId).observe(viewLifecycleOwner) { user ->
-            view.findViewById<TextView>(R.id.from).text = "From: ${user?.name ?: "Unknown"}"
+            view.findViewById<TextView>(R.id.from).text = getString(R.string.from, user?.name ?: getString(R.string.unknown))
         }
 
-        view.findViewById<TextView>(R.id.status).text = "Status: ${burn.state}"
-        view.findViewById<TextView>(R.id.type).text = "Type: ${burn.type}"
-        view.findViewById<TextView>(R.id.reason).text = "Reason: ${burn.reason}"
-        view.findViewById<TextView>(R.id.date).text = "Date: ${formatDate(burn.date)}"
-        view.findViewById<TextView>(R.id.location).text = "Location: ${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
-        view.findViewById<TextView>(R.id.otherData).text = "Other Data: ${burn.otherData}"
+        view.findViewById<TextView>(R.id.status).text = getString(R.string.status, getBurnStateString(burn.state))
+        view.findViewById<TextView>(R.id.type).text = getString(R.string.type, getBurnTypeString(burn.type))
+        view.findViewById<TextView>(R.id.reason).text = getString(R.string.reason, burn.reason)
+        view.findViewById<TextView>(R.id.date).text = getString(R.string.date, formatDate(burn.date))
+        view.findViewById<TextView>(R.id.location).text = getString(R.string.location, burn.distrito, burn.concelho, burn.freguesia)
+        view.findViewById<TextView>(R.id.otherData).text = getString(R.string.otherData, burn.otherData)
 
         openMapButton.setOnClickListener {
             val action = fragment_burn_info_pendingDirections.actionFragmentBurnInfoPendingToFragmentMapBurnInfo(burn.latitude, burn.longitude)
@@ -63,38 +65,53 @@ class fragment_burn_info_pending : Fragment() {
         }
 
         confirmButton.setOnClickListener {
-            showConfirmationDialog(burn.id, "APPROVED")
+            showConfirmationDialog(burn.id, BurnState.APPROVED)
         }
 
         denyButton.setOnClickListener {
-            showConfirmationDialog(burn.id, "DENIED")
+            showConfirmationDialog(burn.id, BurnState.DENIED)
         }
     }
 
-    private fun showConfirmationDialog(burnId: Int, newState: String) {
-        val message = if (newState == "APPROVED") {
-            "Tem certeza de que deseja aprovar esta queima?"
+    private fun showConfirmationDialog(burnId: Int, newState: BurnState) {
+        val message = if (newState == BurnState.APPROVED) {
+            getString(R.string.confirm_approve_burn)
         } else {
-            "Tem certeza de que deseja negar esta queima?"
+            getString(R.string.confirm_deny_burn)
         }
 
         AlertDialog.Builder(requireContext())
             .setMessage(message)
-            .setPositiveButton("Sim") { _, _ ->
+            .setPositiveButton(R.string.yes) { _, _ ->
                 updateBurnState(burnId, newState)
             }
-            .setNegativeButton("Não", null)
+            .setNegativeButton(R.string.no, null)
             .show()
     }
 
-    private fun updateBurnState(burnId: Int, newState: String) {
-        burnViewModel.updateBurnState(burnId, newState).observe(viewLifecycleOwner) { success ->
+    private fun updateBurnState(burnId: Int, newState: BurnState) {
+        burnViewModel.updateBurnState(burnId, newState.name).observe(viewLifecycleOwner) { success ->
             if (success) {
-                Toast.makeText(requireContext(), "Estado da queima atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.burn_state_update_success), Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
             } else {
-                Toast.makeText(requireContext(), "Erro ao atualizar o estado da queima", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.burn_state_update_error), Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun getBurnStateString(state: BurnState): String {
+        return when (state) {
+            BurnState.PENDING -> getString(R.string.state_pending)
+            BurnState.APPROVED -> getString(R.string.state_approved)
+            BurnState.DENIED -> getString(R.string.state_denied)
+        }
+    }
+
+    private fun getBurnTypeString(type: BurnType): String {
+        return when (type) {
+            BurnType.REGCLEAN -> getString(R.string.regular_clean)
+            BurnType.PARTICULAR -> getString(R.string.particular)
         }
     }
 

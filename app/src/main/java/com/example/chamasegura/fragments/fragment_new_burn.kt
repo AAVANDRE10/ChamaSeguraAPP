@@ -165,8 +165,8 @@ class fragment_new_burn : Fragment() {
         val date = sdf.parse(dateString)
 
         val type = when (spinnerType.selectedItem.toString()) {
-            "REGCLEAN" -> BurnType.REGCLEAN
-            "PARTICULAR" -> BurnType.PARTICULAR
+            getString(R.string.regular_clean) -> BurnType.REGCLEAN
+            getString(R.string.particular) -> BurnType.PARTICULAR
             else -> BurnType.REGCLEAN
         }
 

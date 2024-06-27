@@ -16,13 +16,19 @@
     <string name="error_user_id_extraction">Error recognizing the user. Log in again.</string>
     <string-array name="burn_types">
         <item>All</item>
-        <item>REGCLEAN</item>
-        <item>PARTICULAR</item>
+        <item>Regular Clean</item>
+        <item>Particular</item>
     </string-array>
     <string-array name="burn_types_new_burn">
-        <item>REGCLEAN</item>
-        <item>PARTICULAR</item>
+        <item>Regular Clean</item>
+        <item>Particular</item>
     </string-array>
+    <string name="regular_clean">Regular Clean</string>
+    <string name="particular">Particular</string>
+    <string name="error_creating_burn">Error creating burn</string>
+    <string name="state_pending">Pending</string>
+    <string name="state_approved">Approved</string>
+    <string name="state_denied">Denied</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_onb" translatable="false">OnboardingActivity</string>
     <string name="screen1" translatable="false">Click on the button to create a new burn request</string>
@@ -102,5 +108,22 @@
     <string name="sign_up_failed">Sign-up failed</string>
     <string name="registerNewUser">Register new user</string>
     <string name="search">Search</string>
-
+    <string name="burnInfo">Burn info</string>
+    <string name="from">From: %1$s</string>
+    <string name="status">Status: %1$s</string>
+    <string name="type">Type: %1$s</string>
+    <string name="reason">Reason: %1$s</string>
+    <string name="date">Date: %1$s</string>
+    <string name="location">Location: %1$s, %2$s, %3$s</string>
+    <string name="otherData">Other data: %1$s</string>
+    <string name="open_map">Open map</string>
+    <string name="unknown">Unknown</string>
+    <string name="burnRequest">Burn Request</string>
+    <string name="reject">Reject</string>
+    <string name="confirm_approve_burn">Are you sure you want to approve this burn?</string>
+    <string name="confirm_deny_burn">Are you sure you want to deny this burn?</string>
+    <string name="burn_state_update_success">Burn state updated successfully</string>
+    <string name="burn_state_update_error">Error updating burn state</string>
+    <string name="confirmLocation">Confirm Location</string>
+    <string name="burn_location">Burn Location</string>
 </resources>

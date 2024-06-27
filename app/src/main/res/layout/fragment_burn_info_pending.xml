@@ -26,7 +26,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Burn Request"
+            android:text="@string/burnRequest"
             android:textSize="24sp"
             android:textColor="@color/light_orange"
             android:layout_centerInParent="true"/>
@@ -36,63 +36,70 @@
         android:id="@+id/from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="From: "
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status: "
+        android:text="@string/status"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type: "
+        android:text="@string/type"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/reason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reason: "
+        android:text="@string/reason"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date: "
+        android:text="@string/date"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location: "
+        android:text="@string/location"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/otherData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Other Data: "
+        android:text="@string/otherData"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
 
     <Button
         android:id="@+id/openMapButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Open Map"
+        android:text="@string/open_map"
+        android:background="@drawable/rounded_button"
         android:backgroundTint="@color/light_orange"
         android:textColor="@android:color/white"
         android:layout_marginTop="24dp"
@@ -111,8 +118,8 @@
             android:id="@+id/confirmButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm"
-            android:background="@color/light_orange"
+            android:text="@string/buttonConfirm"
+            android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
             android:layout_marginEnd="16dp"/>
 
@@ -120,8 +127,9 @@
             android:id="@+id/denyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deny"
-            android:background="@color/design_default_color_error"
+            android:text="@string/reject"
+            android:background="@drawable/rounded_button_change_state"
+            android:backgroundTint="@color/design_default_color_error"
             android:textColor="@android:color/white"/>
     </LinearLayout>
 

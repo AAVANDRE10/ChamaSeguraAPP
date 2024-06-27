@@ -16,14 +16,20 @@
     <string name="profile_updated_success">Perfil atualizado com sucesso.</string>
     <string name="error_user_id_extraction">Erro ao reconhecer o utilizador. Faça iniciar sessão novamente.</string>
     <string-array name="burn_types">
-        <item>All</item>
-        <item>REGCLEAN</item>
-        <item>PARTICULAR</item>
+        <item>Todos</item>
+        <item>Limpeza Regular</item>
+        <item>Particular</item>
     </string-array>
     <string-array name="burn_types_new_burn">
-        <item>REGCLEAN</item>
-        <item>PARTICULAR</item>
+        <item>Limpeza Regular</item>
+        <item>Particular</item>
     </string-array>
+    <string name="regular_clean">Limpeza Regular</string>
+    <string name="particular">Particular</string>
+    <string name="error_creating_burn">Error ao criar a queima</string>
+    <string name="state_pending">Pendente</string>
+    <string name="state_approved">Aprovado</string>
+    <string name="state_denied">Rejeitado</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string-array name="user_types">
         <item>REGULAR</item>
@@ -97,5 +103,23 @@
     <string name="sign_up_failed">Falha no iniciar sessão</string>
     <string name="registerNewUser">Registar novo user</string>
     <string name="search">Procurar</string>
+    <string name="burnInfo">Informações da queimada</string>
+    <string name="from">De: %1$s</string>
+    <string name="status">Estado: %1$s</string>
+    <string name="type">Tipo: %1$s</string>
+    <string name="reason">Razão: %1$s</string>
+    <string name="date">Data: %1$s</string>
+    <string name="location">Localização: %1$s, %2$s, %3$s</string>
+    <string name="otherData">Outros dados: %1$s</string>
+    <string name="open_map">Abrir o mapa</string>
+    <string name="unknown">Desconhecido</string>
+    <string name="burnRequest">Pedido de queimada</string>
+    <string name="reject">Rejeitar</string>
+    <string name="confirm_approve_burn">Tem certeza de que deseja aprovar esta queimada?</string>
+    <string name="confirm_deny_burn">Tem certeza de que deseja rejeitar esta queimada?</string>
+    <string name="burn_state_update_success">Estado da queimada atualizado com sucesso</string>
+    <string name="burn_state_update_error">Erro ao atualizar o estado da queimada</string>
+    <string name="confirmLocation">Confirmar Localização</string>
+    <string name="burn_location">Localização da queimada</string>
 
 </resources>

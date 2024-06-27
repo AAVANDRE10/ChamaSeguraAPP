@@ -40,7 +40,7 @@ class fragment_map_burn_info : Fragment(R.layout.fragment_map_burn_info), OnMapR
 
     override fun onMapReady(googleMap: GoogleMap) {
         val location = LatLng(latitude.toDouble(), longitude.toDouble())
-        googleMap.addMarker(MarkerOptions().position(location).title("Burn Location"))
+        googleMap.addMarker(MarkerOptions().position(location).title(getString(R.string.burn_location)))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
     }
 

@@ -31,7 +31,10 @@
         android:id="@+id/buttonConfirmLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Location"
+        android:text="@string/confirmLocation"
+        android:background="@drawable/rounded_button_change_state"
+        android:backgroundTint="@color/light_gray"
+        android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"/>

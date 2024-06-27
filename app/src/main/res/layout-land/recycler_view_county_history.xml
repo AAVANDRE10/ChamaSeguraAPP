@@ -8,10 +8,10 @@
     android:layout_marginBottom="8dp">
 
     <TextView
-        android:id="@+id/reason"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reason"
+        android:text="Name"
         android:textSize="16sp"
         android:textColor="@android:color/black" />
 

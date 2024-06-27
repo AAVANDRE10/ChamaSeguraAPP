@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.BurnState
+import com.example.chamasegura.data.entities.BurnType
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -39,14 +41,20 @@ class BurnHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerView
         private val state: TextView = itemView.findViewById(R.id.state)
 
         fun bind(burn: Burn) {
+            val context = itemView.context
             name.text = burn.reason
             location.text = "${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
-            type.text = burn.type.toString()
-            date.text = formatDate(burn.date)
-            state.text = burn.state.toString()
-            itemView.setOnClickListener {
-                onItemClick(burn)
+            type.text = when (burn.type) {
+                BurnType.REGCLEAN -> context.getString(R.string.regular_clean)
+                BurnType.PARTICULAR -> context.getString(R.string.particular)
             }
+            date.text = formatDate(burn.date)
+            state.text = when (burn.state) {
+                BurnState.PENDING -> context.getString(R.string.state_pending)
+                BurnState.APPROVED -> context.getString(R.string.state_approved)
+                BurnState.DENIED -> context.getString(R.string.state_denied)
+            }
+            itemView.setOnClickListener { onItemClick(burn) }
         }
 
         private fun formatDate(dateStr: String): String {

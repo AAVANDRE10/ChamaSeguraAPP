@@ -29,6 +29,5 @@ enum class BurnType {
 enum class BurnState {
     APPROVED,
     PENDING,
-    DENIED,
-    DELETED
+    DENIED
 }

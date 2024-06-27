@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.Burn
+import com.example.chamasegura.data.entities.BurnState
+import com.example.chamasegura.data.entities.BurnType
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -32,21 +34,27 @@ class CountyHistoryAdapter(private val onItemClick: (Burn) -> Unit) : RecyclerVi
     override fun getItemCount(): Int = burns.size
 
     class BurnViewHolder(itemView: View, private val onItemClick: (Burn) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        private val reason: TextView = itemView.findViewById(R.id.reason)
+        private val name: TextView = itemView.findViewById(R.id.name)
         private val location: TextView = itemView.findViewById(R.id.location)
         private val type: TextView = itemView.findViewById(R.id.type)
         private val date: TextView = itemView.findViewById(R.id.date)
         private val state: TextView = itemView.findViewById(R.id.state)
 
         fun bind(burn: Burn) {
-            reason.text = burn.reason
+            val context = itemView.context
+            name.text = burn.reason
             location.text = "${burn.distrito}, ${burn.concelho}, ${burn.freguesia}"
-            type.text = burn.type.toString()
-            date.text = formatDate(burn.date)
-            state.text = burn.state.toString()
-            itemView.setOnClickListener {
-                onItemClick(burn)
+            type.text = when (burn.type) {
+                BurnType.REGCLEAN -> context.getString(R.string.regular_clean)
+                BurnType.PARTICULAR -> context.getString(R.string.particular)
             }
+            date.text = formatDate(burn.date)
+            state.text = when (burn.state) {
+                BurnState.PENDING -> context.getString(R.string.state_pending)
+                BurnState.APPROVED -> context.getString(R.string.state_approved)
+                BurnState.DENIED -> context.getString(R.string.state_denied)
+            }
+            itemView.setOnClickListener { onItemClick(burn) }
         }
 
         private fun formatDate(dateStr: String): String {
