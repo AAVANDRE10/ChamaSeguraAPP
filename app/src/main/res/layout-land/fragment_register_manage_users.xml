@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Register"
+                android:text="@string/registerNewUser"
                 android:textSize="24sp"
                 android:textColor="@color/light_orange"/>
         </LinearLayout>
@@ -51,37 +51,59 @@
                 android:id="@+id/full_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Full name"
-                android:layout_marginBottom="16dp" />
+                android:hint="@string/fullName"
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"/>
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:hint="E-mail"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"/>
 
             <EditText
                 android:id="@+id/nif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="NIF"
+                android:hint="@string/nif"
                 android:layout_marginBottom="16dp"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/typeUser"
+                android:layout_marginBottom="8dp"
+                android:textColor="@android:color/black"/>
 
             <Spinner
                 android:id="@+id/user_type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:entries="@array/user_types" />
+                android:entries="@array/user_types"
+                android:backgroundTint="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/municipality"
+                android:layout_marginBottom="8dp"
+                android:textColor="@android:color/black"/>
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/municipality_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Select Municipality" />
+                android:hint="@string/select_municipality"
+                android:backgroundTint="@android:color/black" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -92,10 +114,12 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/toggle_password_visibility" />
+                    android:layout_toStartOf="@id/toggle_password_visibility"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"/>
 
                 <ImageButton
                     android:id="@+id/toggle_password_visibility"
@@ -117,10 +141,12 @@
                     android:id="@+id/confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm password"
+                    android:hint="@string/confirmPassword"
                     android:inputType="textPassword"
                     android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/toggle_confirm_password_visibility" />
+                    android:layout_toStartOf="@id/toggle_confirm_password_visibility"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"/>
 
                 <ImageButton
                     android:id="@+id/toggle_confirm_password_visibility"
@@ -137,8 +163,9 @@
                 android:id="@+id/confirm_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm"
+                android:text="@string/buttonConfirm"
                 android:backgroundTint="@color/light_orange"
+                android:background="@drawable/rounded_button"
                 android:textColor="#FFFFFF"
                 android:layout_marginTop="16dp" />
         </LinearLayout>

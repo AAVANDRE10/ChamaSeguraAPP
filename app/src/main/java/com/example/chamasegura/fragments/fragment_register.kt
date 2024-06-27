@@ -104,6 +104,7 @@ class fragment_register : Fragment() {
                         userViewModel.signUp(newUser) { loginResponse ->
                             val user = loginResponse?.name
                             if (user != null) {
+                                Toast.makeText(requireContext(), getString(R.string.user_created_successfully), Toast.LENGTH_SHORT).show()
                                 findNavController().navigate(R.id.action_fragment_register_to_fragment_first_screen2)
                             } else {
                                 // Sign-up failed

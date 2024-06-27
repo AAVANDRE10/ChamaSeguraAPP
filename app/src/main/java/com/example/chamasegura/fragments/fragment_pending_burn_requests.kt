@@ -97,7 +97,7 @@ class fragment_pending_burn_requests : Fragment() {
 
         val spinnerType = view.findViewById<Spinner>(R.id.spinnerType)
         val types = resources.getStringArray(R.array.burn_types)
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, types)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, types)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerType.adapter = adapter
 

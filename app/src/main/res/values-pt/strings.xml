@@ -101,7 +101,7 @@
     <string name="invalid_email">Formato de E-mail inválido</string>
     <string name="password_too_short">A palavra-passe deve ter pelo menos 6 caracteres</string>
     <string name="sign_up_failed">Falha no iniciar sessão</string>
-    <string name="registerNewUser">Registar novo user</string>
+    <string name="registerNewUser">Registar novo utilizador</string>
     <string name="search">Procurar</string>
     <string name="burnInfo">Informações da queimada</string>
     <string name="from">De: %1$s</string>
@@ -121,5 +121,10 @@
     <string name="burn_state_update_error">Erro ao atualizar o estado da queimada</string>
     <string name="confirmLocation">Confirmar Localização</string>
     <string name="burn_location">Localização da queimada</string>
+    <string name="select_municipality">Selecionar Concelho</string>
+    <string name="municipality">Concelho</string>
+    <string name="typeUser">Tipo de utilizador</string>
+    <string name="empty_municipality">O campo concelho, não pode fizar vazio para utilizador CM</string>
+    <string name="user_created_successfully">Utilizador criado com sucesso</string>
 
 </resources>

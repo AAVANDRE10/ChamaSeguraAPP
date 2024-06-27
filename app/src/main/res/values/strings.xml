@@ -126,4 +126,10 @@
     <string name="burn_state_update_error">Error updating burn state</string>
     <string name="confirmLocation">Confirm Location</string>
     <string name="burn_location">Burn Location</string>
+    <string name="select_municipality">Select Municipality</string>
+    <string name="municipality">Municipality</string>
+    <string name="typeUser">Type User</string>
+    <string name="empty_municipality">Municipality cannot be empty for CM user</string>
+    <string name="user_created_successfully">User created successfully</string>
+
 </resources>

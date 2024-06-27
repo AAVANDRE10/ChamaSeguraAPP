@@ -1,14 +1,15 @@
 package com.example.chamasegura.fragments
 
 import android.os.Bundle
+import android.text.InputFilter
 import android.text.InputType
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.User
@@ -75,22 +76,59 @@ class fragment_register_manage_users : Fragment() {
         municipalityViewModel.getMunicipalities()
         municipalityViewModel.municipalities.observe(viewLifecycleOwner) { municipalities ->
             val municipalityNames = municipalities.map { it.name }
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, municipalityNames)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, municipalityNames).also { adapter ->
+                adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+            }
             municipalitySpinner.adapter = adapter
-            municipalitySpinner.setTitle("Select Municipality")
+            municipalitySpinner.setTitle(getString(R.string.select_municipality))
             municipalitySpinner.setPositiveButton("OK")
+
+            // Initial setup based on user type
+            val selectedUserType = userTypeSpinner.selectedItem.toString()
+            if (selectedUserType == "REGULAR") {
+                municipalitySpinner.isEnabled = false
+                municipalitySpinner.setSelection(0) // Optionally clear the selection
+
+                // Change spinner appearance to disabled
+                val selectMunicipalityString = getString(R.string.select_municipality)
+                val disabledAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_disabled, arrayOf(selectMunicipalityString)).also { adapter ->
+                    adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+                }
+                municipalitySpinner.adapter = disabledAdapter
+            }
         }
 
         // Setting up the user type spinner to disable municipality spinner if type is REGULAR
+        val userTypes = listOf("REGULAR", "CM")
+        val userTypeAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, userTypes).also { adapter ->
+            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        }
+        userTypeSpinner.adapter = userTypeAdapter
+
         userTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedUserType = userTypeSpinner.selectedItem.toString()
+                val selectMunicipalityString = getString(R.string.select_municipality)
                 if (selectedUserType == "REGULAR") {
                     municipalitySpinner.isEnabled = false
                     municipalitySpinner.setSelection(0) // Optionally clear the selection
+
+                    // Change spinner appearance to disabled
+                    val disabledAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_disabled, arrayOf(selectMunicipalityString)).also { adapter ->
+                        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+                    }
+                    municipalitySpinner.adapter = disabledAdapter
                 } else {
                     municipalitySpinner.isEnabled = true
+
+                    // Restore spinner appearance to enabled
+                    municipalityViewModel.municipalities.value?.let { municipalities ->
+                        val municipalityNames = municipalities.map { it.name }
+                        val enabledAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, municipalityNames).also { adapter ->
+                            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+                        }
+                        municipalitySpinner.adapter = enabledAdapter
+                    }
                 }
             }
 
@@ -99,12 +137,15 @@ class fragment_register_manage_users : Fragment() {
             }
         }
 
+        // Limitar a entrada do NIF para apenas dígitos e no máximo 9 caracteres
+        nifEditText.filters = arrayOf(InputFilter.LengthFilter(9))
+
         confirmButton.setOnClickListener {
             val fullName = fullNameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
             val confirmPassword = confirmPasswordEditText.text.toString().trim()
-            val nif = nifEditText.text.toString().toIntOrNull()
+            val nifString = nifEditText.text.toString().trim()
             val userType = when (userTypeSpinner.selectedItem.toString()) {
                 "REGULAR" -> UserType.REGULAR
                 "CM" -> UserType.CM
@@ -112,49 +153,74 @@ class fragment_register_manage_users : Fragment() {
             }
             val selectedMunicipality = if (municipalitySpinner.isEnabled) municipalitySpinner.selectedItem.toString() else ""
 
-            if (fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && password == confirmPassword && nif != null) {
-                if (nif == null) {
-                    Toast.makeText(requireContext(), "NIF inválido.", Toast.LENGTH_LONG).show()
-                    return@setOnClickListener
+            when {
+                fullName.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.empty_full_name), Toast.LENGTH_LONG).show()
                 }
-
-                municipalityViewModel.municipalities.value?.let { municipalities ->
-                    val municipality = municipalities.find { it.name == selectedMunicipality }
-                    if (municipality != null || userType == UserType.REGULAR) {
-                        val newUser = User(
-                            id = 0,
-                            name = fullName,
-                            email = email,
-                            password = password,
-                            photo = null,
-                            nif = nif,
-                            type = userType,
-                            createdAt = "",
-                            updatedAt = "",
-                            state = StateUser.ENABLED
-                        )
-                        userViewModel.signUp(newUser) { response ->
-                            val token = response?.token
-                            if (token != null) {
-                                val userId = JwtUtils.getUserIdFromToken(token)
-                                if (userId != null) {
-                                    if (userType == UserType.CM && municipality != null) {
-                                        municipalityViewModel.updateMunicipalityResponsible(municipality.id, userId)
+                email.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.empty_email), Toast.LENGTH_LONG).show()
+                }
+                !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                    Toast.makeText(requireContext(), getString(R.string.invalid_email), Toast.LENGTH_LONG).show()
+                }
+                password.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.empty_password), Toast.LENGTH_LONG).show()
+                }
+                password.length < 6 -> {
+                    Toast.makeText(requireContext(), getString(R.string.password_too_short), Toast.LENGTH_LONG).show()
+                }
+                password != confirmPassword -> {
+                    Toast.makeText(requireContext(), getString(R.string.passwords_do_not_match), Toast.LENGTH_LONG).show()
+                }
+                nifString.length != 9 || nifString.any { !it.isDigit() } -> {
+                    Toast.makeText(requireContext(), getString(R.string.invalid_nif_message), Toast.LENGTH_LONG).show()
+                }
+                userType == UserType.CM && selectedMunicipality.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.empty_municipality), Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    val nif = nifString.toIntOrNull()
+                    if (nif != null) {
+                        municipalityViewModel.municipalities.value?.let { municipalities ->
+                            val municipality = municipalities.find { it.name == selectedMunicipality }
+                            if (municipality != null || userType == UserType.REGULAR) {
+                                val newUser = User(
+                                    id = 0,
+                                    name = fullName,
+                                    email = email,
+                                    password = password,
+                                    photo = null,
+                                    nif = nif,
+                                    type = userType,
+                                    createdAt = "",
+                                    updatedAt = "",
+                                    state = StateUser.ENABLED
+                                )
+                                userViewModel.signUp(newUser) { response ->
+                                    val token = response?.token
+                                    if (token != null) {
+                                        val userId = JwtUtils.getUserIdFromToken(token)
+                                        if (userId != null) {
+                                            if (userType == UserType.CM && municipality != null) {
+                                                municipalityViewModel.updateMunicipalityResponsible(municipality.id, userId)
+                                            }
+                                            Toast.makeText(requireContext(), getString(R.string.user_created_successfully), Toast.LENGTH_SHORT).show()
+                                            findNavController().navigate(R.id.fragment_manage_users)
+                                        } else {
+                                            Toast.makeText(requireContext(), getString(R.string.sign_up_failed), Toast.LENGTH_SHORT).show()
+                                        }
+                                    } else {
+                                        Toast.makeText(requireContext(), getString(R.string.sign_up_failed), Toast.LENGTH_SHORT).show()
                                     }
-                                    findNavController().navigate(R.id.fragment_manage_users)
-                                } else {
-                                    Toast.makeText(requireContext(), "Failed to get user ID from token", Toast.LENGTH_SHORT).show()
                                 }
                             } else {
-                                Toast.makeText(requireContext(), "Sign-up failed", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), getString(R.string.empty_municipality), Toast.LENGTH_SHORT).show()
                             }
                         }
                     } else {
-                        Toast.makeText(requireContext(), "Municipality not found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.invalid_nif_message), Toast.LENGTH_LONG).show()
                     }
                 }
-            } else {
-                Toast.makeText(requireContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
             }
         }
 
