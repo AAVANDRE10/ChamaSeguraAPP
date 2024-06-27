@@ -3,9 +3,13 @@ package com.example.chamasegura.fragments
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -27,7 +32,6 @@ import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.entities.User
 import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.vm.UserViewModel
-import com.example.chamasegura.utils.JwtUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -60,7 +64,6 @@ class fragment_manage_user : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_manage_user, container, false)
     }
 
@@ -86,7 +89,7 @@ class fragment_manage_user : Fragment() {
         val userId = args.userId
         userViewModel.getUser(userId).observe(viewLifecycleOwner, Observer { user ->
             if (user != null) {
-                // Atualize a interface do usuário com os dados do usuário
+                // Atualize a interface do utilizador com os dados do utilizador
                 editTextFullName.setText(user.name)
                 editTextEmail.setText(user.email)
                 editTextNif.setText(user.nif?.toString())
@@ -113,19 +116,49 @@ class fragment_manage_user : Fragment() {
 
                 updateButtonState(user.state)
 
+                // Adicionar TextWatcher para validar o NIF
+                editTextNif.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                    override fun afterTextChanged(s: Editable?) {
+                        val text = s.toString()
+                        if (text.length > 9) {
+                            editTextNif.error = getString(R.string.invalid_nif_length)
+                        }
+                    }
+                })
+
+                // Limitar a entrada do NIF para apenas dígitos e no máximo 9 caracteres
+                editTextNif.filters = arrayOf(InputFilter.LengthFilter(9))
+
                 buttonConfirm.setOnClickListener {
-                    val email = editTextEmail.text.toString()
+                    val fullName = editTextFullName.text.toString().trim()
+                    val email = editTextEmail.text.toString().trim()
                     val nif = editTextNif.text.toString().toIntOrNull()
 
-                    // Verifique se o nif é válido
-                    if (nif == null) {
-                        Toast.makeText(requireContext(), "NIF inválido.", Toast.LENGTH_LONG).show()
+                    if (fullName.isEmpty()) {
+                        Toast.makeText(requireContext(), getString(R.string.empty_full_name), Toast.LENGTH_LONG).show()
+                        return@setOnClickListener
+                    }
+
+                    if (email.isEmpty()) {
+                        Toast.makeText(requireContext(), getString(R.string.empty_email), Toast.LENGTH_LONG).show()
+                        return@setOnClickListener
+                    } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        Toast.makeText(requireContext(), getString(R.string.invalid_email_format), Toast.LENGTH_LONG).show()
+                        return@setOnClickListener
+                    }
+
+                    if (nif == null || editTextNif.text.toString().length != 9) {
+                        Toast.makeText(requireContext(), getString(R.string.invalid_nif_message), Toast.LENGTH_LONG).show()
                         return@setOnClickListener
                     }
 
                     val updatedUser = User(
                         id = userId,
-                        name = editTextFullName.text.toString(),
+                        name = fullName,
                         email = email,
                         password = "",
                         photo = null,
@@ -163,7 +196,7 @@ class fragment_manage_user : Fragment() {
                         if (success) {
                             user.state = newState
                             updateButtonState(newState)
-                            val message = if (newState == StateUser.ENABLED) "Profile enabled successfully." else "Profile disabled successfully."
+                            val message = if (newState == StateUser.ENABLED) getString(R.string.profile_enabled_success) else getString(R.string.profile_disabled_success)
                             Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                         } else {
                             Toast.makeText(requireContext(), "Error updating user state: $errorMessage", Toast.LENGTH_LONG).show()
@@ -185,12 +218,17 @@ class fragment_manage_user : Fragment() {
     }
 
     private fun updateButtonState(state: StateUser) {
-        if (state == StateUser.ENABLED) {
-            buttonChangeState.text = "Disable Profile"
-            buttonChangeState.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
+        val backgroundColor = if (state == StateUser.ENABLED) {
+            ContextCompat.getColor(requireContext(), R.color.red)
         } else {
-            buttonChangeState.text = "Enable Profile"
-            buttonChangeState.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+            ContextCompat.getColor(requireContext(), R.color.green)
+        }
+
+        buttonChangeState.apply {
+            text = if (state == StateUser.ENABLED) getString(R.string.disable_profile) else getString(R.string.enable_profile)
+            setBackgroundResource(R.drawable.rounded_button_change_state)
+            backgroundTintList = ColorStateList.valueOf(backgroundColor)
+            setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
         }
     }
 
@@ -213,7 +251,7 @@ class fragment_manage_user : Fragment() {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 // Permissão concedida, continue com a ação
             } else {
-                Toast.makeText(requireContext(), "Permissões necessárias não foram concedidas.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.permission_denied_message), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -242,16 +280,16 @@ class fragment_manage_user : Fragment() {
 
                         userViewModel.updatePhoto(userId, body) { success, errorMessage ->
                             if (success) {
-                                Toast.makeText(requireContext(), "Foto de perfil atualizada com sucesso.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(requireContext(), getString(R.string.profile_photo_update_success), Toast.LENGTH_LONG).show()
                             } else {
-                                Toast.makeText(requireContext(), "Erro ao atualizar foto de perfil: $errorMessage", Toast.LENGTH_LONG).show()
+                                Toast.makeText(requireContext(), getString(R.string.profile_photo_update_error, errorMessage), Toast.LENGTH_LONG).show()
                             }
                         }
                     } catch (e: Exception) {
-                        Toast.makeText(requireContext(), "Erro ao processar o arquivo: ${e.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.file_processing_error, e.message), Toast.LENGTH_LONG).show()
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Erro: Apenas são permitidos arquivos de imagem!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.invalid_image_file_error), Toast.LENGTH_LONG).show()
                 }
             }
         }

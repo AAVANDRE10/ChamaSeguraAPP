@@ -79,4 +79,17 @@
     <string name="invalid_verification_code">Código de verificação inválido</string>
     <string name="please_enter_verification_code">Por favor, insira o código de verificação</string>
     <string name="email_not_found">E-mail não encontrado</string>
+    <string name="empty_full_name">O nome completo não pode ficar vazio</string>
+    <string name="empty_email">O e-mail não pode ficar vazio</string>
+    <string name="invalid_nif_length">NIF deve ter exatamente 9 dígitos</string>
+    <string name="invalid_email_format">Formato de e-mail inválido</string>
+    <string name="invalid_nif_message">NIF inválido. Deve ter exatamente 9 dígitos</string>
+    <string name="manageUser">Gerir Perfil</string>
+    <string name="disable_profile">Desativar perfil</string>
+    <string name="enable_profile">Ativar perfil</string>
+    <string name="profile_enabled_success">Perfil ativado com sucesso</string>
+    <string name="profile_disabled_success">Perfil desativado com sucesso</string>
+    <string name="invalid_old_password">Palavra-passe atual inválida</string>
+    <string name="user_not_found">Perfil não encontrado</string>
+    <string name="user_id_extraction_failed">Falha na recolha do ID do utilizador</string>
 </resources>

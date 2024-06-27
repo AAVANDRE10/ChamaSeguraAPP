@@ -71,8 +71,13 @@ class fragment_change_password : Fragment() {
             val newPassword = newPasswordInput.text.toString()
             val confirmPassword = confirmPasswordInput.text.toString()
 
+            if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(requireContext(), getString(R.string.empty_password), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             if (newPassword != confirmPassword) {
-                Toast.makeText(requireContext(), "New passwords do not match", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.passwords_do_not_match), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
@@ -82,19 +87,19 @@ class fragment_change_password : Fragment() {
             if (userId != null) {
                 userViewModel.changePassword(userId, oldPassword, newPassword) { success, errorMessage ->
                     if (success) {
-                        Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.password_change_success), Toast.LENGTH_LONG).show()
                         findNavController().popBackStack()
                     } else {
                         val message = when {
-                            errorMessage?.contains("Invalid old password") == true -> "Invalid old password"
-                            errorMessage?.contains("User not found") == true -> "User not found"
-                            else -> "Failed to change password"
+                            errorMessage?.contains("Invalid old password") == true -> getString(R.string.invalid_old_password)
+                            errorMessage?.contains("User not found") == true -> getString(R.string.user_not_found)
+                            else -> getString(R.string.password_change_failure)
                         }
                         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "User ID extraction failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.user_id_extraction_failed), Toast.LENGTH_LONG).show()
             }
         }
     }

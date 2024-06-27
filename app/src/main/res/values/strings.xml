@@ -84,4 +84,17 @@
     <string name="invalid_verification_code">Invalid verification code</string>
     <string name="please_enter_verification_code">Please enter the verification code</string>
     <string name="email_not_found">E-mail not found</string>
+    <string name="empty_full_name">Full name cannot be empty</string>
+    <string name="empty_email">Email cannot be empty</string>
+    <string name="invalid_nif_length">The NIF must have exactly 9 digits</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="invalid_nif_message">Invalid NIF. Must be exactly 9 digits</string>
+    <string name="manageUser">Manage User</string>
+    <string name="disable_profile">Disable Profile</string>
+    <string name="enable_profile">Enable Profile</string>
+    <string name="profile_enabled_success">Profile enabled successfully.</string>
+    <string name="profile_disabled_success">Profile disabled successfully.</string>
+    <string name="invalid_old_password">Invalid old password</string>
+    <string name="user_not_found">User not found</string>
+    <string name="user_id_extraction_failed">User ID extraction failed</string>
 </resources>

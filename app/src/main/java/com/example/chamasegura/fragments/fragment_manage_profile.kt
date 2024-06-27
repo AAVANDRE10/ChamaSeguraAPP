@@ -7,6 +7,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +29,6 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.chamasegura.R
 import com.example.chamasegura.data.entities.User
-import com.example.chamasegura.data.entities.UserType
 import com.example.chamasegura.data.entities.StateUser
 import com.example.chamasegura.data.vm.UserViewModel
 import com.example.chamasegura.utils.AuthManager
@@ -122,13 +125,46 @@ class fragment_manage_profile : Fragment() {
                 textViewNumberOfBurnRequests.text = count.toString()
             })
 
+            // Adicionar TextWatcher para validar o NIF
+            editTextNif.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    val text = s.toString()
+                    if (text.length > 9) {
+                        editTextNif.error = getString(R.string.invalid_nif_length)
+                    }
+                }
+            })
+
+            // Limitar a entrada do NIF para apenas dígitos e no máximo 9 caracteres
+            editTextNif.filters = arrayOf(InputFilter.LengthFilter(9))
+
             buttonConfirm.setOnClickListener {
-                val email = editTextEmail.text.toString()
+                val fullName = editTextFullName.text.toString().trim()
+                val email = editTextEmail.text.toString().trim()
                 val nif = editTextNif.text.toString().toIntOrNull()
 
-                // Verifique se o nif é válido
-                if (nif == null) {
-                    Toast.makeText(requireContext(), getString(R.string.invalidNifMessage), Toast.LENGTH_LONG).show()
+                // Verificar se o nome completo está vazio
+                if (fullName.isEmpty()) {
+                    Toast.makeText(requireContext(), getString(R.string.empty_full_name), Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
+                // Verificar se o e-mail está vazio ou em formato inválido
+                if (email.isEmpty()) {
+                    Toast.makeText(requireContext(), getString(R.string.empty_email), Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(requireContext(), getString(R.string.invalid_email_format), Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
+                // Verificar se o NIF é válido
+                if (nif == null || editTextNif.text.toString().length != 9) {
+                    Toast.makeText(requireContext(), getString(R.string.invalid_nif_message), Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
 
@@ -136,7 +172,7 @@ class fragment_manage_profile : Fragment() {
                     user?.let {
                         val updatedUser = User(
                             id = userId,
-                            name = editTextFullName.text.toString(),
+                            name = fullName,
                             email = email,
                             password = "",
                             photo = null,
