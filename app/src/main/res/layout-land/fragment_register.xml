@@ -138,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/buttonConfirm"
                 android:backgroundTint="@color/light_orange"
+                android:background="@drawable/rounded_button"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
     </ScrollView>

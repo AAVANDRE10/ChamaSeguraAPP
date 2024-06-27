@@ -9,7 +9,7 @@
     </string-array>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
-    <string name="error_email_in_use">This email is already in use.</string>
+    <string name="error_email_in_use">This e-mail is already in use.</string>
     <string name="error_nif_in_use">This NIF is already in use.</string>
     <string name="error_update_profile">Error updating profile.</string>
     <string name="profile_updated_success">Profile updated successfully.</string>
@@ -78,16 +78,16 @@
     <string name="password_change_success">Password changed successfully</string>
     <string name="password_change_failure">Failed to change password</string>
     <string name="empty_password">Password fields cannot be empty</string>
-    <string name="verification_code_sent">Verification code sent to your email</string>
+    <string name="verification_code_sent">Verification code sent to your e-mail</string>
     <string name="failed_to_send_verification_code">Failed to send verification code</string>
-    <string name="please_enter_email">Please enter your email</string>
+    <string name="please_enter_email">Please enter your e-mail</string>
     <string name="invalid_verification_code">Invalid verification code</string>
     <string name="please_enter_verification_code">Please enter the verification code</string>
     <string name="email_not_found">E-mail not found</string>
     <string name="empty_full_name">Full name cannot be empty</string>
-    <string name="empty_email">Email cannot be empty</string>
+    <string name="empty_email">E-mail cannot be empty</string>
     <string name="invalid_nif_length">The NIF must have exactly 9 digits</string>
-    <string name="invalid_email_format">Invalid email format</string>
+    <string name="invalid_email_format">Invalid e-mail format</string>
     <string name="invalid_nif_message">Invalid NIF. Must be exactly 9 digits</string>
     <string name="manageUser">Manage User</string>
     <string name="disable_profile">Disable Profile</string>
@@ -97,4 +97,8 @@
     <string name="invalid_old_password">Invalid old password</string>
     <string name="user_not_found">User not found</string>
     <string name="user_id_extraction_failed">User ID extraction failed</string>
+    <string name="invalid_email">Invalid e-mail format</string>
+    <string name="password_too_short">Password must be at least 6 characters</string>
+    <string name="sign_up_failed">Sign-up failed</string>
+
 </resources>

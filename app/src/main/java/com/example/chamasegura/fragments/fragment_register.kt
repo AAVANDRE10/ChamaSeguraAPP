@@ -1,7 +1,9 @@
 package com.example.chamasegura.fragments
 
 import android.os.Bundle
+import android.text.InputFilter
 import android.text.InputType
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,38 +54,66 @@ class fragment_register : Fragment() {
             togglePasswordVisibility(confirmPasswordEditText, showConfirmPasswordButton)
         }
 
+        // Limitar a entrada do NIF para apenas dígitos e no máximo 9 caracteres
+        nifEditText.filters = arrayOf(InputFilter.LengthFilter(9))
+
         confirmButton.setOnClickListener {
             val fullName = fullNameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
-            val nifString = nifEditText.text.toString().trim()
-            val nif = nifString.toIntOrNull()
             val confirmPassword = confirmPasswordEditText.text.toString().trim()
+            val nifString = nifEditText.text.toString().trim()
 
-            if (fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && nif != null && password == confirmPassword) {
-                val newUser = User(
-                    id = 0,
-                    name = fullName,
-                    email = email,
-                    password = password,
-                    photo = null,
-                    nif = nif,
-                    type = UserType.REGULAR,
-                    createdAt = "",
-                    updatedAt = "",
-                    state = StateUser.ENABLED
-                )
-                userViewModel.signUp(newUser) { loginResponse ->
-                    val user = loginResponse?.name
-                    if (user != null) {
-                        findNavController().navigate(R.id.action_fragment_register_to_fragment_first_screen2)
+            when {
+                fullName.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.empty_full_name), Toast.LENGTH_LONG).show()
+                }
+                email.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.empty_email), Toast.LENGTH_LONG).show()
+                }
+                !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                    Toast.makeText(requireContext(), getString(R.string.invalid_email), Toast.LENGTH_LONG).show()
+                }
+                password.isEmpty() -> {
+                    Toast.makeText(requireContext(), getString(R.string.empty_password), Toast.LENGTH_LONG).show()
+                }
+                password.length < 6 -> {
+                    Toast.makeText(requireContext(), getString(R.string.password_too_short), Toast.LENGTH_LONG).show()
+                }
+                password != confirmPassword -> {
+                    Toast.makeText(requireContext(), getString(R.string.passwords_do_not_match), Toast.LENGTH_LONG).show()
+                }
+                nifString.length != 9 || nifString.any { !it.isDigit() } -> {
+                    Toast.makeText(requireContext(), getString(R.string.invalid_nif_message), Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    val nif = nifString.toIntOrNull()
+                    if (nif != null) {
+                        val newUser = User(
+                            id = 0,
+                            name = fullName,
+                            email = email,
+                            password = password,
+                            photo = null,
+                            nif = nif,
+                            type = UserType.REGULAR,
+                            createdAt = "",
+                            updatedAt = "",
+                            state = StateUser.ENABLED
+                        )
+                        userViewModel.signUp(newUser) { loginResponse ->
+                            val user = loginResponse?.name
+                            if (user != null) {
+                                findNavController().navigate(R.id.action_fragment_register_to_fragment_first_screen2)
+                            } else {
+                                // Sign-up failed
+                                Toast.makeText(requireContext(), getString(R.string.sign_up_failed), Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     } else {
-                        // Sign-up failed
-                        Toast.makeText(requireContext(), "Sign-up failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.invalid_nif_message), Toast.LENGTH_LONG).show()
                     }
                 }
-            } else {
-                Toast.makeText(requireContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
             }
         }
 

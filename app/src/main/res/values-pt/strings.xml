@@ -10,11 +10,11 @@
     </string-array>
     <string name="open_nav">Abrir Navigation Drawer</string>
     <string name="close_nav">Fechar Navigation Drawer</string>
-    <string name="error_email_in_use">Este email já está em uso.</string>
+    <string name="error_email_in_use">Este e-mail já está em uso.</string>
     <string name="error_nif_in_use">Este NIF já está em uso.</string>
     <string name="error_update_profile">Erro ao atualizar perfil.</string>
     <string name="profile_updated_success">Perfil atualizado com sucesso.</string>
-    <string name="error_user_id_extraction">Erro ao reconhecer o utilizador. Faça login novamente.</string>
+    <string name="error_user_id_extraction">Erro ao reconhecer o utilizador. Faça iniciar sessão novamente.</string>
     <string-array name="burn_types">
         <item>All</item>
         <item>REGCLEAN</item>
@@ -92,4 +92,7 @@
     <string name="invalid_old_password">Palavra-passe atual inválida</string>
     <string name="user_not_found">Perfil não encontrado</string>
     <string name="user_id_extraction_failed">Falha na recolha do ID do utilizador</string>
+    <string name="invalid_email">Formato de E-mail inválido</string>
+    <string name="password_too_short">A palavra-passe deve ter pelo menos 6 caracteres</string>
+    <string name="sign_up_failed">Falha no iniciar sessão</string>
 </resources>
