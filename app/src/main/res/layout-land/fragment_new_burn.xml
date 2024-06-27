@@ -69,7 +69,7 @@
                     android:id="@+id/editTextReason"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter reason here"
+                    android:hint="@string/enterReasonHere"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
                     android:backgroundTint="@android:color/black"/>
@@ -85,7 +85,7 @@
                     android:id="@+id/editTextDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="dd/MM/yyyy"
+                    android:hint="@string/ddmmyy"
                     android:focusable="false"
                     android:clickable="true"
                     android:textColor="@android:color/black"
@@ -103,7 +103,7 @@
                     android:id="@+id/editTextOtherData"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:hint="Enter additional information here"
+                    android:hint="@string/enterAdditionalInformationHere"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
                     android:backgroundTint="@android:color/black"/>

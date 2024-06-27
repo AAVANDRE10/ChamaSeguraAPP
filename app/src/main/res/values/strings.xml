@@ -145,5 +145,8 @@
     <string name="distrito">Distrito</string>
     <string name="concelho">Concelho</string>
     <string name="freguesia">Freguesia</string>
+    <string name="enterReasonHere">Enter reason here</string>
+    <string name="enterAdditionalInformationHere">Enter additional information here</string>
+    <string name="ddmmyy">DD/MM/YYYY</string>
 
 </resources>

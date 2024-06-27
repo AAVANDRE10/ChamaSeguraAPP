@@ -140,5 +140,8 @@
     <string name="distrito">Distrito</string>
     <string name="concelho">Concelho</string>
     <string name="freguesia">Freguesia</string>
+    <string name="enterReasonHere">Insira o motivo aqui</string>
+    <string name="enterAdditionalInformationHere">Insira outros dados relevantes aqui</string>
+    <string name="ddmmyy">DD/MM/AAAA</string>
 
 </resources>
