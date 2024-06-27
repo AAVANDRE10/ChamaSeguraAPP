@@ -38,7 +38,7 @@
         android:inputType="number"
         android:padding="16dp"
         android:textColor="#000"
-        android:textColorHint="#808080"
+        android:textColorHint="@android:color/black"
         android:textSize="18sp" />
 
     <Button
