@@ -111,6 +111,11 @@
     <string name="date">Data: %1$s</string>
     <string name="location">Localização: %1$s, %2$s, %3$s</string>
     <string name="otherData">Outros dados: %1$s</string>
+    <string name="typeBurn">Tipo: </string>
+    <string name="reasonBurn">Razão: </string>
+    <string name="dateBurn">Data: </string>
+    <string name="locationBurn">Localização: </string>
+    <string name="otherDataBurn">Outros dados: </string>
     <string name="open_map">Abrir o mapa</string>
     <string name="unknown">Desconhecido</string>
     <string name="burnRequest">Pedido de queimada</string>
@@ -126,5 +131,14 @@
     <string name="typeUser">Tipo de utilizador</string>
     <string name="empty_municipality">O campo concelho, não pode fizar vazio para utilizador CM</string>
     <string name="user_created_successfully">Utilizador criado com sucesso</string>
+    <string name="date_required">Data é obrigatória</string>
+    <string name="type_required">Tipo é obrigatório</string>
+    <string name="reason_required">Razão é obrigatória</string>
+    <string name="location_required">Localização é obrigatória</string>
+    <string name="burn_created_success">Queima criada com sucesso!</string>
+    <string name="burn_creation_error">Erro ao criar queima: %1$s</string>
+    <string name="distrito">Distrito</string>
+    <string name="concelho">Concelho</string>
+    <string name="freguesia">Freguesia</string>
 
 </resources>

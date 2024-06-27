@@ -43,7 +43,7 @@
     <string name="delete_profile_confirmation">Are you sure you want to delete your profile?</string>
     <string name="forgot_password">Forgotten password?</string>
     <string name="info_text">The use of fire is associated with agricultural and forestry practices, however fires constitute risky activities, with serious environmental, ecological and socioeconomic damage. Around 98% of fires in mainland Portugal are caused by negligent use of fire.</string>
-    <string name="register_pile_burn">Register New Pile Burn</string>
+    <string name="register_pile_burn">Register new burn</string>
     <string name="buttonConfirm">Confirm</string>
     <string name="password">Password</string>
     <string name="confirmPassword">Confirm Password</string>
@@ -116,6 +116,11 @@
     <string name="date">Date: %1$s</string>
     <string name="location">Location: %1$s, %2$s, %3$s</string>
     <string name="otherData">Other data: %1$s</string>
+    <string name="typeBurn">Type: </string>
+    <string name="reasonBurn">Reason: </string>
+    <string name="dateBurn">Date: </string>
+    <string name="locationBurn">Location: </string>
+    <string name="otherDataBurn">Other date: </string>
     <string name="open_map">Open map</string>
     <string name="unknown">Unknown</string>
     <string name="burnRequest">Burn Request</string>
@@ -131,5 +136,14 @@
     <string name="typeUser">Type User</string>
     <string name="empty_municipality">Municipality cannot be empty for CM user</string>
     <string name="user_created_successfully">User created successfully</string>
+    <string name="date_required">Date is required</string>
+    <string name="type_required">Type is required</string>
+    <string name="reason_required">Reason is required</string>
+    <string name="location_required">Location is required</string>
+    <string name="burn_created_success">Burn created successfully!</string>
+    <string name="burn_creation_error">Error creating burn: %1$s</string>
+    <string name="distrito">Distrito</string>
+    <string name="concelho">Concelho</string>
+    <string name="freguesia">Freguesia</string>
 
 </resources>

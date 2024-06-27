@@ -67,7 +67,7 @@ class fragment_new_burn : Fragment() {
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.burn_types_new_burn,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerType.adapter = adapter
@@ -76,6 +76,7 @@ class fragment_new_burn : Fragment() {
         val editTextReason = view.findViewById<EditText>(R.id.editTextReason)
         val editTextOtherData = view.findViewById<EditText>(R.id.editTextOtherData)
         locationInfoText = view.findViewById(R.id.locationInfoText)
+        locationInfoText.setTextColor(resources.getColor(android.R.color.black))
 
         val buttonOpenMap = view.findViewById<Button>(R.id.buttonOpenMap)
         buttonOpenMap.setOnClickListener {
@@ -84,7 +85,7 @@ class fragment_new_burn : Fragment() {
 
         val buttonConfirm = view.findViewById<Button>(R.id.buttonConfirm)
         buttonConfirm.setOnClickListener {
-            if (validateInputs(editTextDate, spinnerType, editTextReason, editTextOtherData)) {
+            if (validateInputs(editTextDate, spinnerType, editTextReason)) {
                 createBurn(spinnerType, editTextReason, editTextOtherData)
             }
         }
@@ -92,10 +93,10 @@ class fragment_new_burn : Fragment() {
         burnViewModel.createBurnResult.observe(viewLifecycleOwner) { result ->
             val (success, message) = result
             if (success) {
-                Toast.makeText(requireContext(), "Burn criado com sucesso!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.burn_created_success), Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
             } else {
-                Toast.makeText(requireContext(), "Erro ao criar burn: $message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.burn_creation_error, message), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -104,7 +105,7 @@ class fragment_new_burn : Fragment() {
                 distrito = it.distrito
                 concelho = it.concelho
                 freguesia = it.freguesia
-                val info = "Distrito: $distrito\nConcelho: $concelho\nFreguesia: $freguesia\n"
+                val info = "${getString(R.string.distrito)}: $distrito\n${getString(R.string.concelho)}: $concelho\n${getString(R.string.freguesia)}: $freguesia\n"
                 locationInfoText.text = info
                 locationInfoText.visibility = View.VISIBLE
             }
@@ -133,23 +134,22 @@ class fragment_new_burn : Fragment() {
         editTextDate: EditText,
         spinnerType: Spinner,
         editTextReason: EditText,
-        editTextOtherData: EditText
     ): Boolean {
         if (editTextDate.text.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Date is required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.date_required), Toast.LENGTH_SHORT).show()
             return false
         }
         if (spinnerType.selectedItem == null) {
-            Toast.makeText(requireContext(), "Type is required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.type_required), Toast.LENGTH_SHORT).show()
             return false
         }
         if (editTextReason.text.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Reason is required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.reason_required), Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (latitude == 0f || longitude == 0f) {
-            Toast.makeText(requireContext(), "Location is required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.location_required), Toast.LENGTH_SHORT).show()
             return false
         }
         return true
@@ -198,7 +198,7 @@ class fragment_new_burn : Fragment() {
             )
             burnViewModel.createBurn(burn)
         } else {
-            Toast.makeText(requireContext(), "Erro ao criar queima.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.error_creating_burn), Toast.LENGTH_SHORT).show()
         }
     }
 
