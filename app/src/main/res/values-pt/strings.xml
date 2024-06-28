@@ -157,6 +157,12 @@
     <string name="finish_button">Terminar</string>
     <string name="skip">Saltar</string>
     <string name="back">Voltar</string>
+    <string name="screen1" translatable="false">Clique no botão para criar uma nova queimada</string>
+    <string name="screen2" translatable="false">Preencha as informações e clique em confirmar</string>
+    <string name="screen3" translatable="false">Clique em Histórico da Queimada para ver suas solicitações das queimadas atuais e passadas</string>
+    <string name="screen4" translatable="false">Clique no pedido que acabou de criar</string>
+    <string name="screen5" translatable="false">Detalhes do seu pedido da Queimada</string>
+
 
 
 </resources>
